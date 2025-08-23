@@ -91,8 +91,17 @@ const Navbar = () => {
               whileTap={{ scale: 0.9 }}
               className="relative"
             >
-              <div className="w-10 h-10 rounded-xl bg-gradient-to-r from-purple-500 to-pink-500 flex items-center justify-center">
-                <span className="text-white font-bold text-xl">W</span>
+              <div className="w-10 h-10 rounded-xl bg-gradient-to-r from-purple-500 to-pink-500 flex items-center justify-center overflow-hidden">
+                <img 
+                  src="/assets/images/wif-hat.svg" 
+                  alt="WIF Hat" 
+                  className="w-full h-full object-cover"
+                  onError={(e) => {
+                    e.target.style.display = 'none';
+                    e.target.nextSibling.style.display = 'flex';
+                  }}
+                />
+                <span className="text-white font-bold text-xl hidden">W</span>
               </div>
               <div className="absolute -top-1 -right-1 w-4 h-4 bg-gradient-to-r from-blue-400 to-cyan-400 rounded-full animate-pulse"></div>
             </motion.div>
@@ -113,7 +122,7 @@ const Navbar = () => {
                 
                 {/* Dropdown */}
                 <div className="absolute top-full left-0 mt-2 w-56 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform origin-top scale-95 group-hover:scale-100">
-                  <div className="glass-card p-2 space-y-1">
+                  <div className="bg-black/80 backdrop-blur-xl border border-white/20 p-2 space-y-1 rounded-xl">
                     {item.submenu.map((subItem) => (
                       <Link
                         key={subItem.name}
