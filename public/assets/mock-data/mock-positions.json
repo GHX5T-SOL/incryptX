@@ -1,0 +1,15 @@
+[
+  {
+    "market": "1",
+    "leverage": 20,
+    "direction": "long",
+    "pnl": 15.5
+  },
+  {
+    "market": "2",
+    "leverage": 10,
+    "direction": "short",
+    "pnl": -5.2
+  }
+  // ... existing code ... (add more similar mock position objects, at least 20, with varied markets from tokens, leverage 5-100, direction long/short, pnl -50 to 50)
+]

@@ -1,0 +1,20 @@
+[
+  {
+    "id": "1",
+    "name": "CatWifHat",
+    "supply": 1000000000,
+    "mc": 69000,
+    "curve": "linear",
+    "holders": 500,
+    "image": "/assets/images/cat-meme.jpg"
+  },
+  {
+    "id": "2",
+    "name": "DogWifLaser",
+    "supply": 500000000,
+    "mc": 42000,
+    "curve": "exponential",
+    "holders": 300,
+    "image": "/assets/images/dog-laser.jpg"
+  }
+]

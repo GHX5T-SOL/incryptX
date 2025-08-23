@@ -1,0 +1,16 @@
+[
+  {
+    "username": "DegenPuppy",
+    "pic": "/assets/images/user-avatars/avatar1.svg",
+    "repScore": 85,
+    "nftHats": ["golden-hat.svg"],
+    "launches": ["1", "2"]
+  },
+  {
+    "username": "MemeMaster",
+    "pic": "/assets/images/user-avatars/avatar2.svg",
+    "repScore": 92,
+    "nftHats": ["ninja-hat.svg", "pirate-hat.svg"],
+    "launches": ["3"]
+  }
+]

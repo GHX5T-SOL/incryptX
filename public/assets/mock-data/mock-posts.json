@@ -1,0 +1,18 @@
+[
+  {
+    "id": "1",
+    "user": "DegenPuppy",
+    "text": "Just launched my new meme! #WIF",
+    "image": "/assets/images/placeholder-meme.svg",
+    "likes": 42,
+    "replies": []
+  },
+  {
+    "id": "2",
+    "user": "MemeMaster",
+    "text": "Check out this epic hat NFT! 🚀",
+    "image": null,
+    "likes": 56,
+    "replies": [{"user": "DegenPuppy", "text": "Awesome!"}]
+  }
+]

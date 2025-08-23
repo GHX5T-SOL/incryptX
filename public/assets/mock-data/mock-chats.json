@@ -1,0 +1,17 @@
+[
+  {
+    "id": "1",
+    "name": "PuppyHolders",
+    "gatedToken": "1",
+    "minHold": 1000,
+    "messages": [{"user": "DegenPuppy", "text": "Let's raid!"}]
+  },
+  {
+    "id": "2",
+    "name": "MemeTraders",
+    "gatedToken": "2",
+    "minHold": 500,
+    "messages": [{"user": "MemeMaster", "text": "Buy the dip!"}]
+  }
+  // ... existing code ... (add more similar mock chat objects, at least 30, with varied names, gatedTokens, minHolds 100-5000, messages arrays 5-20)
+]

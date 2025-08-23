@@ -1,0 +1,17 @@
+[
+  {
+    "id": "1",
+    "token": "1",
+    "amount": 1000,
+    "price": 0.01,
+    "type": "buy"
+  },
+  {
+    "id": "2",
+    "token": "2",
+    "amount": 500,
+    "price": 0.02,
+    "type": "sell"
+  }
+  // ... existing code ... (add more similar mock trade objects, at least 50, with varied tokens, amounts 100-10000, prices 0.001-1, types buy/sell)
+]
