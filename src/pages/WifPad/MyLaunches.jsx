@@ -75,7 +75,7 @@ const MyLaunches = () => {
 
   const getStatusIcon = (status) => {
     switch (status) {
-      case 'active': return TrendingUpIcon;
+      case 'active': return ArrowTrendingUpIcon;
       case 'paused': return ClockIcon;
       case 'completed': return StarIcon;
       case 'failed': return ExclamationTriangleIcon;
