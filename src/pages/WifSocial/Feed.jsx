@@ -30,6 +30,9 @@ const Feed = () => {
   ];
 
   useEffect(() => {
+    // Only generate posts when users data is available
+    if (!users || users.length === 0) return;
+    
     // Generate mock posts
     const mockPosts = Array.from({ length: 50 }, (_, index) => {
       const user = users[Math.floor(Math.random() * users.length)];
