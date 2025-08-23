@@ -2,6 +2,7 @@ import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useLocation } from 'react-router-dom';
+import WalletProvider from './components/WalletProvider';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import Home from './pages/Home';
@@ -25,7 +26,11 @@ import Profile from './pages/WifSocial/Profile';
 import Chats from './pages/WifSocial/Chats';
 import ChatRoom from './pages/WifSocial/ChatRoom';
 import Communities from './pages/WifSocial/Communities';
+import Staking from './pages/Staking';
+import TelegramBot from './pages/TelegramBot';
 import NotFound from './pages/NotFound';
+import Trending from './pages/Trending';
+import PriceChecker from './pages/PriceChecker';
 
 const PageTransition = ({ children }) => (
   <motion.div
@@ -49,25 +54,42 @@ const AppContent = () => {
         <Routes location={location} key={location.pathname}>
           <Route path="/" element={<PageTransition><Home /></PageTransition>} />
           <Route path="/dashboard" element={<PageTransition><Dashboard /></PageTransition>} />
+          
+          {/* WIF Pad Routes */}
           <Route path="/pad" element={<PageTransition><LaunchpadHome /></PageTransition>} />
           <Route path="/pad/launch/degen" element={<PageTransition><DegenLaunch /></PageTransition>} />
           <Route path="/pad/launch/custom" element={<PageTransition><CustomLaunch /></PageTransition>} />
           <Route path="/pad/my-launches" element={<PageTransition><MyLaunches /></PageTransition>} />
           <Route path="/pad/token/:id" element={<PageTransition><TokenDetails /></PageTransition>} />
+          
+          {/* WIF Trade Routes */}
           <Route path="/trade" element={<PageTransition><TradeHome /></PageTransition>} />
           <Route path="/trade/advanced" element={<PageTransition><AdvancedTrade /></PageTransition>} />
           <Route path="/trade/p2p" element={<PageTransition><P2PEscrow /></PageTransition>} />
           <Route path="/trade/leaderboards" element={<PageTransition><Leaderboards /></PageTransition>} />
           <Route path="/trade/tracker" element={<PageTransition><WalletTracker /></PageTransition>} />
           <Route path="/trade/copy" element={<PageTransition><CopyTrading /></PageTransition>} />
+          
+          {/* WIF Perps Routes */}
           <Route path="/perps" element={<PageTransition><PerpsHome /></PageTransition>} />
           <Route path="/perps/market/:id" element={<PageTransition><PerpMarket /></PageTransition>} />
           <Route path="/perps/positions" element={<PageTransition><MyPositions /></PageTransition>} />
+          
+          {/* WIF Social Routes */}
+          <Route path="/social" element={<PageTransition><Feed /></PageTransition>} />
           <Route path="/social/feed" element={<PageTransition><Feed /></PageTransition>} />
           <Route path="/social/profile/:username" element={<PageTransition><Profile /></PageTransition>} />
           <Route path="/social/chats" element={<PageTransition><Chats /></PageTransition>} />
           <Route path="/social/chat/:id" element={<PageTransition><ChatRoom /></PageTransition>} />
           <Route path="/social/communities" element={<PageTransition><Communities /></PageTransition>} />
+          
+          {/* Other Routes */}
+          <Route path="/staking" element={<PageTransition><Staking /></PageTransition>} />
+          <Route path="/telegram-bot" element={<PageTransition><TelegramBot /></PageTransition>} />
+          <Route path="/trending" element={<PageTransition><Trending /></PageTransition>} />
+          <Route path="/price-checker" element={<PageTransition><PriceChecker /></PageTransition>} />
+          
+          {/* 404 Route */}
           <Route path="*" element={<PageTransition><NotFound /></PageTransition>} />
         </Routes>
       </AnimatePresence>
@@ -84,9 +106,11 @@ const AppContent = () => {
 
 function App() {
   return (
-    <Router>
-      <AppContent />
-    </Router>
+    <WalletProvider>
+      <Router>
+        <AppContent />
+      </Router>
+    </WalletProvider>
   );
 }
 

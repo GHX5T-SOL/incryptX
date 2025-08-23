@@ -16,10 +16,9 @@ Check out the pawsome live demo: [WIFPad Demo](https://wifpad-demo.vercel.app) �
 ## 🎮 Features That'll Make You Woof!
 
 - **WIF Pad** 🛫: Launch memecoins in degen or custom mode - one-click fun with AI suggestions!
-- **WIF Trade** 💹: Swap, advanced trading, P2P escrow, leaderboards, and copy trading - all mocked to perfection!
-- **WIF Perps** 📈: Leveraged trading up to 100x with positions and markets - feel the thrill without the risk!
+- **WIF Trade** 💹: Swap, advanced trading, P2P escrow, leaderboards, and copy trading 
+- **WIF Perps** 📈: Leveraged trading up to 100x with positions and markets
 - **WIF Social** 👥: Feed, profiles, token-gated chats, and communities - post, like, and raid with friends!
-- **Mock Wallet** 🔑: Connect a simulated Solana wallet - persistent across pages with address in header!
 - **Animations Galore** 🎭: Framer Motion brings flying hats, confetti explosions, and bouncy icons!
 - **Responsive & Cute** 📱: Mobile-first design with Tailwind CSS - looks paw-fect on any device!
 - **Gamified Vibes** 🏆: Earn hat points, collect NFT badges, and level up your degen status!
@@ -112,7 +111,7 @@ We love contributions - make WIFPad even more epic! 🐕
 
 ## 📜 License
 
-MIT - Free to use, modify, and share. Just keep the WIF spirit alive! 📄
+MIT - 📄
 
 ## 🙌 Thanks to the Community
 

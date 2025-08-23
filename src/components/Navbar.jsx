@@ -1,147 +1,243 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { motion } from 'framer-motion';
-import { ChevronDownIcon, UserCircleIcon, WalletIcon, Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline';
-import WalletConnectModal from './WalletConnectModal';
-import { useMockWallet } from '../hooks/useMockWallet';
+import { motion, AnimatePresence } from 'framer-motion';
+import { 
+  ChevronDownIcon, 
+  UserCircleIcon, 
+  Bars3Icon, 
+  XMarkIcon,
+  FireIcon,
+  ChartBarIcon,
+  CurrencyDollarIcon,
+  UserGroupIcon,
+  CogIcon,
+  StarIcon
+} from '@heroicons/react/24/outline';
+import { useWallet } from '@solana/wallet-adapter-react';
+import { WalletMultiButton } from '@solana/wallet-adapter-react-ui';
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const [showWalletModal, setShowWalletModal] = useState(false);
-  const { isConnected, address, hatPoints, connect, disconnect } = useMockWallet();
+  const { publicKey, connected } = useWallet();
 
   const toggleMenu = () => setIsOpen(!isOpen);
 
+  const navigationItems = [
+    {
+      name: 'WIF Pad',
+      icon: FireIcon,
+      path: '/pad',
+      submenu: [
+        { name: 'Launchpad', path: '/pad', icon: FireIcon },
+        { name: 'Degen Launch', path: '/pad/launch/degen', icon: FireIcon },
+        { name: 'Custom Launch', path: '/pad/launch/custom', icon: FireIcon },
+        { name: 'My Launches', path: '/pad/my-launches', icon: FireIcon }
+      ]
+    },
+    {
+      name: 'WIF Trade',
+      icon: ChartBarIcon,
+      path: '/trade',
+      submenu: [
+        { name: 'Swap', path: '/trade', icon: ChartBarIcon },
+        { name: 'Advanced', path: '/trade/advanced', icon: ChartBarIcon },
+        { name: 'P2P Escrow', path: '/trade/p2p', icon: ChartBarIcon },
+        { name: 'Leaderboards', path: '/trade/leaderboards', icon: ChartBarIcon },
+        { name: 'Wallet Tracker', path: '/trade/tracker', icon: ChartBarIcon },
+        { name: 'Copy Trading', path: '/trade/copy', icon: ChartBarIcon }
+      ]
+    },
+    {
+      name: 'WIF Perps',
+      icon: CurrencyDollarIcon,
+      path: '/perps',
+      submenu: [
+        { name: 'Markets', path: '/perps', icon: CurrencyDollarIcon },
+        { name: 'My Positions', path: '/perps/positions', icon: CurrencyDollarIcon }
+      ]
+    },
+    {
+      name: 'WIF Social',
+      icon: UserGroupIcon,
+      path: '/social',
+      submenu: [
+        { name: 'Feed', path: '/social', icon: UserGroupIcon },
+        { name: 'Chats', path: '/social/chats', icon: UserGroupIcon },
+        { name: 'Communities', path: '/social/communities', icon: UserGroupIcon }
+      ]
+    },
+    {
+      name: 'Utilities',
+      icon: CogIcon,
+      path: '/dashboard',
+      submenu: [
+        { name: 'Dashboard', path: '/dashboard', icon: CogIcon },
+        { name: 'Staking', path: '/staking', icon: StarIcon },
+        { name: 'Trending', path: '/trending', icon: FireIcon },
+        { name: 'Price Checker', path: '/price-checker', icon: ChartBarIcon },
+        { name: 'Telegram Bot', path: '/telegram-bot', icon: CogIcon }
+      ]
+    }
+  ];
+
   return (
-    <nav className="bg-white/80 backdrop-blur-md border-b border-pink-200 sticky top-0 z-50">
+    <nav className="fixed top-0 left-0 right-0 z-50 bg-black/20 backdrop-blur-xl border-b border-white/10">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           {/* Logo */}
-          <Link to="/" className="flex items-center space-x-2">
-            <motion.img
-              src="/assets/images/wif-logo.svg"
-              alt="WIF Logo"
-              className="h-10 w-10"
-              whileHover={{ scale: 1.1 }}
+          <Link to="/" className="flex items-center space-x-3 group">
+            <motion.div
+              whileHover={{ scale: 1.1, rotate: 5 }}
               whileTap={{ scale: 0.9 }}
-            />
-            <span className="text-2xl font-bold text-meme-black font-comic">WIF Ecosystem</span>
+              className="relative"
+            >
+              <div className="w-10 h-10 rounded-xl bg-gradient-to-r from-purple-500 to-pink-500 flex items-center justify-center">
+                <span className="text-white font-bold text-xl">W</span>
+              </div>
+              <div className="absolute -top-1 -right-1 w-4 h-4 bg-gradient-to-r from-blue-400 to-cyan-400 rounded-full animate-pulse"></div>
+            </motion.div>
+            <div className="hidden sm:block">
+              <span className="text-2xl font-bold gradient-text">WIF Ecosystem</span>
+            </div>
           </Link>
 
           {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center space-x-8">
-            {/* WIF Pad Dropdown */}
-            <div className="relative group">
-              <button className="flex items-center space-x-1 text-meme-black hover:text-primary-pink transition-colors font-comic">
-                <span>WIF Pad</span>
-                <ChevronDownIcon className="h-4 w-4" />
-              </button>
-              <div className="absolute top-full left-0 mt-2 w-48 bg-white rounded-lg shadow-lg border border-pink-200 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200">
-                <Link to="/pad" className="block px-4 py-2 text-meme-black hover:bg-pink-50 rounded-t-lg">Launchpad</Link>
-                <Link to="/pad/launch/degen" className="block px-4 py-2 text-meme-black hover:bg-pink-50">Degen Launch</Link>
-                <Link to="/pad/launch/custom" className="block px-4 py-2 text-meme-black hover:bg-pink-50">Custom Launch</Link>
-                <Link to="/pad/my-launches" className="block px-4 py-2 text-meme-black hover:bg-pink-50 rounded-b-lg">My Launches</Link>
+          <div className="hidden lg:flex items-center space-x-1">
+            {navigationItems.map((item) => (
+              <div key={item.name} className="relative group">
+                <button className="flex items-center space-x-2 px-4 py-2 rounded-xl text-white/80 hover:text-white hover:bg-white/10 transition-all duration-300 group-hover:bg-white/5">
+                  <item.icon className="w-5 h-5" />
+                  <span className="font-medium">{item.name}</span>
+                  <ChevronDownIcon className="w-4 h-4 transition-transform duration-300 group-hover:rotate-180" />
+                </button>
+                
+                {/* Dropdown */}
+                <div className="absolute top-full left-0 mt-2 w-56 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform origin-top scale-95 group-hover:scale-100">
+                  <div className="glass-card p-2 space-y-1">
+                    {item.submenu.map((subItem) => (
+                      <Link
+                        key={subItem.name}
+                        to={subItem.path}
+                        className="flex items-center space-x-3 px-3 py-2 rounded-lg text-white/80 hover:text-white hover:bg-white/10 transition-all duration-200"
+                      >
+                        <subItem.icon className="w-4 h-4" />
+                        <span>{subItem.name}</span>
+                      </Link>
+                    ))}
+                  </div>
+                </div>
               </div>
-            </div>
-
-            {/* WIF Trade Dropdown */}
-            <div className="relative group">
-              <button className="flex items-center space-x-1 text-meme-black hover:text-primary-pink transition-colors font-comic">
-                <span>WIF Trade</span>
-                <ChevronDownIcon className="h-4 w-4" />
-              </button>
-              <div className="absolute top-full left-0 mt-2 w-48 bg-white rounded-lg shadow-lg border border-pink-200 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200">
-                <Link to="/trade" className="block px-4 py-2 text-meme-black hover:bg-pink-50 rounded-t-lg">Swap</Link>
-                <Link to="/trade/advanced" className="block px-4 py-2 text-meme-black hover:bg-pink-50">Advanced</Link>
-                <Link to="/trade/p2p" className="block px-4 py-2 text-meme-black hover:bg-pink-50">P2P Escrow</Link>
-                <Link to="/trade/leaderboards" className="block px-4 py-2 text-meme-black hover:bg-pink-50 rounded-b-lg">Leaderboards</Link>
-              </div>
-            </div>
-
-            {/* WIF Perps Dropdown */}
-            <div className="relative group">
-              <button className="flex items-center space-x-1 text-meme-black hover:text-primary-pink transition-colors font-comic">
-                <span>WIF Perps</span>
-                <ChevronDownIcon className="h-4 w-4" />
-              </button>
-              <div className="absolute top-full left-0 mt-2 w-48 bg-white rounded-lg shadow-lg border border-pink-200 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200">
-                <Link to="/perps" className="block px-4 py-2 text-meme-black hover:bg-pink-50 rounded-t-lg">Markets</Link>
-                <Link to="/perps/my-positions" className="block px-4 py-2 text-meme-black hover:bg-pink-50 rounded-b-lg">My Positions</Link>
-              </div>
-            </div>
-
-            {/* WIF Social Dropdown */}
-            <div className="relative group">
-              <button className="flex items-center space-x-1 text-meme-black hover:text-primary-pink transition-colors font-comic">
-                <span>WIF Social</span>
-                <ChevronDownIcon className="h-4 w-4" />
-              </button>
-              <div className="absolute top-full left-0 mt-2 w-48 bg-white rounded-lg shadow-lg border border-pink-200 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200">
-                <Link to="/social" className="block px-4 py-2 text-meme-black hover:bg-pink-50 rounded-t-lg">Feed</Link>
-                <Link to="/social/chats" className="block px-4 py-2 text-meme-black hover:bg-pink-50">Chats</Link>
-                <Link to="/social/communities" className="block px-4 py-2 text-meme-black hover:bg-pink-50 rounded-b-lg">Communities</Link>
-              </div>
-            </div>
-
-            {/* Other Links */}
-            <Link to="/staking" className="text-meme-black hover:text-primary-pink transition-colors font-comic">Staking</Link>
-            <Link to="/telegram-bot" className="text-meme-black hover:text-primary-pink transition-colors font-comic">Telegram Bot</Link>
+            ))}
           </div>
 
           {/* Right Side */}
           <div className="flex items-center space-x-4">
-            {/* Hat Points */}
-            {isConnected && (
-              <div className="hidden md:flex items-center space-x-2 bg-pastel-yellow px-3 py-2 rounded-full">
-                <span className="text-sm font-comic text-meme-black">🎩 {hatPoints}</span>
-              </div>
+            {/* Balance Display */}
+            {connected && publicKey && (
+              <motion.div
+                initial={{ opacity: 0, x: 20 }}
+                animate={{ opacity: 1, x: 0 }}
+                className="hidden md:flex items-center space-x-2 glass-card px-3 py-2"
+              >
+                <div className="w-2 h-2 bg-gradient-to-r from-green-400 to-emerald-400 rounded-full animate-pulse"></div>
+                <span className="text-sm font-medium text-white">
+                  {publicKey.toString().slice(0, 4)}...{publicKey.toString().slice(-4)}
+                </span>
+              </motion.div>
             )}
 
             {/* Wallet Button */}
-            <button
-              onClick={() => setShowWalletModal(true)}
-              className="bg-primary-pink hover:bg-pink-600 text-white px-4 py-2 rounded-full font-comic transition-colors flex items-center space-x-2"
-            >
-              <WalletIcon className="h-5 w-5" />
-              <span>{isConnected ? `${address.slice(0, 6)}...${address.slice(-4)}` : 'Connect Wallet'}</span>
-            </button>
+            <WalletMultiButton className="btn-primary flex items-center space-x-2" />
 
             {/* Mobile Menu Button */}
             <button
               onClick={toggleMenu}
-              className="md:hidden p-2 rounded-md text-meme-black hover:text-primary-pink"
+              className="lg:hidden p-2 rounded-lg text-white/80 hover:text-white hover:bg-white/10 transition-colors"
             >
-              {isOpen ? <XMarkIcon className="h-6 w-6" /> : <Bars3Icon className="h-6 w-6" />}
+              {isOpen ? <XMarkIcon className="w-6 h-6" /> : <Bars3Icon className="w-6 h-6" />}
             </button>
           </div>
         </div>
 
         {/* Mobile Menu */}
-        {isOpen && (
-          <motion.div
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: 'auto' }}
-            exit={{ opacity: 0, height: 0 }}
-            className="md:hidden border-t border-pink-200"
-          >
-            <div className="px-2 pt-2 pb-3 space-y-1">
-              <Link to="/pad" className="block px-3 py-2 text-meme-black hover:bg-pink-50 rounded-md">WIF Pad</Link>
-              <Link to="/trade" className="block px-3 py-2 text-meme-black hover:bg-pink-50 rounded-md">WIF Trade</Link>
-              <Link to="/perps" className="block px-3 py-2 text-meme-black hover:bg-pink-50 rounded-md">WIF Perps</Link>
-              <Link to="/social" className="block px-3 py-2 text-meme-black hover:bg-pink-50 rounded-md">WIF Social</Link>
-              <Link to="/staking" className="block px-3 py-2 text-meme-black hover:bg-pink-50 rounded-md">Staking</Link>
-              <Link to="/telegram-bot" className="block px-3 py-2 text-meme-black hover:bg-pink-50 rounded-md">Telegram Bot</Link>
-            </div>
-          </motion.div>
-        )}
+        <AnimatePresence>
+          {isOpen && (
+            <motion.div
+              initial={{ opacity: 0, height: 0 }}
+              animate={{ opacity: 1, height: 'auto' }}
+              exit={{ opacity: 0, height: 0 }}
+              transition={{ duration: 0.3 }}
+              className="lg:hidden border-t border-white/10 overflow-hidden"
+            >
+              <div className="py-4 space-y-2">
+                {navigationItems.map((item) => (
+                  <div key={item.name} className="px-4">
+                    <div className="text-white/60 text-sm font-medium mb-2 flex items-center space-x-2">
+                      <item.icon className="w-4 h-4" />
+                      <span>{item.name}</span>
+                    </div>
+                    <div className="ml-6 space-y-1">
+                      {item.submenu.map((subItem) => (
+                        <Link
+                          key={subItem.name}
+                          to={subItem.path}
+                          onClick={() => setIsOpen(false)}
+                          className="block px-3 py-2 rounded-lg text-white/80 hover:text-white hover:bg-white/10 transition-colors"
+                        >
+                          {subItem.name}
+                        </Link>
+                      ))}
+                    </div>
+                  </div>
+                ))}
+                
+                {/* Additional Mobile Links */}
+                <div className="px-4 pt-4 border-t border-white/10">
+                  <div className="text-white/60 text-sm font-medium mb-2">Utilities</div>
+                  <div className="space-y-1">
+                    <Link
+                      to="/staking"
+                      onClick={() => setIsOpen(false)}
+                      className="block px-3 py-2 rounded-lg text-white/80 hover:text-white hover:bg-white/10 transition-colors"
+                    >
+                      Staking
+                    </Link>
+                    <Link
+                      to="/trending"
+                      onClick={() => setIsOpen(false)}
+                      className="block px-3 py-2 rounded-lg text-white/80 hover:text-white hover:bg-white/10 transition-colors"
+                    >
+                      Trending
+                    </Link>
+                    <Link
+                      to="/price-checker"
+                      onClick={() => setIsOpen(false)}
+                      className="block px-3 py-2 rounded-lg text-white/80 hover:text-white hover:bg-white/10 transition-colors"
+                    >
+                      Price Checker
+                    </Link>
+                    <Link
+                      to="/telegram-bot"
+                      onClick={() => setIsOpen(false)}
+                      className="block px-3 py-2 rounded-lg text-white/80 hover:text-white hover:bg-white/10 transition-colors"
+                    >
+                      Telegram Bot
+                    </Link>
+                    <Link
+                      to="/dashboard"
+                      onClick={() => setIsOpen(false)}
+                      className="block px-3 py-2 rounded-lg text-white/80 hover:text-white hover:bg-white/10 transition-colors"
+                    >
+                      Dashboard
+                    </Link>
+                  </div>
+                </div>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </div>
 
-      {/* Wallet Connect Modal */}
-      <WalletConnectModal
-        isOpen={showWalletModal}
-        onClose={() => setShowWalletModal(false)}
-        onConnect={connect}
-      />
     </nav>
   );
 };

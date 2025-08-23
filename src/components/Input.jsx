@@ -1,3 +1,5 @@
+import React from 'react';
+
 const Input = ({ placeholder, value, onChange, type = 'text' }) => {
   return (
     <input 

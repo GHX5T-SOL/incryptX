@@ -12,5 +12,852 @@
     "repScore": 92,
     "nftHats": ["ninja-hat.svg", "pirate-hat.svg"],
     "launches": ["3"]
+  },
+  {
+    "username": "WifWhale",
+    "pic": "/assets/images/user-avatars/avatar3.svg",
+    "repScore": 98,
+    "nftHats": ["diamond-hat.svg", "platinum-hat.svg"],
+    "launches": ["4", "5", "6"]
+  },
+  {
+    "username": "HatCollector",
+    "pic": "/assets/images/user-avatars/avatar4.svg",
+    "repScore": 87,
+    "nftHats": ["rainbow-hat.svg", "tech-hat.svg"],
+    "launches": ["7"]
+  },
+  {
+    "username": "SolanaSage",
+    "pic": "/assets/images/user-avatars/avatar5.svg",
+    "repScore": 95,
+    "nftHats": ["cosmic-hat.svg", "wizard-hat.svg"],
+    "launches": ["8", "9"]
+  },
+  {
+    "username": "MemeLord",
+    "pic": "/assets/images/user-avatars/avatar6.svg",
+    "repScore": 89,
+    "nftHats": ["golden-hat.svg", "ninja-hat.svg"],
+    "launches": ["10"]
+  },
+  {
+    "username": "WifWarrior",
+    "pic": "/assets/images/user-avatars/avatar7.svg",
+    "repScore": 83,
+    "nftHats": ["pirate-hat.svg"],
+    "launches": ["11", "12"]
+  },
+  {
+    "username": "HatHunter",
+    "pic": "/assets/images/user-avatars/avatar8.svg",
+    "repScore": 91,
+    "nftHats": ["diamond-hat.svg", "rainbow-hat.svg"],
+    "launches": ["13"]
+  },
+  {
+    "username": "SolanaSniper",
+    "pic": "/assets/images/user-avatars/avatar9.svg",
+    "repScore": 96,
+    "nftHats": ["platinum-hat.svg", "tech-hat.svg"],
+    "launches": ["14", "15", "16"]
+  },
+  {
+    "username": "MemeMage",
+    "pic": "/assets/images/user-avatars/avatar10.svg",
+    "repScore": 88,
+    "nftHats": ["cosmic-hat.svg"],
+    "launches": ["17"]
+  },
+  {
+    "username": "WifWizard",
+    "pic": "/assets/images/user-avatars/avatar1.svg",
+    "repScore": 94,
+    "nftHats": ["wizard-hat.svg", "golden-hat.svg"],
+    "launches": ["18", "19"]
+  },
+  {
+    "username": "HatHero",
+    "pic": "/assets/images/user-avatars/avatar2.svg",
+    "repScore": 86,
+    "nftHats": ["ninja-hat.svg"],
+    "launches": ["20"]
+  },
+  {
+    "username": "SolanaSage",
+    "pic": "/assets/images/user-avatars/avatar3.svg",
+    "repScore": 93,
+    "nftHats": ["pirate-hat.svg", "diamond-hat.svg"],
+    "launches": ["21", "22"]
+  },
+  {
+    "username": "MemeMonarch",
+    "pic": "/assets/images/user-avatars/avatar4.svg",
+    "repScore": 90,
+    "nftHats": ["platinum-hat.svg", "rainbow-hat.svg"],
+    "launches": ["23"]
+  },
+  {
+    "username": "WifWanderer",
+    "pic": "/assets/images/user-avatars/avatar5.svg",
+    "repScore": 84,
+    "nftHats": ["tech-hat.svg"],
+    "launches": ["24", "25"]
+  },
+  {
+    "username": "HatHustler",
+    "pic": "/assets/images/user-avatars/avatar6.svg",
+    "repScore": 97,
+    "nftHats": ["cosmic-hat.svg", "wizard-hat.svg", "golden-hat.svg"],
+    "launches": ["26", "27", "28"]
+  },
+  {
+    "username": "SolanaSleuth",
+    "pic": "/assets/images/user-avatars/avatar7.svg",
+    "repScore": 82,
+    "nftHats": ["ninja-hat.svg", "pirate-hat.svg"],
+    "launches": ["29"]
+  },
+  {
+    "username": "MemeMentor",
+    "pic": "/assets/images/user-avatars/avatar8.svg",
+    "repScore": 99,
+    "nftHats": ["diamond-hat.svg", "platinum-hat.svg", "rainbow-hat.svg"],
+    "launches": ["30", "31", "32", "33"]
+  },
+  {
+    "username": "WifWarlock",
+    "pic": "/assets/images/user-avatars/avatar9.svg",
+    "repScore": 85,
+    "nftHats": ["tech-hat.svg", "cosmic-hat.svg"],
+    "launches": ["34"]
+  },
+  {
+    "username": "HatHerald",
+    "pic": "/assets/images/user-avatars/avatar10.svg",
+    "repScore": 92,
+    "nftHats": ["wizard-hat.svg"],
+    "launches": ["35", "36"]
+  },
+  {
+    "username": "SolanaSage",
+    "pic": "/assets/images/user-avatars/avatar1.svg",
+    "repScore": 88,
+    "nftHats": ["golden-hat.svg", "ninja-hat.svg"],
+    "launches": ["37"]
+  },
+  {
+    "username": "MemeMystic",
+    "pic": "/assets/images/user-avatars/avatar2.svg",
+    "repScore": 95,
+    "nftHats": ["pirate-hat.svg", "diamond-hat.svg"],
+    "launches": ["38", "39"]
+  },
+  {
+    "username": "WifWarden",
+    "pic": "/assets/images/user-avatars/avatar3.svg",
+    "repScore": 87,
+    "nftHats": ["platinum-hat.svg"],
+    "launches": ["40"]
+  },
+  {
+    "username": "HatHarbinger",
+    "pic": "/assets/images/user-avatars/avatar4.svg",
+    "repScore": 93,
+    "nftHats": ["rainbow-hat.svg", "tech-hat.svg"],
+    "launches": ["41", "42"]
+  },
+  {
+    "username": "SolanaSage",
+    "pic": "/assets/images/user-avatars/avatar5.svg",
+    "repScore": 89,
+    "nftHats": ["cosmic-hat.svg"],
+    "launches": ["43"]
+  },
+  {
+    "username": "MemeMage",
+    "pic": "/assets/images/user-avatars/avatar6.svg",
+    "repScore": 96,
+    "nftHats": ["wizard-hat.svg", "golden-hat.svg"],
+    "launches": ["44", "45"]
+  },
+  {
+    "username": "WifWarlord",
+    "pic": "/assets/images/user-avatars/avatar7.svg",
+    "repScore": 91,
+    "nftHats": ["ninja-hat.svg", "pirate-hat.svg"],
+    "launches": ["46"]
+  },
+  {
+    "username": "HatHarbinger",
+    "pic": "/assets/images/user-avatars/avatar8.svg",
+    "repScore": 84,
+    "nftHats": ["diamond-hat.svg"],
+    "launches": ["47", "48"]
+  },
+  {
+    "username": "SolanaSage",
+    "pic": "/assets/images/user-avatars/avatar9.svg",
+    "repScore": 98,
+    "nftHats": ["platinum-hat.svg", "rainbow-hat.svg", "tech-hat.svg"],
+    "launches": ["49", "50"]
+  },
+  {
+    "username": "MemeMentor",
+    "pic": "/assets/images/user-avatars/avatar10.svg",
+    "repScore": 86,
+    "nftHats": ["cosmic-hat.svg", "wizard-hat.svg"],
+    "launches": ["1"]
+  },
+  {
+    "username": "WifWanderer",
+    "pic": "/assets/images/user-avatars/avatar1.svg",
+    "repScore": 94,
+    "nftHats": ["golden-hat.svg"],
+    "launches": ["2", "3"]
+  },
+  {
+    "username": "HatHunter",
+    "pic": "/assets/images/user-avatars/avatar2.svg",
+    "repScore": 90,
+    "nftHats": ["ninja-hat.svg", "pirate-hat.svg"],
+    "launches": ["4"]
+  },
+  {
+    "username": "SolanaSage",
+    "pic": "/assets/images/user-avatars/avatar3.svg",
+    "repScore": 85,
+    "nftHats": ["diamond-hat.svg"],
+    "launches": ["5", "6", "7"]
+  },
+  {
+    "username": "MemeMaster",
+    "pic": "/assets/images/user-avatars/avatar4.svg",
+    "repScore": 97,
+    "nftHats": ["platinum-hat.svg", "rainbow-hat.svg"],
+    "launches": ["8"]
+  },
+  {
+    "username": "WifWizard",
+    "pic": "/assets/images/user-avatars/avatar5.svg",
+    "repScore": 88,
+    "nftHats": ["tech-hat.svg", "cosmic-hat.svg"],
+    "launches": ["9", "10"]
+  },
+  {
+    "username": "HatHero",
+    "pic": "/assets/images/user-avatars/avatar6.svg",
+    "repScore": 92,
+    "nftHats": ["wizard-hat.svg"],
+    "launches": ["11"]
+  },
+  {
+    "username": "SolanaSage",
+    "pic": "/assets/images/user-avatars/avatar7.svg",
+    "repScore": 83,
+    "nftHats": ["golden-hat.svg", "ninja-hat.svg"],
+    "launches": ["12", "13"]
+  },
+  {
+    "username": "MemeMonarch",
+    "pic": "/assets/images/user-avatars/avatar8.svg",
+    "repScore": 95,
+    "nftHats": ["pirate-hat.svg", "diamond-hat.svg"],
+    "launches": ["14"]
+  },
+  {
+    "username": "WifWarden",
+    "pic": "/assets/images/user-avatars/avatar9.svg",
+    "repScore": 89,
+    "nftHats": ["platinum-hat.svg"],
+    "launches": ["15", "16", "17"]
+  },
+  {
+    "username": "HatHarbinger",
+    "pic": "/assets/images/user-avatars/avatar10.svg",
+    "repScore": 93,
+    "nftHats": ["rainbow-hat.svg", "tech-hat.svg"],
+    "launches": ["18"]
+  },
+  {
+    "username": "SolanaSage",
+    "pic": "/assets/images/user-avatars/avatar1.svg",
+    "repScore": 87,
+    "nftHats": ["cosmic-hat.svg"],
+    "launches": ["19", "20"]
+  },
+  {
+    "username": "MemeMage",
+    "pic": "/assets/images/user-avatars/avatar2.svg",
+    "repScore": 96,
+    "nftHats": ["wizard-hat.svg", "golden-hat.svg"],
+    "launches": ["21"]
+  },
+  {
+    "username": "WifWarlord",
+    "pic": "/assets/images/user-avatars/avatar3.svg",
+    "repScore": 91,
+    "nftHats": ["ninja-hat.svg", "pirate-hat.svg"],
+    "launches": ["22", "23"]
+  },
+  {
+    "username": "HatHarbinger",
+    "pic": "/assets/images/user-avatars/avatar4.svg",
+    "repScore": 84,
+    "nftHats": ["diamond-hat.svg"],
+    "launches": ["24"]
+  },
+  {
+    "username": "SolanaSage",
+    "pic": "/assets/images/user-avatars/avatar5.svg",
+    "repScore": 98,
+    "nftHats": ["platinum-hat.svg", "rainbow-hat.svg", "tech-hat.svg"],
+    "launches": ["25", "26"]
+  },
+  {
+    "username": "MemeMentor",
+    "pic": "/assets/images/user-avatars/avatar6.svg",
+    "repScore": 86,
+    "nftHats": ["cosmic-hat.svg", "wizard-hat.svg"],
+    "launches": ["27"]
+  },
+  {
+    "username": "WifWanderer",
+    "pic": "/assets/images/user-avatars/avatar7.svg",
+    "repScore": 94,
+    "nftHats": ["golden-hat.svg"],
+    "launches": ["28", "29", "30"]
+  },
+  {
+    "username": "HatHunter",
+    "pic": "/assets/images/user-avatars/avatar8.svg",
+    "repScore": 90,
+    "nftHats": ["ninja-hat.svg", "pirate-hat.svg"],
+    "launches": ["31"]
+  },
+  {
+    "username": "SolanaSage",
+    "pic": "/assets/images/user-avatars/avatar9.svg",
+    "repScore": 85,
+    "nftHats": ["diamond-hat.svg"],
+    "launches": ["32", "33"]
+  },
+  {
+    "username": "MemeMaster",
+    "pic": "/assets/images/user-avatars/avatar10.svg",
+    "repScore": 97,
+    "nftHats": ["platinum-hat.svg", "rainbow-hat.svg"],
+    "launches": ["34"]
+  },
+  {
+    "username": "WifWizard",
+    "pic": "/assets/images/user-avatars/avatar1.svg",
+    "repScore": 88,
+    "nftHats": ["tech-hat.svg", "cosmic-hat.svg"],
+    "launches": ["35", "36", "37"]
+  },
+  {
+    "username": "HatHero",
+    "pic": "/assets/images/user-avatars/avatar2.svg",
+    "repScore": 92,
+    "nftHats": ["wizard-hat.svg"],
+    "launches": ["38"]
+  },
+  {
+    "username": "SolanaSage",
+    "pic": "/assets/images/user-avatars/avatar3.svg",
+    "repScore": 83,
+    "nftHats": ["golden-hat.svg", "ninja-hat.svg"],
+    "launches": ["39", "40"]
+  },
+  {
+    "username": "MemeMonarch",
+    "pic": "/assets/images/user-avatars/avatar4.svg",
+    "repScore": 95,
+    "nftHats": ["pirate-hat.svg", "diamond-hat.svg"],
+    "launches": ["41"]
+  },
+  {
+    "username": "WifWarden",
+    "pic": "/assets/images/user-avatars/avatar5.svg",
+    "repScore": 89,
+    "nftHats": ["platinum-hat.svg"],
+    "launches": ["42", "43"]
+  },
+  {
+    "username": "HatHarbinger",
+    "pic": "/assets/images/user-avatars/avatar6.svg",
+    "repScore": 93,
+    "nftHats": ["rainbow-hat.svg", "tech-hat.svg"],
+    "launches": ["44"]
+  },
+  {
+    "username": "SolanaSage",
+    "pic": "/assets/images/user-avatars/avatar7.svg",
+    "repScore": 87,
+    "nftHats": ["cosmic-hat.svg"],
+    "launches": ["45", "46", "47"]
+  },
+  {
+    "username": "MemeMage",
+    "pic": "/assets/images/user-avatars/avatar8.svg",
+    "repScore": 96,
+    "nftHats": ["wizard-hat.svg", "golden-hat.svg"],
+    "launches": ["48"]
+  },
+  {
+    "username": "WifWarlord",
+    "pic": "/assets/images/user-avatars/avatar9.svg",
+    "repScore": 91,
+    "nftHats": ["ninja-hat.svg", "pirate-hat.svg"],
+    "launches": ["49", "50"]
+  },
+  {
+    "username": "HatHarbinger",
+    "pic": "/assets/images/user-avatars/avatar10.svg",
+    "repScore": 84,
+    "nftHats": ["diamond-hat.svg"],
+    "launches": ["1"]
+  },
+  {
+    "username": "SolanaSage",
+    "pic": "/assets/images/user-avatars/avatar1.svg",
+    "repScore": 98,
+    "nftHats": ["platinum-hat.svg", "rainbow-hat.svg", "tech-hat.svg"],
+    "launches": ["2", "3"]
+  },
+  {
+    "username": "MemeMentor",
+    "pic": "/assets/images/user-avatars/avatar2.svg",
+    "repScore": 86,
+    "nftHats": ["cosmic-hat.svg", "wizard-hat.svg"],
+    "launches": ["4"]
+  },
+  {
+    "username": "WifWanderer",
+    "pic": "/assets/images/user-avatars/avatar3.svg",
+    "repScore": 94,
+    "nftHats": ["golden-hat.svg"],
+    "launches": ["5", "6"]
+  },
+  {
+    "username": "HatHunter",
+    "pic": "/assets/images/user-avatars/avatar4.svg",
+    "repScore": 90,
+    "nftHats": ["ninja-hat.svg", "pirate-hat.svg"],
+    "launches": ["7"]
+  },
+  {
+    "username": "SolanaSage",
+    "pic": "/assets/images/user-avatars/avatar5.svg",
+    "repScore": 85,
+    "nftHats": ["diamond-hat.svg"],
+    "launches": ["8", "9", "10"]
+  },
+  {
+    "username": "MemeMaster",
+    "pic": "/assets/images/user-avatars/avatar6.svg",
+    "repScore": 97,
+    "nftHats": ["platinum-hat.svg", "rainbow-hat.svg"],
+    "launches": ["11"]
+  },
+  {
+    "username": "WifWizard",
+    "pic": "/assets/images/user-avatars/avatar7.svg",
+    "repScore": 88,
+    "nftHats": ["tech-hat.svg", "cosmic-hat.svg"],
+    "launches": ["12", "13"]
+  },
+  {
+    "username": "HatHero",
+    "pic": "/assets/images/user-avatars/avatar8.svg",
+    "repScore": 92,
+    "nftHats": ["wizard-hat.svg"],
+    "launches": ["14"]
+  },
+  {
+    "username": "SolanaSage",
+    "pic": "/assets/images/user-avatars/avatar9.svg",
+    "repScore": 83,
+    "nftHats": ["golden-hat.svg", "ninja-hat.svg"],
+    "launches": ["15", "16"]
+  },
+  {
+    "username": "MemeMonarch",
+    "pic": "/assets/images/user-avatars/avatar10.svg",
+    "repScore": 95,
+    "nftHats": ["pirate-hat.svg", "diamond-hat.svg"],
+    "launches": ["17"]
+  },
+  {
+    "username": "WifWarden",
+    "pic": "/assets/images/user-avatars/avatar1.svg",
+    "repScore": 89,
+    "nftHats": ["platinum-hat.svg"],
+    "launches": ["18", "19", "20"]
+  },
+  {
+    "username": "HatHarbinger",
+    "pic": "/assets/images/user-avatars/avatar2.svg",
+    "repScore": 93,
+    "nftHats": ["rainbow-hat.svg", "tech-hat.svg"],
+    "launches": ["21"]
+  },
+  {
+    "username": "SolanaSage",
+    "pic": "/assets/images/user-avatars/avatar3.svg",
+    "repScore": 87,
+    "nftHats": ["cosmic-hat.svg"],
+    "launches": ["22", "23"]
+  },
+  {
+    "username": "MemeMage",
+    "pic": "/assets/images/user-avatars/avatar4.svg",
+    "repScore": 96,
+    "nftHats": ["wizard-hat.svg", "golden-hat.svg"],
+    "launches": ["24"]
+  },
+  {
+    "username": "WifWarlord",
+    "pic": "/assets/images/user-avatars/avatar5.svg",
+    "repScore": 91,
+    "nftHats": ["ninja-hat.svg", "pirate-hat.svg"],
+    "launches": ["25", "26"]
+  },
+  {
+    "username": "HatHarbinger",
+    "pic": "/assets/images/user-avatars/avatar6.svg",
+    "repScore": 84,
+    "nftHats": ["diamond-hat.svg"],
+    "launches": ["27"]
+  },
+  {
+    "username": "SolanaSage",
+    "pic": "/assets/images/user-avatars/avatar7.svg",
+    "repScore": 98,
+    "nftHats": ["platinum-hat.svg", "rainbow-hat.svg", "tech-hat.svg"],
+    "launches": ["28", "29"]
+  },
+  {
+    "username": "MemeMentor",
+    "pic": "/assets/images/user-avatars/avatar8.svg",
+    "repScore": 86,
+    "nftHats": ["cosmic-hat.svg", "wizard-hat.svg"],
+    "launches": ["30"]
+  },
+  {
+    "username": "WifWanderer",
+    "pic": "/assets/images/user-avatars/avatar9.svg",
+    "repScore": 94,
+    "nftHats": ["golden-hat.svg"],
+    "launches": ["31", "32", "33"]
+  },
+  {
+    "username": "HatHunter",
+    "pic": "/assets/images/user-avatars/avatar10.svg",
+    "repScore": 90,
+    "nftHats": ["ninja-hat.svg", "pirate-hat.svg"],
+    "launches": ["34"]
+  },
+  {
+    "username": "SolanaSage",
+    "pic": "/assets/images/user-avatars/avatar1.svg",
+    "repScore": 85,
+    "nftHats": ["diamond-hat.svg"],
+    "launches": ["35", "36"]
+  },
+  {
+    "username": "MemeMaster",
+    "pic": "/assets/images/user-avatars/avatar2.svg",
+    "repScore": 97,
+    "nftHats": ["platinum-hat.svg", "rainbow-hat.svg"],
+    "launches": ["37"]
+  },
+  {
+    "username": "WifWizard",
+    "pic": "/assets/images/user-avatars/avatar3.svg",
+    "repScore": 88,
+    "nftHats": ["tech-hat.svg", "cosmic-hat.svg"],
+    "launches": ["38", "39", "40"]
+  },
+  {
+    "username": "HatHero",
+    "pic": "/assets/images/user-avatars/avatar4.svg",
+    "repScore": 92,
+    "nftHats": ["wizard-hat.svg"],
+    "launches": ["41"]
+  },
+  {
+    "username": "SolanaSage",
+    "pic": "/assets/images/user-avatars/avatar5.svg",
+    "repScore": 83,
+    "nftHats": ["golden-hat.svg", "ninja-hat.svg"],
+    "launches": ["42", "43"]
+  },
+  {
+    "username": "MemeMonarch",
+    "pic": "/assets/images/user-avatars/avatar6.svg",
+    "repScore": 95,
+    "nftHats": ["pirate-hat.svg", "diamond-hat.svg"],
+    "launches": ["44"]
+  },
+  {
+    "username": "WifWarden",
+    "pic": "/assets/images/user-avatars/avatar7.svg",
+    "repScore": 89,
+    "nftHats": ["platinum-hat.svg"],
+    "launches": ["45", "46"]
+  },
+  {
+    "username": "HatHarbinger",
+    "pic": "/assets/images/user-avatars/avatar8.svg",
+    "repScore": 93,
+    "nftHats": ["rainbow-hat.svg", "tech-hat.svg"],
+    "launches": ["47"]
+  },
+  {
+    "username": "SolanaSage",
+    "pic": "/assets/images/user-avatars/avatar9.svg",
+    "repScore": 87,
+    "nftHats": ["cosmic-hat.svg"],
+    "launches": ["48", "49", "50"]
+  },
+  {
+    "username": "MemeMage",
+    "pic": "/assets/images/user-avatars/avatar10.svg",
+    "repScore": 96,
+    "nftHats": ["wizard-hat.svg", "golden-hat.svg"],
+    "launches": ["1"]
+  },
+  {
+    "username": "WifWarlord",
+    "pic": "/assets/images/user-avatars/avatar1.svg",
+    "repScore": 91,
+    "nftHats": ["ninja-hat.svg", "pirate-hat.svg"],
+    "launches": ["2"]
+  },
+  {
+    "username": "HatHarbinger",
+    "pic": "/assets/images/user-avatars/avatar2.svg",
+    "repScore": 84,
+    "nftHats": ["diamond-hat.svg"],
+    "launches": ["3", "4"]
+  },
+  {
+    "username": "SolanaSage",
+    "pic": "/assets/images/user-avatars/avatar3.svg",
+    "repScore": 98,
+    "nftHats": ["platinum-hat.svg", "rainbow-hat.svg", "tech-hat.svg"],
+    "launches": ["5"]
+  },
+  {
+    "username": "MemeMentor",
+    "pic": "/assets/images/user-avatars/avatar4.svg",
+    "repScore": 86,
+    "nftHats": ["cosmic-hat.svg", "wizard-hat.svg"],
+    "launches": ["6", "7"]
+  },
+  {
+    "username": "WifWanderer",
+    "pic": "/assets/images/user-avatars/avatar5.svg",
+    "repScore": 94,
+    "nftHats": ["golden-hat.svg"],
+    "launches": ["8"]
+  },
+  {
+    "username": "HatHunter",
+    "pic": "/assets/images/user-avatars/avatar6.svg",
+    "repScore": 90,
+    "nftHats": ["ninja-hat.svg", "pirate-hat.svg"],
+    "launches": ["9", "10"]
+  },
+  {
+    "username": "SolanaSage",
+    "pic": "/assets/images/user-avatars/avatar7.svg",
+    "repScore": 85,
+    "nftHats": ["diamond-hat.svg"],
+    "launches": ["11"]
+  },
+  {
+    "username": "MemeMaster",
+    "pic": "/assets/images/user-avatars/avatar8.svg",
+    "repScore": 97,
+    "nftHats": ["platinum-hat.svg", "rainbow-hat.svg"],
+    "launches": ["12", "13", "14"]
+  },
+  {
+    "username": "WifWizard",
+    "pic": "/assets/images/user-avatars/avatar9.svg",
+    "repScore": 88,
+    "nftHats": ["tech-hat.svg", "cosmic-hat.svg"],
+    "launches": ["15"]
+  },
+  {
+    "username": "HatHero",
+    "pic": "/assets/images/user-avatars/avatar10.svg",
+    "repScore": 92,
+    "nftHats": ["wizard-hat.svg"],
+    "launches": ["16", "17"]
+  },
+  {
+    "username": "SolanaSage",
+    "pic": "/assets/images/user-avatars/avatar1.svg",
+    "repScore": 83,
+    "nftHats": ["golden-hat.svg", "ninja-hat.svg"],
+    "launches": ["18"]
+  },
+  {
+    "username": "MemeMonarch",
+    "pic": "/assets/images/user-avatars/avatar2.svg",
+    "repScore": 95,
+    "nftHats": ["pirate-hat.svg", "diamond-hat.svg"],
+    "launches": ["19", "20"]
+  },
+  {
+    "username": "WifWarden",
+    "pic": "/assets/images/user-avatars/avatar3.svg",
+    "repScore": 89,
+    "nftHats": ["platinum-hat.svg"],
+    "launches": ["21"]
+  },
+  {
+    "username": "HatHarbinger",
+    "pic": "/assets/images/user-avatars/avatar4.svg",
+    "repScore": 93,
+    "nftHats": ["rainbow-hat.svg", "tech-hat.svg"],
+    "launches": ["22", "23"]
+  },
+  {
+    "username": "SolanaSage",
+    "pic": "/assets/images/user-avatars/avatar5.svg",
+    "repScore": 87,
+    "nftHats": ["cosmic-hat.svg"],
+    "launches": ["24"]
+  },
+  {
+    "username": "MemeMage",
+    "pic": "/assets/images/user-avatars/avatar6.svg",
+    "repScore": 96,
+    "nftHats": ["wizard-hat.svg", "golden-hat.svg"],
+    "launches": ["25", "26"]
+  },
+  {
+    "username": "WifWarlord",
+    "pic": "/assets/images/user-avatars/avatar7.svg",
+    "repScore": 91,
+    "nftHats": ["ninja-hat.svg", "pirate-hat.svg"],
+    "launches": ["27"]
+  },
+  {
+    "username": "HatHarbinger",
+    "pic": "/assets/images/user-avatars/avatar8.svg",
+    "repScore": 84,
+    "nftHats": ["diamond-hat.svg"],
+    "launches": ["28", "29", "30"]
+  },
+  {
+    "username": "SolanaSage",
+    "pic": "/assets/images/user-avatars/avatar9.svg",
+    "repScore": 98,
+    "nftHats": ["platinum-hat.svg", "rainbow-hat.svg", "tech-hat.svg"],
+    "launches": ["31"]
+  },
+  {
+    "username": "MemeMentor",
+    "pic": "/assets/images/user-avatars/avatar10.svg",
+    "repScore": 86,
+    "nftHats": ["cosmic-hat.svg", "wizard-hat.svg"],
+    "launches": ["32", "33"]
+  },
+  {
+    "username": "WifWanderer",
+    "pic": "/assets/images/user-avatars/avatar1.svg",
+    "repScore": 94,
+    "nftHats": ["golden-hat.svg"],
+    "launches": ["34"]
+  },
+  {
+    "username": "HatHunter",
+    "pic": "/assets/images/user-avatars/avatar2.svg",
+    "repScore": 90,
+    "nftHats": ["ninja-hat.svg", "pirate-hat.svg"],
+    "launches": ["35", "36"]
+  },
+  {
+    "username": "SolanaSage",
+    "pic": "/assets/images/user-avatars/avatar3.svg",
+    "repScore": 85,
+    "nftHats": ["diamond-hat.svg"],
+    "launches": ["37"]
+  },
+  {
+    "username": "MemeMaster",
+    "pic": "/assets/images/user-avatars/avatar4.svg",
+    "repScore": 97,
+    "nftHats": ["platinum-hat.svg", "rainbow-hat.svg"],
+    "launches": ["38", "39"]
+  },
+  {
+    "username": "WifWizard",
+    "pic": "/assets/images/user-avatars/avatar5.svg",
+    "repScore": 88,
+    "nftHats": ["tech-hat.svg", "cosmic-hat.svg"],
+    "launches": ["40"]
+  },
+  {
+    "username": "HatHero",
+    "pic": "/assets/images/user-avatars/avatar6.svg",
+    "repScore": 92,
+    "nftHats": ["wizard-hat.svg"],
+    "launches": ["41", "42"]
+  },
+  {
+    "username": "SolanaSage",
+    "pic": "/assets/images/user-avatars/avatar7.svg",
+    "repScore": 83,
+    "nftHats": ["golden-hat.svg", "ninja-hat.svg"],
+    "launches": ["43"]
+  },
+  {
+    "username": "MemeMonarch",
+    "pic": "/assets/images/user-avatars/avatar8.svg",
+    "repScore": 95,
+    "nftHats": ["pirate-hat.svg", "diamond-hat.svg"],
+    "launches": ["44", "45"]
+  },
+  {
+    "username": "WifWarden",
+    "pic": "/assets/images/user-avatars/avatar9.svg",
+    "repScore": 89,
+    "nftHats": ["platinum-hat.svg"],
+    "launches": ["46"]
+  },
+  {
+    "username": "HatHarbinger",
+    "pic": "/assets/images/user-avatars/avatar10.svg",
+    "repScore": 93,
+    "nftHats": ["rainbow-hat.svg", "tech-hat.svg"],
+    "launches": ["47", "48"]
+  },
+  {
+    "username": "SolanaSage",
+    "pic": "/assets/images/user-avatars/avatar1.svg",
+    "repScore": 87,
+    "nftHats": ["cosmic-hat.svg"],
+    "launches": ["49"]
+  },
+  {
+    "username": "MemeMage",
+    "pic": "/assets/images/user-avatars/avatar2.svg",
+    "repScore": 96,
+    "nftHats": ["wizard-hat.svg", "golden-hat.svg"],
+    "launches": ["50"]
+  },
+  {
+    "username": "CurrentUser",
+    "pic": "/assets/images/user-avatars/avatar3.svg",
+    "repScore": 75,
+    "nftHats": ["golden-hat.svg"],
+    "launches": ["1", "2", "3"]
   }
 ]

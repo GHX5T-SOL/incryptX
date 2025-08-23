@@ -6,7 +6,7 @@
     "mc": 69000,
     "curve": "linear",
     "holders": 500,
-    "image": "/assets/images/cat-meme.jpg"
+    "image": "/assets/images/placeholder-meme.svg"
   },
   {
     "id": "2",
@@ -15,6 +15,438 @@
     "mc": 42000,
     "curve": "exponential",
     "holders": 300,
-    "image": "/assets/images/dog-laser.jpg"
+    "image": "/assets/images/placeholder-meme.svg"
+  },
+  {
+    "id": "3",
+    "name": "BunnyWifHat",
+    "supply": 750000000,
+    "mc": 15000,
+    "curve": "linear",
+    "holders": 800,
+    "image": "/assets/images/placeholder-meme.svg"
+  },
+  {
+    "id": "4",
+    "name": "PandaWifHat",
+    "supply": 1000000000,
+    "mc": 8000,
+    "curve": "exponential",
+    "holders": 500,
+    "image": "/assets/images/placeholder-meme.svg"
+  },
+  {
+    "id": "5",
+    "name": "DuckWifHat",
+    "supply": 600000000,
+    "mc": 12000,
+    "curve": "linear",
+    "holders": 700,
+    "image": "/assets/images/placeholder-meme.svg"
+  },
+  {
+    "id": "6",
+    "name": "ElephantWifHat",
+    "supply": 800000000,
+    "mc": 18000,
+    "curve": "exponential",
+    "holders": 900,
+    "image": "/assets/images/placeholder-meme.svg"
+  },
+  {
+    "id": "7",
+    "name": "GiraffeWifHat",
+    "supply": 400000000,
+    "mc": 10000,
+    "curve": "linear",
+    "holders": 600,
+    "image": "/assets/images/placeholder-meme.svg"
+  },
+  {
+    "id": "8",
+    "name": "LionWifHat",
+    "supply": 900000000,
+    "mc": 22000,
+    "curve": "exponential",
+    "holders": 1100,
+    "image": "/assets/images/placeholder-meme.svg"
+  },
+  {
+    "id": "9",
+    "name": "TigerWifHat",
+    "supply": 700000000,
+    "mc": 16000,
+    "curve": "linear",
+    "holders": 850,
+    "image": "/assets/images/placeholder-meme.svg"
+  },
+  {
+    "id": "10",
+    "name": "BearWifHat",
+    "supply": 550000000,
+    "mc": 14000,
+    "curve": "exponential",
+    "holders": 750,
+    "image": "/assets/images/placeholder-meme.svg"
+  },
+  {
+    "id": "11",
+    "name": "WolfWifHat",
+    "supply": 650000000,
+    "mc": 19000,
+    "curve": "linear",
+    "holders": 950,
+    "image": "/assets/images/placeholder-meme.svg"
+  },
+  {
+    "id": "12",
+    "name": "FoxWifHat",
+    "supply": 450000000,
+    "mc": 11000,
+    "curve": "exponential",
+    "holders": 650,
+    "image": "/assets/images/placeholder-meme.svg"
+  },
+  {
+    "id": "13",
+    "name": "DeerWifHat",
+    "supply": 850000000,
+    "mc": 25000,
+    "curve": "linear",
+    "holders": 1200,
+    "image": "/assets/images/placeholder-meme.svg"
+  },
+  {
+    "id": "14",
+    "name": "HorseWifHat",
+    "supply": 950000000,
+    "mc": 28000,
+    "curve": "exponential",
+    "holders": 1300,
+    "image": "/assets/images/placeholder-meme.svg"
+  },
+  {
+    "id": "15",
+    "name": "CowWifHat",
+    "supply": 1200000000,
+    "mc": 35000,
+    "curve": "linear",
+    "holders": 1500,
+    "image": "/assets/images/placeholder-meme.svg"
+  },
+  {
+    "id": "16",
+    "name": "PigWifHat",
+    "supply": 1100000000,
+    "mc": 32000,
+    "curve": "exponential",
+    "holders": 1400,
+    "image": "/assets/images/placeholder-meme.svg"
+  },
+  {
+    "id": "17",
+    "name": "SheepWifHat",
+    "supply": 800000000,
+    "mc": 24000,
+    "curve": "linear",
+    "holders": 1100,
+    "image": "/assets/images/placeholder-meme.svg"
+  },
+  {
+    "id": "18",
+    "name": "GoatWifHat",
+    "supply": 700000000,
+    "mc": 20000,
+    "curve": "exponential",
+    "holders": 1000,
+    "image": "/assets/images/placeholder-meme.svg"
+  },
+  {
+    "id": "19",
+    "name": "ChickenWifHat",
+    "supply": 600000000,
+    "mc": 17000,
+    "curve": "linear",
+    "holders": 900,
+    "image": "/assets/images/placeholder-meme.svg"
+  },
+  {
+    "id": "20",
+    "name": "DuckWifHat",
+    "supply": 500000000,
+    "mc": 15000,
+    "curve": "exponential",
+    "holders": 800,
+    "image": "/assets/images/placeholder-meme.svg"
+  },
+  {
+    "id": "21",
+    "name": "OwlWifHat",
+    "supply": 400000000,
+    "mc": 13000,
+    "curve": "linear",
+    "holders": 700,
+    "image": "/assets/images/placeholder-meme.svg"
+  },
+  {
+    "id": "22",
+    "name": "EagleWifHat",
+    "supply": 300000000,
+    "mc": 9000,
+    "curve": "exponential",
+    "holders": 600,
+    "image": "/assets/images/placeholder-meme.svg"
+  },
+  {
+    "id": "23",
+    "name": "HawkWifHat",
+    "supply": 350000000,
+    "mc": 11000,
+    "curve": "linear",
+    "holders": 650,
+    "image": "/assets/images/placeholder-meme.svg"
+  },
+  {
+    "id": "24",
+    "name": "FalconWifHat",
+    "supply": 250000000,
+    "mc": 8000,
+    "curve": "exponential",
+    "holders": 550,
+    "image": "/assets/images/placeholder-meme.svg"
+  },
+  {
+    "id": "25",
+    "name": "PenguinWifHat",
+    "supply": 900000000,
+    "mc": 26000,
+    "curve": "linear",
+    "holders": 1250,
+    "image": "/assets/images/placeholder-meme.svg"
+  },
+  {
+    "id": "26",
+    "name": "SealWifHat",
+    "supply": 750000000,
+    "mc": 21000,
+    "curve": "exponential",
+    "holders": 1150,
+    "image": "/assets/images/placeholder-meme.svg"
+  },
+  {
+    "id": "27",
+    "name": "DolphinWifHat",
+    "supply": 850000000,
+    "mc": 24000,
+    "curve": "linear",
+    "holders": 1300,
+    "image": "/assets/images/placeholder-meme.svg"
+  },
+  {
+    "id": "28",
+    "name": "WhaleWifHat",
+    "supply": 1500000000,
+    "mc": 45000,
+    "curve": "exponential",
+    "holders": 1800,
+    "image": "/assets/images/placeholder-meme.svg"
+  },
+  {
+    "id": "29",
+    "name": "SharkWifHat",
+    "supply": 1200000000,
+    "mc": 38000,
+    "curve": "linear",
+    "holders": 1600,
+    "image": "/assets/images/placeholder-meme.svg"
+  },
+  {
+    "id": "30",
+    "name": "OctopusWifHat",
+    "supply": 1000000000,
+    "mc": 30000,
+    "curve": "exponential",
+    "holders": 1400,
+    "image": "/assets/images/placeholder-meme.svg"
+  },
+  {
+    "id": "31",
+    "name": "SquidWifHat",
+    "supply": 800000000,
+    "mc": 25000,
+    "curve": "linear",
+    "holders": 1200,
+    "image": "/assets/images/placeholder-meme.svg"
+  },
+  {
+    "id": "32",
+    "name": "CrabWifHat",
+    "supply": 600000000,
+    "mc": 18000,
+    "curve": "exponential",
+    "holders": 1000,
+    "image": "/assets/images/placeholder-meme.svg"
+  },
+  {
+    "id": "33",
+    "name": "LobsterWifHat",
+    "supply": 700000000,
+    "mc": 22000,
+    "curve": "linear",
+    "holders": 1100,
+    "image": "/assets/images/placeholder-meme.svg"
+  },
+  {
+    "id": "34",
+    "name": "SnakeWifHat",
+    "supply": 500000000,
+    "mc": 16000,
+    "curve": "exponential",
+    "holders": 900,
+    "image": "/assets/images/placeholder-meme.svg"
+  },
+  {
+    "id": "35",
+    "name": "LizardWifHat",
+    "supply": 400000000,
+    "mc": 12000,
+    "curve": "linear",
+    "holders": 750,
+    "image": "/assets/images/placeholder-meme.svg"
+  },
+  {
+    "id": "36",
+    "name": "TurtleWifHat",
+    "supply": 900000000,
+    "mc": 27000,
+    "curve": "exponential",
+    "holders": 1350,
+    "image": "/assets/images/placeholder-meme.svg"
+  },
+  {
+    "id": "37",
+    "name": "FrogWifHat",
+    "supply": 650000000,
+    "mc": 19000,
+    "curve": "linear",
+    "holders": 950,
+    "image": "/assets/images/placeholder-meme.svg"
+  },
+  {
+    "id": "38",
+    "name": "ToadWifHat",
+    "supply": 550000000,
+    "mc": 17000,
+    "curve": "exponential",
+    "holders": 850,
+    "image": "/assets/images/placeholder-meme.svg"
+  },
+  {
+    "id": "39",
+    "name": "SalamanderWifHat",
+    "supply": 450000000,
+    "mc": 14000,
+    "curve": "linear",
+    "holders": 700,
+    "image": "/assets/images/placeholder-meme.svg"
+  },
+  {
+    "id": "40",
+    "name": "NewtWifHat",
+    "supply": 350000000,
+    "mc": 11000,
+    "curve": "exponential",
+    "holders": 600,
+    "image": "/assets/images/placeholder-meme.svg"
+  },
+  {
+    "id": "41",
+    "name": "AxolotlWifHat",
+    "supply": 300000000,
+    "mc": 9000,
+    "curve": "linear",
+    "holders": 500,
+    "image": "/assets/images/placeholder-meme.svg"
+  },
+  {
+    "id": "42",
+    "name": "GeckoWifHat",
+    "supply": 400000000,
+    "mc": 13000,
+    "curve": "exponential",
+    "holders": 650,
+    "image": "/assets/images/placeholder-meme.svg"
+  },
+  {
+    "id": "43",
+    "name": "ChameleonWifHat",
+    "supply": 500000000,
+    "mc": 15000,
+    "curve": "linear",
+    "holders": 800,
+    "image": "/assets/images/placeholder-meme.svg"
+  },
+  {
+    "id": "44",
+    "name": "IguanaWifHat",
+    "supply": 600000000,
+    "mc": 18000,
+    "curve": "exponential",
+    "holders": 950,
+    "image": "/assets/images/placeholder-meme.svg"
+  },
+  {
+    "id": "45",
+    "name": "MonitorWifHat",
+    "supply": 700000000,
+    "mc": 21000,
+    "curve": "linear",
+    "holders": 1100,
+    "image": "/assets/images/placeholder-meme.svg"
+  },
+  {
+    "id": "46",
+    "name": "KomodoWifHat",
+    "supply": 800000000,
+    "mc": 24000,
+    "curve": "exponential",
+    "holders": 1250,
+    "image": "/assets/images/placeholder-meme.svg"
+  },
+  {
+    "id": "47",
+    "name": "BeardedWifHat",
+    "supply": 900000000,
+    "mc": 27000,
+    "curve": "linear",
+    "holders": 1350,
+    "image": "/assets/images/placeholder-meme.svg"
+  },
+  {
+    "id": "48",
+    "name": "AnoleWifHat",
+    "supply": 1000000000,
+    "mc": 30000,
+    "curve": "exponential",
+    "holders": 1450,
+    "image": "/assets/images/placeholder-meme.svg"
+  },
+  {
+    "id": "49",
+    "name": "SkinkWifHat",
+    "supply": 1100000000,
+    "mc": 33000,
+    "curve": "linear",
+    "holders": 1550,
+    "image": "/assets/images/placeholder-meme.svg"
+  },
+  {
+    "id": "50",
+    "name": "GilaWifHat",
+    "supply": 1200000000,
+    "mc": 36000,
+    "curve": "exponential",
+    "holders": 1650,
+    "image": "/assets/images/placeholder-meme.svg"
   }
 ]
