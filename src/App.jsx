@@ -1,6 +1,7 @@
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useLocation } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import Home from './pages/Home';
@@ -37,46 +38,54 @@ const PageTransition = ({ children }) => (
   </motion.div>
 );
 
-function App() {
+// Separate component that uses useLocation inside Router context
+const AppContent = () => {
   const location = useLocation();
+  
+  return (
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-pink-50 to-yellow-50">
+      <Navbar />
+      <AnimatePresence mode="wait">
+        <Routes location={location} key={location.pathname}>
+          <Route path="/" element={<PageTransition><Home /></PageTransition>} />
+          <Route path="/dashboard" element={<PageTransition><Dashboard /></PageTransition>} />
+          <Route path="/pad" element={<PageTransition><LaunchpadHome /></PageTransition>} />
+          <Route path="/pad/launch/degen" element={<PageTransition><DegenLaunch /></PageTransition>} />
+          <Route path="/pad/launch/custom" element={<PageTransition><CustomLaunch /></PageTransition>} />
+          <Route path="/pad/my-launches" element={<PageTransition><MyLaunches /></PageTransition>} />
+          <Route path="/pad/token/:id" element={<PageTransition><TokenDetails /></PageTransition>} />
+          <Route path="/trade" element={<PageTransition><TradeHome /></PageTransition>} />
+          <Route path="/trade/advanced" element={<PageTransition><AdvancedTrade /></PageTransition>} />
+          <Route path="/trade/p2p" element={<PageTransition><P2PEscrow /></PageTransition>} />
+          <Route path="/trade/leaderboards" element={<PageTransition><Leaderboards /></PageTransition>} />
+          <Route path="/trade/tracker" element={<PageTransition><WalletTracker /></PageTransition>} />
+          <Route path="/trade/copy" element={<PageTransition><CopyTrading /></PageTransition>} />
+          <Route path="/perps" element={<PageTransition><PerpsHome /></PageTransition>} />
+          <Route path="/perps/market/:id" element={<PageTransition><PerpMarket /></PageTransition>} />
+          <Route path="/perps/positions" element={<PageTransition><MyPositions /></PageTransition>} />
+          <Route path="/social/feed" element={<PageTransition><Feed /></PageTransition>} />
+          <Route path="/social/profile/:username" element={<PageTransition><Profile /></PageTransition>} />
+          <Route path="/social/chats" element={<PageTransition><Chats /></PageTransition>} />
+          <Route path="/social/chat/:id" element={<PageTransition><ChatRoom /></PageTransition>} />
+          <Route path="/social/communities" element={<PageTransition><Communities /></PageTransition>} />
+          <Route path="*" element={<PageTransition><NotFound /></PageTransition>} />
+        </Routes>
+      </AnimatePresence>
+      <Footer />
+      <div className="fixed top-20 right-10 w-16 h-16 opacity-20 pointer-events-none">
+        <img src="/assets/images/wif-hat.svg" alt="Floating Hat" className="w-full h-full animate-bounce" />
+      </div>
+      <div className="fixed bottom-20 left-10 w-12 h-12 opacity-20 pointer-events-none">
+        <img src="/assets/images/wif-logo.svg" alt="Floating Logo" className="w-full h-full animate-spin-slow" />
+      </div>
+    </div>
+  );
+};
+
+function App() {
   return (
     <Router>
-      <div className="min-h-screen bg-gradient-to-br from-blue-50 via-pink-50 to-yellow-50">
-        <Navbar />
-        <AnimatePresence mode="wait">
-          <Routes location={location} key={location.pathname}>
-            <Route path="/" element={<PageTransition><Home /></PageTransition>} />
-            <Route path="/dashboard" element={<PageTransition><Dashboard /></PageTransition>} />
-            <Route path="/pad" element={<PageTransition><LaunchpadHome /></PageTransition>} />
-            <Route path="/pad/launch/degen" element={<PageTransition><DegenLaunch /></PageTransition>} />
-            <Route path="/pad/launch/custom" element={<PageTransition><CustomLaunch /></PageTransition>} />
-            <Route path="/pad/my-launches" element={<PageTransition><MyLaunches /></PageTransition>} />
-            <Route path="/pad/token/:id" element={<PageTransition><TokenDetails /></PageTransition>} />
-            <Route path="/trade" element={<PageTransition><TradeHome /></PageTransition>} />
-            <Route path="/trade/advanced" element={<PageTransition><AdvancedTrade /></PageTransition>} />
-            <Route path="/trade/p2p" element={<PageTransition><P2PEscrow /></PageTransition>} />
-            <Route path="/trade/leaderboards" element={<PageTransition><Leaderboards /></PageTransition>} />
-            <Route path="/trade/tracker" element={<PageTransition><WalletTracker /></PageTransition>} />
-            <Route path="/trade/copy" element={<PageTransition><CopyTrading /></PageTransition>} />
-            <Route path="/perps" element={<PageTransition><PerpsHome /></PageTransition>} />
-            <Route path="/perps/market/:id" element={<PageTransition><PerpMarket /></PageTransition>} />
-            <Route path="/perps/positions" element={<PageTransition><MyPositions /></PageTransition>} />
-            <Route path="/social/feed" element={<PageTransition><Feed /></PageTransition>} />
-            <Route path="/social/profile/:username" element={<PageTransition><Profile /></PageTransition>} />
-            <Route path="/social/chats" element={<PageTransition><Chats /></PageTransition>} />
-            <Route path="/social/chat/:id" element={<PageTransition><ChatRoom /></PageTransition>} />
-            <Route path="/social/communities" element={<PageTransition><Communities /></PageTransition>} />
-            <Route path="*" element={<PageTransition><NotFound /></PageTransition>} />
-          </Routes>
-        </AnimatePresence>
-        <Footer />
-        <div className="fixed top-20 right-10 w-16 h-16 opacity-20 pointer-events-none">
-          <img src="/assets/images/wif-hat.svg" alt="Floating Hat" className="w-full h-full animate-bounce" />
-        </div>
-        <div className="fixed bottom-20 left-10 w-12 h-12 opacity-20 pointer-events-none">
-          <img src="/assets/images/wif-logo.svg" alt="Floating Logo" className="w-full h-full animate-spin-slow" />
-        </div>
-      </div>
+      <AppContent />
     </Router>
   );
 }
