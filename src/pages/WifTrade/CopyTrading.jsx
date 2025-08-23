@@ -116,7 +116,7 @@ const CopyTrading = () => {
           {[
             { label: 'Active Copiers', value: '2,847', icon: UserGroupIcon, color: 'from-blue-500 to-cyan-500' },
             { label: 'Total Copied', value: '$1.2M', icon: CurrencyDollarIcon, color: 'from-green-500 to-emerald-500' },
-            { label: 'Avg. Return', value: '+23.4%', icon: TrendingUpIcon, color: 'from-purple-500 to-pink-500' },
+            { label: 'Avg. Return', value: '+23.4%', icon: ArrowTrendingUpIcon, color: 'from-purple-500 to-pink-500' },
             { label: 'Top Trader', value: '+156%', icon: FireIcon, color: 'from-orange-500 to-red-500' }
           ].map((stat, index) => (
             <motion.div
