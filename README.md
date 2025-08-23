@@ -1,6 +1,6 @@
 # 🐶🎩 WIFPad - DogWifHat Ecosystem Demo
 
-![WIFPad Logo](https://i.ibb.co/20x9r5Gf/wifpad.png)
+![WIFPad Logo](https://i.ibb.co/8LkpDRtg/wif.png)
 
 [![GitHub Stars](https://img.shields.io/github/stars/GHX5T-SOL/wifpad?style=social)](https://github.com/GHX5T-SOL/wifpad)
 [![GitHub Forks](https://img.shields.io/github/forks/GHX5T-SOL/wifpad?style=social)](https://github.com/GHX5T-SOL/wifpad/fork)
