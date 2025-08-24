@@ -68,22 +68,7 @@ const Home = () => {
       {/* Animated Background */}
       <div className="animated-bg"></div>
       
-      {/* Floating Elements */}
-      <div className="fixed top-20 right-10 w-20 h-20 opacity-30 pointer-events-none">
-        <motion.div
-          animate={{ rotate: 360 }}
-          transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
-          className="w-full h-full bg-gradient-to-r from-purple-400 to-pink-400 rounded-full blur-xl"
-        />
-      </div>
-      
-      <div className="fixed bottom-20 left-10 w-16 h-16 opacity-20 pointer-events-none">
-        <motion.div
-          animate={{ y: [0, -20, 0] }}
-          transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
-          className="w-full h-full bg-gradient-to-r from-blue-400 to-cyan-400 rounded-full blur-lg"
-        />
-      </div>
+
 
       {/* Hero Section */}
       <section className="relative pt-20 pb-16 px-4">
@@ -94,56 +79,28 @@ const Home = () => {
             transition={{ duration: 0.8 }}
             className="mb-8 relative"
           >
-            {/* Floating WIF Hat */}
-            <motion.div
-              initial={{ opacity: 0, scale: 0.5, rotate: -10 }}
-              animate={{ opacity: 1, scale: 1, rotate: 0 }}
-              transition={{ duration: 1, delay: 0.3 }}
-              className="absolute -top-8 -left-8 md:-top-12 md:-left-12 w-16 h-16 md:w-20 md:h-20 opacity-80"
-            >
-              <img 
-                src="/assets/images/wif-hat.svg" 
-                alt="WIF Hat" 
-                className="w-full h-full drop-shadow-2xl"
-              />
-            </motion.div>
 
-            {/* Floating WIF Logo */}
-            <motion.div
-              initial={{ opacity: 0, scale: 0.5, rotate: 10 }}
-              animate={{ opacity: 1, scale: 1, rotate: 0 }}
-              transition={{ duration: 1, delay: 0.5 }}
-              className="absolute -top-6 -right-6 md:-top-10 md:-right-10 w-12 h-12 md:w-16 md:h-16 opacity-80"
-            >
-              <img 
-                src="/assets/images/wif-logo.svg" 
-                alt="WIF Logo" 
-                className="w-full h-full drop-shadow-2xl"
-              />
-            </motion.div>
 
             <h1 className="text-6xl md:text-8xl font-bold mb-6 relative z-10">
               <span className="gradient-text">WIF</span>
               <span className="text-white"> Ecosystem</span>
             </h1>
             
-            {/* Decorative Hat Elements */}
+            {/* Floating WIF Logo */}
             <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.7 }}
-              className="flex justify-center items-center gap-4 mb-4"
+              initial={{ opacity: 0, scale: 0.5, y: 20 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              transition={{ duration: 1, delay: 0.3 }}
+              className="flex justify-center mb-6"
             >
-              <div className="w-8 h-8 md:w-10 md:h-10 opacity-60">
-                <img src="/assets/images/wif-hat.svg" alt="Hat" className="w-full h-full" />
-              </div>
-              <div className="w-6 h-6 md:w-8 md:h-8 opacity-40">
-                <img src="/assets/images/wif-hat.svg" alt="Hat" className="w-full h-full" />
-              </div>
-              <div className="w-4 h-4 md:w-6 md:h-6 opacity-30">
-                <img src="/assets/images/wif-hat.svg" alt="Hat" className="w-full h-full" />
-              </div>
+              <img 
+                src="/assets/images/wif-logo.svg" 
+                alt="WIF Logo" 
+                className="w-20 h-20 md:w-24 md:h-24 opacity-80 drop-shadow-2xl"
+              />
             </motion.div>
+            
+
 
             <p className="text-xl md:text-2xl text-gray-300 max-w-3xl mx-auto leading-relaxed">
               The ultimate memecoin launchpad and trading ecosystem. Launch, trade, and earn with 
@@ -272,26 +229,7 @@ const Home = () => {
             viewport={{ once: true }}
             className="text-center mb-16 relative"
           >
-            {/* Floating Hat Elements */}
-            <motion.div
-              initial={{ opacity: 0, scale: 0.8 }}
-              whileInView={{ opacity: 0.7, scale: 1 }}
-              transition={{ duration: 1, delay: 0.3 }}
-              viewport={{ once: true }}
-              className="absolute -top-6 -left-8 w-10 h-10 opacity-50"
-            >
-              <img src="/assets/images/wif-hat.svg" alt="Hat" className="w-full h-full" />
-            </motion.div>
-            
-            <motion.div
-              initial={{ opacity: 0, scale: 0.8 }}
-              whileInView={{ opacity: 0.6, scale: 1 }}
-              transition={{ duration: 1, delay: 0.5 }}
-              viewport={{ once: true }}
-              className="absolute -top-4 -right-6 w-8 h-8 opacity-40"
-            >
-              <img src="/assets/images/wif-hat.svg" alt="Hat" className="w-full h-full" />
-            </motion.div>
+
 
             <h2 className="text-4xl md:text-5xl font-bold mb-6">
               <span className="gradient-text">Hot</span> Recent Launches

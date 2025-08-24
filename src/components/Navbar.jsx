@@ -174,7 +174,7 @@ const Navbar = () => {
             </button>
 
             {/* Wallet Button */}
-            <WalletMultiButton className="btn-primary flex items-center space-x-2" />
+            <WalletMultiButton className="btn-primary flex items-center space-x-2 min-w-0 overflow-hidden" />
 
             {/* Mobile Menu Button */}
             <button
