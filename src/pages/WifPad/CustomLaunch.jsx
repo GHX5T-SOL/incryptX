@@ -24,6 +24,8 @@ const CustomLaunch = () => {
     tokenName: '',
     tokenSymbol: '',
     description: '',
+    logoFile: null,
+    logoPreview: null,
     totalSupply: '',
     initialPrice: '',
     bondingCurve: 'linear',
@@ -39,7 +41,18 @@ const CustomLaunch = () => {
     presalePrice: '',
     presaleAmount: '',
     presaleStart: '',
-    presaleEnd: ''
+    presaleEnd: '',
+    // New fields for advanced features
+    quoteAsset: 'SOL',
+    startingMC: '',
+    teamSupply: 0,
+    marketingSupply: 0,
+    developmentSupply: 0,
+    airdropSupply: 0,
+    vrfRandomStart: false,
+    antiVampMode: false,
+    transactionTax: 0,
+    migrationDex: 'WIF Swap'
   });
 
   const bondingCurves = [
@@ -71,7 +84,7 @@ const CustomLaunch = () => {
   };
 
   const nextStep = () => {
-    if (currentStep < 4) {
+    if (currentStep < 5) {
       setCurrentStep(currentStep + 1);
     }
   };
@@ -98,8 +111,10 @@ const CustomLaunch = () => {
     const curveCost = formData.bondingCurve === 'custom' ? 0.05 : 0;
     const vestingCost = formData.vestingSchedule !== 'none' ? 0.03 : 0;
     const antiBotCost = formData.antiBot ? 0.02 : 0;
+    const vrfCost = formData.vrfRandomStart ? 0.1 : 0;
+    const antiVampCost = formData.antiVampMode ? 0.1 : 0;
     
-    return (baseCost + supplyCost + curveCost + vestingCost + antiBotCost).toFixed(4);
+    return (baseCost + supplyCost + curveCost + vestingCost + antiBotCost + vrfCost + antiVampCost).toFixed(4);
   };
 
   const getStepStatus = (step) => {
@@ -143,8 +158,9 @@ const CustomLaunch = () => {
             {[
               { step: 1, name: 'Token Basics', description: 'Name, symbol, supply' },
               { step: 2, name: 'Launch Settings', description: 'Price, curve, type' },
-              { step: 3, name: 'Advanced Features', description: 'Vesting, anti-bot' },
-              { step: 4, name: 'Review & Deploy', description: 'Finalize launch' }
+              { step: 3, name: 'Team Allocation', description: 'Supply distribution' },
+              { step: 4, name: 'Advanced Features', description: 'Vesting, anti-bot' },
+              { step: 5, name: 'Review & Deploy', description: 'Finalize launch' }
             ].map((stepInfo) => {
               const status = getStepStatus(stepInfo.step);
               const Icon = getStepIcon(stepInfo.step, status);
@@ -230,6 +246,58 @@ const CustomLaunch = () => {
                         rows={4}
                         className="input-modern w-full"
                       />
+                    </div>
+
+                    <div>
+                      <label className="block text-sm font-medium text-gray-300 mb-2">Logo Upload</label>
+                      <div className="flex items-center space-x-4">
+                        <div className="relative">
+                          <input
+                            type="file"
+                            accept="image/*"
+                            onChange={(e) => {
+                              const file = e.target.files[0];
+                              if (file) {
+                                handleInputChange('logoFile', file);
+                                const reader = new FileReader();
+                                reader.onload = (e) => handleInputChange('logoPreview', e.target.result);
+                                reader.readAsDataURL(file);
+                              }
+                            }}
+                            className="hidden"
+                            id="logo-upload"
+                          />
+                          <label
+                            htmlFor="logo-upload"
+                            className="flex items-center justify-center w-24 h-24 border-2 border-dashed border-gray-600 rounded-xl cursor-pointer hover:border-purple-500 transition-colors"
+                          >
+                            {formData.logoPreview ? (
+                              <img
+                                src={formData.logoPreview}
+                                alt="Logo preview"
+                                className="w-full h-full object-cover rounded-lg"
+                              />
+                            ) : (
+                              <div className="text-center">
+                                <div className="w-8 h-8 mx-auto mb-1 text-gray-400">
+                                  <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
+                                  </svg>
+                                </div>
+                                <span className="text-xs text-gray-400">Upload</span>
+                              </div>
+                            )}
+                          </label>
+                        </div>
+                        <div className="flex-1">
+                          <p className="text-sm text-gray-400">
+                            Upload a logo for your token (PNG, JPG, SVG)
+                          </p>
+                          <p className="text-xs text-gray-500 mt-1">
+                            Recommended: 512x512px, transparent background
+                          </p>
+                        </div>
+                      </div>
                     </div>
 
                     <div>
@@ -348,9 +416,202 @@ const CustomLaunch = () => {
                   transition={{ duration: 0.5 }}
                   className="glass-card p-8"
                 >
+                  <h2 className="text-3xl font-bold text-white mb-6">Team Supply Allocation</h2>
+                  
+                  <div className="space-y-6">
+                    {/* Starting Market Cap */}
+                    <div>
+                      <label className="block text-sm font-medium text-gray-300 mb-2">Starting Market Cap (USD)</label>
+                      <input
+                        type="number"
+                        value={formData.startingMC}
+                        onChange={(e) => handleInputChange('startingMC', e.target.value)}
+                        placeholder="e.g., 50000"
+                        className="input-modern w-full"
+                      />
+                      <p className="text-sm text-gray-400 mt-1">Set your starting market cap in USD</p>
+                    </div>
+
+                    {/* Quote Asset Selection */}
+                    <div>
+                      <label className="block text-sm font-medium text-gray-300 mb-2">Quote Asset</label>
+                      <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+                        {['SOL', 'USDC', 'Custom'].map((asset) => (
+                          <button
+                            key={asset}
+                            onClick={() => handleInputChange('quoteAsset', asset)}
+                            className={`p-4 rounded-lg text-left transition-all duration-200 ${
+                              formData.quoteAsset === asset
+                                ? 'bg-gradient-to-r from-purple-500 to-pink-500 text-white'
+                                : 'bg-white/10 text-gray-300 hover:bg-white/20'
+                            }`}
+                          >
+                            <div className="font-semibold">{asset}</div>
+                            <div className="text-sm opacity-80">
+                              {asset === 'Custom' ? 'Enter custom token address' : asset}
+                            </div>
+                          </button>
+                        ))}
+                      </div>
+                      {formData.quoteAsset === 'Custom' && (
+                        <input
+                          type="text"
+                          placeholder="Enter token contract address"
+                          className="input-modern w-full mt-3"
+                        />
+                      )}
+                    </div>
+
+                    {/* Team Supply Distribution */}
+                    <div>
+                      <label className="block text-sm font-medium text-gray-300 mb-2">Team Supply Distribution (%)</label>
+                      <div className="space-y-4">
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                          <div>
+                            <label className="block text-sm text-gray-400 mb-1">Marketing</label>
+                            <input
+                              type="number"
+                              value={formData.marketingSupply}
+                              onChange={(e) => handleInputChange('marketingSupply', parseFloat(e.target.value))}
+                              min="0"
+                              max="100"
+                              className="input-modern w-full"
+                              placeholder="0"
+                            />
+                          </div>
+                          <div>
+                            <label className="block text-sm text-gray-400 mb-1">Development</label>
+                            <input
+                              type="number"
+                              value={formData.developmentSupply}
+                              onChange={(e) => handleInputChange('developmentSupply', parseFloat(e.target.value))}
+                              min="0"
+                              max="100"
+                              className="input-modern w-full"
+                              placeholder="0"
+                            />
+                          </div>
+                        </div>
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                          <div>
+                            <label className="block text-sm text-gray-400 mb-1">Team</label>
+                            <input
+                              type="number"
+                              value={formData.teamSupply}
+                              onChange={(e) => handleInputChange('teamSupply', parseFloat(e.target.value))}
+                              min="0"
+                              max="100"
+                              className="input-modern w-full"
+                              placeholder="0"
+                            />
+                          </div>
+                          <div>
+                            <label className="block text-sm text-gray-400 mb-1">Airdrops</label>
+                            <input
+                              type="number"
+                              value={formData.airdropSupply}
+                              onChange={(e) => handleInputChange('airdropSupply', parseFloat(e.target.value))}
+                              min="0"
+                              max="100"
+                              className="input-modern w-full"
+                              placeholder="0"
+                            />
+                          </div>
+                        </div>
+                        <div className="bg-white/5 rounded-lg p-4">
+                          <div className="text-sm text-gray-400 mb-2">Total Allocated: {formData.marketingSupply + formData.developmentSupply + formData.teamSupply + formData.airdropSupply}%</div>
+                          <div className="text-sm text-gray-400">Remaining: {100 - (formData.marketingSupply + formData.developmentSupply + formData.teamSupply + formData.airdropSupply)}%</div>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Transaction Tax */}
+                    <div>
+                      <label className="block text-sm font-medium text-gray-300 mb-2">Transaction Tax (%)</label>
+                      <input
+                        type="number"
+                        value={formData.transactionTax}
+                        onChange={(e) => handleInputChange('transactionTax', parseFloat(e.target.value))}
+                        min="0"
+                        max="10"
+                        step="0.1"
+                        className="input-modern w-full"
+                        placeholder="0"
+                      />
+                      <p className="text-sm text-gray-400 mt-1">Set transaction tax (0-10%)</p>
+                    </div>
+
+                    {/* Migration DEX Selection */}
+                    <div>
+                      <label className="block text-sm font-medium text-gray-300 mb-2">Migration DEX</label>
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                        {['WIF Swap', 'Raydium', 'Meteora', 'PumpSwap', 'PancakeSwap', 'FluxBeam'].map((dex) => (
+                          <button
+                            key={dex}
+                            onClick={() => handleInputChange('migrationDex', dex)}
+                            className={`p-4 rounded-lg text-left transition-all duration-200 ${
+                              formData.migrationDex === dex
+                                ? 'bg-gradient-to-r from-purple-500 to-pink-500 text-white'
+                                : 'bg-white/10 text-gray-300 hover:bg-white/20'
+                            }`}
+                          >
+                            <div className="font-semibold">{dex}</div>
+                          </button>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+                </motion.div>
+              )}
+
+              {currentStep === 4 && (
+                <motion.div
+                  key="step4"
+                  initial={{ opacity: 0, x: 20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  exit={{ opacity: 0, x: -20 }}
+                  transition={{ duration: 0.5 }}
+                  className="glass-card p-8"
+                >
                   <h2 className="text-3xl font-bold text-white mb-6">Advanced Features</h2>
                   
                   <div className="space-y-6">
+                    {/* VRF Random Start */}
+                    <div className="flex items-center justify-between p-4 bg-white/5 rounded-lg">
+                      <div>
+                        <div className="font-medium text-white">VRF Random Start</div>
+                        <div className="text-sm text-gray-400">Random start time to avoid snipers (0.1 SOL)</div>
+                      </div>
+                      <button
+                        onClick={() => handleInputChange('vrfRandomStart', !formData.vrfRandomStart)}
+                        className={`w-12 h-6 rounded-full transition-colors ${
+                          formData.vrfRandomStart ? 'bg-green-500' : 'bg-gray-600'
+                        }`}
+                      >
+                        <div className={`w-4 h-4 bg-white rounded-full transition-transform ${
+                          formData.vrfRandomStart ? 'translate-x-6' : 'translate-x-1'
+                        }`} />
+                      </button>
+                    </div>
+
+                    {/* Anti-Vamp Mode */}
+                    <div className="flex items-center justify-between p-4 bg-white/5 rounded-lg">
+                      <div>
+                        <div className="font-medium text-white">Anti-Vamp Mode</div>
+                        <div className="text-sm text-gray-400">AI detection to block 80% similar tokens for 24h (0.1 SOL)</div>
+                      </div>
+                      <button
+                        onClick={() => handleInputChange('antiVampMode', !formData.antiVampMode)}
+                        className={`w-12 h-6 rounded-full transition-colors ${
+                          formData.antiVampMode ? 'bg-green-500' : 'bg-gray-600'
+                        }`}
+                      >
+                        <div className={`w-4 h-4 bg-white rounded-full transition-transform ${
+                          formData.antiVampMode ? 'translate-x-6' : 'translate-x-1'
+                        }`} />
+                      </button>
+                    </div>
+
                     <div>
                       <label className="block text-sm font-medium text-gray-300 mb-2">Vesting Schedule</label>
                       <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
@@ -382,7 +643,7 @@ const CustomLaunch = () => {
                           formData.antiBot ? 'bg-green-500' : 'bg-gray-600'
                         }`}
                       >
-                        <div className={`w-4 h-4 bg-white rounded-full transition-transform ${
+                        <div className={`w-4 h-6 rounded-full transition-transform ${
                           formData.antiBot ? 'translate-x-6' : 'translate-x-1'
                         }`} />
                       </button>
@@ -405,7 +666,7 @@ const CustomLaunch = () => {
                           type="number"
                           value={formData.maxWallet}
                           onChange={(e) => handleInputChange('maxWallet', e.target.value)}
-                          placeholder="e.g., 10"
+                          placeholder="e.g., 5"
                           className="input-modern w-full"
                         />
                       </div>
@@ -458,8 +719,12 @@ const CustomLaunch = () => {
                             <span className="text-white">{formData.totalSupply}</span>
                           </div>
                           <div className="flex justify-between">
-                            <span className="text-gray-400">Initial Price:</span>
-                            <span className="text-white">{formData.initialPrice} SOL</span>
+                            <span className="text-gray-400">Starting MC:</span>
+                            <span className="text-white">${formData.startingMC}</span>
+                          </div>
+                          <div className="flex justify-between">
+                            <span className="text-gray-400">Quote Asset:</span>
+                            <span className="text-white">{formData.quoteAsset}</span>
                           </div>
                         </div>
                       </div>
@@ -483,6 +748,47 @@ const CustomLaunch = () => {
                             <span className="text-gray-400">Anti-Bot:</span>
                             <span className="text-white">{formData.antiBot ? 'Yes' : 'No'}</span>
                           </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Team Allocation Summary */}
+                    <div className="space-y-4">
+                      <h3 className="text-lg font-semibold text-white">Team Supply Allocation</h3>
+                      <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm">
+                        <div className="flex justify-between">
+                          <span className="text-gray-400">Marketing:</span>
+                          <span className="text-white">{formData.marketingSupply}%</span>
+                        </div>
+                        <div className="flex justify-between">
+                          <span className="text-gray-400">Development:</span>
+                          <span className="text-white">{formData.developmentSupply}%</span>
+                        </div>
+                        <div className="flex justify-between">
+                          <span className="text-gray-400">Team:</span>
+                          <span className="text-white">{formData.teamSupply}%</span>
+                        </div>
+                        <div className="flex justify-between">
+                          <span className="text-gray-400">Airdrops:</span>
+                          <span className="text-white">{formData.airdropSupply}%</span>
+                        </div>
+                      </div>
+                      <div className="bg-white/5 rounded-lg p-3 text-sm">
+                        <div className="flex justify-between">
+                          <span className="text-gray-400">Transaction Tax:</span>
+                          <span className="text-white">{formData.transactionTax}%</span>
+                        </div>
+                        <div className="flex justify-between">
+                          <span className="text-gray-400">Migration DEX:</span>
+                          <span className="text-white">{formData.migrationDex}</span>
+                        </div>
+                        <div className="flex justify-between">
+                          <span className="text-gray-400">VRF Random Start:</span>
+                          <span className="text-white">{formData.vrfRandomStart ? 'Yes' : 'No'}</span>
+                        </div>
+                        <div className="flex justify-between">
+                          <span className="text-gray-400">Anti-Vamp Mode:</span>
+                          <span className="text-white">{formData.antiVampMode ? 'Yes' : 'No'}</span>
                         </div>
                       </div>
                     </div>
@@ -522,7 +828,7 @@ const CustomLaunch = () => {
                 Previous
               </button>
               
-              {currentStep < 4 ? (
+              {currentStep < 5 ? (
                 <button
                   onClick={nextStep}
                   className="btn-primary px-6 py-3"
@@ -581,6 +887,14 @@ const CustomLaunch = () => {
                 <div className="flex justify-between">
                   <span className="text-gray-400">Anti-Bot Cost:</span>
                   <span className="text-white">{formData.antiBot ? '0.02 SOL' : '0 SOL'}</span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-gray-400">VRF Random Start:</span>
+                  <span className="text-white">{formData.vrfRandomStart ? '0.1 SOL' : '0 SOL'}</span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-gray-400">Anti-Vamp Mode:</span>
+                  <span className="text-white">{formData.antiVampMode ? '0.1 SOL' : '0 SOL'}</span>
                 </div>
                 <div className="border-t border-white/10 pt-2">
                   <div className="flex justify-between font-semibold">

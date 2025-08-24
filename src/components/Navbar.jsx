@@ -29,6 +29,7 @@ const Navbar = () => {
       path: '/pad',
       submenu: [
         { name: 'Launchpad', path: '/pad', icon: FireIcon },
+        { name: 'Quick Launch', path: '/pad/quick-launch', icon: FireIcon },
         { name: 'Degen Launch', path: '/pad/launch/degen', icon: FireIcon },
         { name: 'Custom Launch', path: '/pad/launch/custom', icon: FireIcon },
         { name: 'My Launches', path: '/pad/my-launches', icon: FireIcon }

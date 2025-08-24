@@ -159,14 +159,31 @@ const DegenLaunch = () => {
               ))}
             </div>
 
-            <div className="text-center">
-              <button
-                onClick={generateAISuggestions}
-                className="btn-primary px-8 py-3 text-lg flex items-center gap-2 mx-auto"
-              >
-                <LightBulbIcon className="w-6 h-6" />
-                Generate AI Suggestions
-              </button>
+            {/* Input Section */}
+            <div className="mb-8 p-6 bg-white/5 rounded-xl border border-white/10">
+              <h3 className="text-lg font-semibold text-white mb-4 text-center">Customize Your Request</h3>
+              <div className="space-y-4">
+                <div>
+                  <label className="block text-sm font-medium text-gray-300 mb-2">Enter a prompt or link to an X post</label>
+                  <textarea
+                    placeholder="Describe your memecoin idea, or paste a link to an X post to generate a memecoin based on it..."
+                    rows={3}
+                    className="input-modern w-full"
+                  />
+                </div>
+                <div className="text-center">
+                  <p className="text-sm text-gray-400 mb-3">
+                    💡 Enter a prompt or a link to an X post to generate a memecoin
+                  </p>
+                  <button
+                    onClick={generateAISuggestions}
+                    className="btn-primary px-8 py-3 text-lg flex items-center gap-2 mx-auto"
+                  >
+                    <LightBulbIcon className="w-6 h-6" />
+                    Generate AI Suggestions
+                  </button>
+                </div>
+              </div>
             </div>
           </motion.div>
         )}

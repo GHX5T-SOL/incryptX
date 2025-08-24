@@ -8,6 +8,7 @@ import Footer from './components/Footer';
 import Home from './pages/Home';
 import Dashboard from './pages/Dashboard';
 import LaunchpadHome from './pages/WifPad/LaunchpadHome';
+import QuickLaunch from './pages/WifPad/QuickLaunch';
 import DegenLaunch from './pages/WifPad/DegenLaunch';
 import CustomLaunch from './pages/WifPad/CustomLaunch';
 import MyLaunches from './pages/WifPad/MyLaunches';
@@ -57,6 +58,7 @@ const AppContent = () => {
           
           {/* WIF Pad Routes */}
           <Route path="/pad" element={<PageTransition><LaunchpadHome /></PageTransition>} />
+          <Route path="/pad/quick-launch" element={<PageTransition><QuickLaunch /></PageTransition>} />
           <Route path="/pad/launch/degen" element={<PageTransition><DegenLaunch /></PageTransition>} />
           <Route path="/pad/launch/custom" element={<PageTransition><CustomLaunch /></PageTransition>} />
           <Route path="/pad/my-launches" element={<PageTransition><MyLaunches /></PageTransition>} />
