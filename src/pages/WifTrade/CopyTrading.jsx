@@ -238,7 +238,7 @@ const CopyTrading = () => {
                   onClick={() => handleCopyTrader(trader)}
                   className="flex-1 btn-primary py-2 text-sm"
                 >
-                  <CopyIcon className="w-4 h-4 mr-1" />
+                  <DocumentDuplicateIcon className="w-4 h-4 mr-1" />
                   Copy Trader
                 </button>
                 <button className="px-3 py-2 bg-white/10 text-gray-300 hover:bg-white/20 rounded-lg transition-colors">
