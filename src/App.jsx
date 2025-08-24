@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useLocation } from 'react-router-dom';
 import WalletProvider from './components/WalletProvider';
+import { ThemeProvider } from './contexts/ThemeContext';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import Home from './pages/Home';
@@ -49,7 +50,7 @@ const AppContent = () => {
   const location = useLocation();
   
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-pink-50 to-yellow-50">
+    <div className="min-h-screen">
       <Navbar />
       <AnimatePresence mode="wait">
         <Routes location={location} key={location.pathname}>
@@ -108,11 +109,13 @@ const AppContent = () => {
 
 function App() {
   return (
-    <WalletProvider>
-      <Router>
-        <AppContent />
-      </Router>
-    </WalletProvider>
+    <ThemeProvider>
+      <WalletProvider>
+        <Router>
+          <AppContent />
+        </Router>
+      </WalletProvider>
+    </ThemeProvider>
   );
 }
 
