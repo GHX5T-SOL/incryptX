@@ -17,6 +17,7 @@ import {
   StarIcon
 } from '@heroicons/react/24/outline';
 import useMockData from '../../hooks/useMockData';
+import Chart from '../../components/Chart';
 
 const AdvancedTrade = () => {
   const tokens = useMockData('mock-tokens.json');
@@ -31,12 +32,40 @@ const AdvancedTrade = () => {
   const [timeInForce, setTimeInForce] = useState('GTC');
   const [stopLoss, setStopLoss] = useState('');
   const [takeProfit, setTakeProfit] = useState('');
+  const [timeframe, setTimeframe] = useState('1h');
+  const [searchQuery, setSearchQuery] = useState('');
+  const [showSearch, setShowSearch] = useState(false);
 
   useEffect(() => {
     if (tokens.length > 0) {
       setSelectedToken(tokens[0]);
     }
   }, [tokens]);
+
+  const filteredTokens = (tokens || []).filter((t) =>
+    t.name.toLowerCase().includes((searchQuery || '').toLowerCase())
+  );
+
+  // Simple seeded random for deterministic mock chart data per token + timeframe
+  const generateChartData = () => {
+    const pointsByTf = { '1m': 60, '5m': 60, '1h': 72, '1d': 60 };
+    const steps = pointsByTf[timeframe] || 60;
+    const seedBase = parseInt(selectedToken?.id || '1', 10) * timeframe.length;
+    let seed = seedBase;
+    const rand = () => {
+      seed ^= seed << 13; seed ^= seed >> 17; seed ^= seed << 5; // xorshift
+      return Math.abs(seed % 1000) / 1000;
+    };
+    const start = 0.02 + (seedBase % 10) * 0.0005; // base price near screenshots
+    const data = [];
+    let priceVal = start;
+    for (let i = 0; i < steps; i += 1) {
+      const drift = (rand() - 0.5) * 0.0008;
+      priceVal = Math.max(0.0001, priceVal + drift);
+      data.push({ time: `${i}`, price: parseFloat(priceVal.toFixed(4)) });
+    }
+    return data;
+  };
 
   const orderBookData = [
     { price: 0.0234, amount: 15000, total: 351, side: 'sell' },
@@ -89,6 +118,27 @@ const AdvancedTrade = () => {
     return side === 'buy' ? 'bg-green-500/20' : 'bg-red-500/20';
   };
 
+  const midPrice = recentTrades[0]?.price || 0.0230;
+  const sells = orderBookData
+    .filter((o) => o.side === 'sell')
+    .sort((a, b) => b.price - a.price);
+  const buys = orderBookData
+    .filter((o) => o.side === 'buy')
+    .sort((a, b) => b.price - a.price);
+
+  const withDepth = (levels) => {
+    let cumulative = 0;
+    const enriched = levels.map((l) => {
+      cumulative += l.amount;
+      return { ...l, cumulative };
+    });
+    const maxCumulative = Math.max(...enriched.map((l) => l.cumulative));
+    return { enriched, maxCumulative };
+  };
+
+  const { enriched: sellLevels, maxCumulative: maxSell } = withDepth(sells);
+  const { enriched: buyLevels, maxCumulative: maxBuy } = withDepth(buys);
+
   if (!selectedToken) {
     return (
       <div className="min-h-screen pt-20 px-4 flex items-center justify-center">
@@ -116,14 +166,14 @@ const AdvancedTrade = () => {
           <p className="text-xl text-gray-300">Professional trading interface with advanced order types</p>
         </motion.div>
 
-        {/* Token Selection */}
+        {/* Token Selection + Search */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.2 }}
           className="glass-card p-6 mb-8"
         >
-          <div className="flex items-center justify-between">
+          <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
             <div className="flex items-center gap-4">
               <img 
                 src={selectedToken.image} 
@@ -138,10 +188,57 @@ const AdvancedTrade = () => {
                 <p className="text-gray-400">Market Cap: ${formatNumber(selectedToken.mc)}</p>
               </div>
             </div>
-            <div className="text-right">
+            <div className="flex-1 md:max-w-md relative">
+              <input
+                value={searchQuery}
+                onChange={(e) => { setSearchQuery(e.target.value); setShowSearch(true); }}
+                onFocus={() => setShowSearch(true)}
+                placeholder="Search tokens…"
+                className="input-modern w-full pl-4 pr-10 py-3"
+              />
+              <div className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400">
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 21l-4.35-4.35m0 0A7.5 7.5 0 1010.5 18.5a7.5 7.5 0 006.15-3.85z" /></svg>
+              </div>
+              {showSearch && searchQuery && (
+                <div className="absolute z-20 mt-2 w-full max-h-72 overflow-auto rounded-lg bg-neutral-900/95 border border-white/10 shadow-xl">
+                  {filteredTokens.length === 0 && (
+                    <div className="px-4 py-3 text-gray-400 text-sm">No results</div>
+                  )}
+                  {filteredTokens.map((t) => (
+                    <button
+                      key={t.id}
+                      onClick={() => { setSelectedToken(t); setSearchQuery(''); setShowSearch(false); }}
+                      className="w-full px-4 py-3 flex items-center gap-3 hover:bg-white/5 text-left"
+                    >
+                      <img src={t.image} alt={t.name} className="w-6 h-6 rounded-full" onError={(e) => { e.target.src = '/assets/images/placeholder-meme.svg'; }} />
+                      <div className="flex-1">
+                        <div className="text-white text-sm font-semibold">{t.name}</div>
+                        <div className="text-xs text-gray-400">MC ${formatNumber(t.mc)} · Holders {formatNumber(t.holders)}</div>
+                      </div>
+                    </button>
+                  ))}
+                </div>
+              )}
+            </div>
+            <div className="text-left md:text-right">
               <div className="text-3xl font-bold text-white">$0.0230</div>
               <div className="text-green-400">+2.45%</div>
             </div>
+          </div>
+
+          {/* Stats strip */}
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mt-6">
+            {[
+              { label: 'Supply', value: formatNumber(selectedToken.supply || 0) },
+              { label: 'Holders', value: formatNumber(selectedToken.holders || 0) },
+              { label: 'Liquidity', value: `$${formatNumber((selectedToken.mc || 0) * 0.3)}` },
+              { label: '24h Volume', value: `$${formatNumber((selectedToken.mc || 0) * 0.12)}` }
+            ].map((s, idx) => (
+              <div key={idx} className="rounded-lg bg-white/5 px-4 py-3">
+                <div className="text-xs text-gray-400">{s.label}</div>
+                <div className="text-sm text-white font-semibold">{s.value}</div>
+              </div>
+            ))}
           </div>
         </motion.div>
 
@@ -305,6 +402,27 @@ const AdvancedTrade = () => {
               transition={{ duration: 0.8, delay: 0.6 }}
               className="glass-card p-6"
             >
+              {/* Chart + Timeframes */}
+              <div className="mb-6">
+                <div className="flex items-center justify-between mb-3">
+                  <div className="text-white font-semibold">{selectedToken.name} • USD</div>
+                  <div className="flex gap-2">
+                    {['1m','5m','1h','1d'].map((tf) => (
+                      <button
+                        key={tf}
+                        onClick={() => setTimeframe(tf)}
+                        className={`px-3 py-1 rounded-md text-sm ${timeframe === tf ? 'bg-purple-500 text-white' : 'bg-white/10 text-gray-300 hover:bg-white/20'}`}
+                      >
+                        {tf}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+                <div className="rounded-lg overflow-hidden bg-black/20">
+                  <Chart data={generateChartData()} />
+                </div>
+              </div>
+
               {/* Tabs */}
               <div className="flex gap-2 mb-6">
                 {[
@@ -327,30 +445,67 @@ const AdvancedTrade = () => {
                 ))}
               </div>
 
-              {/* Order Book */}
+              {/* Order Book - Split buy/sell with depth bars */}
               {activeTab === 'orderbook' && (
-                <div className="space-y-2">
-                  <div className="grid grid-cols-3 gap-4 text-sm text-gray-400 font-medium mb-3">
-                    <div>Price (USD)</div>
-                    <div>Amount</div>
-                    <div>Total</div>
-                  </div>
-                  {orderBookData.map((order, index) => (
-                    <div
-                      key={index}
-                      className={`grid grid-cols-3 gap-4 p-2 rounded-lg cursor-pointer hover:bg-white/5 transition-colors ${
-                        order.side === 'buy' ? 'hover:bg-green-500/10' : 'hover:bg-red-500/10'
-                      }`}
-                      onClick={() => {
-                        setPrice(order.price.toString());
-                        setSide(order.side === 'buy' ? 'buy' : 'sell');
-                      }}
-                    >
-                      <div className={getSideColor(order.side)}>${order.price.toFixed(4)}</div>
-                      <div className="text-white">{formatNumber(order.amount)}</div>
-                      <div className="text-white">${order.total.toFixed(2)}</div>
+                <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
+                  {/* Sells */}
+                  <div>
+                    <div className="flex justify-between text-xs text-gray-400 mb-2">
+                      <span>Price</span>
+                      <span>Amount</span>
                     </div>
-                  ))}
+                    <div className="space-y-1">
+                      {sellLevels.map((lvl, i) => (
+                        <button
+                          key={`s-${i}`}
+                          onClick={() => { setPrice(lvl.price.toString()); setSide('sell'); }}
+                          className="relative w-full px-2 py-1 rounded text-left overflow-hidden hover:bg-white/5"
+                        >
+                          <div
+                            className="absolute right-0 top-0 h-full bg-red-500/20"
+                            style={{ width: `${(lvl.cumulative / maxSell) * 100}%` }}
+                          />
+                          <div className="relative flex justify-between text-sm">
+                            <span className="text-red-400">${lvl.price.toFixed(4)}</span>
+                            <span className="text-white">{formatNumber(lvl.amount)}</span>
+                          </div>
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* Mid price + spread */}
+                  <div className="hidden lg:flex flex-col items-center justify-center">
+                    <div className="text-gray-400 text-xs">Last Price</div>
+                    <div className="text-white text-lg font-semibold">${midPrice.toFixed(4)}</div>
+                    <div className="text-gray-400 text-xs mt-1">Spread ~ {((sells[0]?.price || midPrice) - (buys[0]?.price || midPrice)).toFixed(4)}</div>
+                  </div>
+
+                  {/* Buys */}
+                  <div>
+                    <div className="flex justify-between text-xs text-gray-400 mb-2">
+                      <span>Amount</span>
+                      <span>Price</span>
+                    </div>
+                    <div className="space-y-1">
+                      {buyLevels.map((lvl, i) => (
+                        <button
+                          key={`b-${i}`}
+                          onClick={() => { setPrice(lvl.price.toString()); setSide('buy'); }}
+                          className="relative w-full px-2 py-1 rounded text-left overflow-hidden hover:bg-white/5"
+                        >
+                          <div
+                            className="absolute left-0 top-0 h-full bg-green-500/20"
+                            style={{ width: `${(lvl.cumulative / maxBuy) * 100}%` }}
+                          />
+                          <div className="relative flex justify-between text-sm">
+                            <span className="text-white">{formatNumber(lvl.amount)}</span>
+                            <span className="text-green-400">${lvl.price.toFixed(4)}</span>
+                          </div>
+                        </button>
+                      ))}
+                    </div>
+                  </div>
                 </div>
               )}
 
