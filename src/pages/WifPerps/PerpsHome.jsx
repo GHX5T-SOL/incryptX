@@ -68,7 +68,7 @@ const PerpsHome = () => {
           className="text-center mb-12"
         >
           <h1 className="text-5xl md:text-6xl font-bold mb-6">
-            <span className="gradient-text">WIF Perps</span>
+            <span className="gradient-text">Perps</span>
           </h1>
           <p className="text-xl text-gray-300 max-w-3xl mx-auto">
             Trade perpetual futures with up to 100x leverage on the hottest memecoins. 
@@ -292,7 +292,7 @@ const PerpsHome = () => {
           className="text-center"
         >
           <h2 className="text-3xl font-bold text-white mb-8">
-            Why Choose <span className="gradient-text">WIF Perps</span>?
+            Why Choose <span className="gradient-text">IncryptX Perps</span>?
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {[

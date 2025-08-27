@@ -217,7 +217,7 @@ const TradeHome = () => {
           className="text-center mb-12"
         >
           <h1 className="text-5xl md:text-6xl font-bold mb-6">
-            <span className="gradient-text">WIF Trade</span>
+            <span className="gradient-text">Trade</span>
           </h1>
           <p className="text-xl text-gray-300 max-w-3xl mx-auto">
             Lightning-fast swaps with the best rates on Solana. Trade memecoins instantly with MEV protection.

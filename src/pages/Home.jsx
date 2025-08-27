@@ -82,11 +82,10 @@ const Home = () => {
 
 
             <h1 className="text-6xl md:text-8xl font-bold mb-6 relative z-10">
-              <span className="gradient-text">WIF</span>
-              <span className="text-white"> Ecosystem</span>
+              <span className="gradient-text">IncryptX</span>
             </h1>
             
-            {/* Floating WIF Logo */}
+            {/* Logo (kept, will be replaced with same filename externally) */}
             <motion.div
               initial={{ opacity: 0, scale: 0.5, y: 20 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
@@ -169,29 +168,10 @@ const Home = () => {
             viewport={{ once: true }}
             className="text-center mb-16 relative"
           >
-            {/* Floating Hat Elements */}
-            <motion.div
-              initial={{ opacity: 0, rotate: -15 }}
-              whileInView={{ opacity: 0.6, rotate: 0 }}
-              transition={{ duration: 1, delay: 0.2 }}
-              viewport={{ once: true }}
-              className="absolute -top-4 -left-4 w-8 h-8 opacity-40"
-            >
-              <img src="/assets/images/wif-hat.svg" alt="Hat" className="w-full h-full" />
-            </motion.div>
-            
-            <motion.div
-              initial={{ opacity: 0, rotate: 15 }}
-              whileInView={{ opacity: 0.5, rotate: 0 }}
-              transition={{ duration: 1, delay: 0.4 }}
-              viewport={{ once: true }}
-              className="absolute -top-2 -right-2 w-6 h-6 opacity-30"
-            >
-              <img src="/assets/images/wif-hat.svg" alt="Hat" className="w-full h-full" />
-            </motion.div>
+            {/* Floating hat images removed per rebrand */}
 
             <h2 className="text-4xl md:text-5xl font-bold mb-6">
-              Why Choose <span className="gradient-text">WIF Ecosystem</span>?
+              Why Choose <span className="gradient-text">IncryptX</span>?
             </h2>
             <p className="text-xl text-gray-300 max-w-2xl mx-auto">
               Built for the modern memecoin era with cutting-edge technology and user experience

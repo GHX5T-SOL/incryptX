@@ -47,7 +47,7 @@ const Feed = () => {
         case 'text':
           content = [
             "Just discovered the most amazing memecoin! 🚀",
-            "WIF ecosystem is absolutely crushing it today! 💪",
+            "IncryptX ecosystem is absolutely crushing it today! 💪",
             "Who else is hyped about the new launchpad features?",
             "Trading has never been this smooth on Solana!",
             "Community is everything in crypto! Love you all! ❤️",
@@ -163,10 +163,10 @@ const Feed = () => {
           className="text-center mb-8"
         >
           <h1 className="text-4xl md:text-5xl font-bold mb-4">
-            <span className="gradient-text">WIF Social</span>
+            <span className="gradient-text">Social</span>
           </h1>
           <p className="text-xl text-gray-300 max-w-2xl mx-auto">
-            Connect, share, and discover the latest in the WIF ecosystem
+            Connect, share, and discover the latest in the IncryptX universe
           </p>
         </motion.div>
 
@@ -185,7 +185,7 @@ const Feed = () => {
               <textarea
                 value={newPost}
                 onChange={(e) => setNewPost(e.target.value)}
-                placeholder="What's happening in the WIF ecosystem?"
+                placeholder="What's happening in the IncryptX universe?"
                 className="input-modern w-full resize-none"
                 rows={3}
               />

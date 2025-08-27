@@ -57,7 +57,7 @@ const AppContent = () => {
           <Route path="/" element={<PageTransition><Home /></PageTransition>} />
           <Route path="/dashboard" element={<PageTransition><Dashboard /></PageTransition>} />
           
-          {/* WIF Pad Routes */}
+          {/* Launchpad Routes */}
           <Route path="/pad" element={<PageTransition><LaunchpadHome /></PageTransition>} />
           <Route path="/pad/quick-launch" element={<PageTransition><QuickLaunch /></PageTransition>} />
           <Route path="/pad/launch/degen" element={<PageTransition><DegenLaunch /></PageTransition>} />
@@ -65,7 +65,7 @@ const AppContent = () => {
           <Route path="/pad/my-launches" element={<PageTransition><MyLaunches /></PageTransition>} />
           <Route path="/pad/token/:id" element={<PageTransition><TokenDetails /></PageTransition>} />
           
-          {/* WIF Trade Routes */}
+          {/* Trade Routes */}
           <Route path="/trade" element={<PageTransition><TradeHome /></PageTransition>} />
           <Route path="/trade/advanced" element={<PageTransition><AdvancedTrade /></PageTransition>} />
           <Route path="/trade/p2p" element={<PageTransition><P2PEscrow /></PageTransition>} />
@@ -73,12 +73,12 @@ const AppContent = () => {
           <Route path="/trade/tracker" element={<PageTransition><WalletTracker /></PageTransition>} />
           <Route path="/trade/copy" element={<PageTransition><CopyTrading /></PageTransition>} />
           
-          {/* WIF Perps Routes */}
+          {/* Perps Routes */}
           <Route path="/perps" element={<PageTransition><PerpsHome /></PageTransition>} />
           <Route path="/perps/market/:id" element={<PageTransition><PerpMarket /></PageTransition>} />
           <Route path="/perps/positions" element={<PageTransition><MyPositions /></PageTransition>} />
           
-          {/* WIF Social Routes */}
+          {/* Social Routes */}
           <Route path="/social" element={<PageTransition><Feed /></PageTransition>} />
           <Route path="/social/feed" element={<PageTransition><Feed /></PageTransition>} />
           <Route path="/social/profile/:username" element={<PageTransition><Profile /></PageTransition>} />

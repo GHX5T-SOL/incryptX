@@ -99,7 +99,7 @@ const Staking = () => {
           className="text-center mb-12"
         >
           <h1 className="text-5xl md:text-6xl font-bold mb-6">
-            <span className="gradient-text">WIF Staking</span>
+            <span className="gradient-text">Staking</span>
           </h1>
           <p className="text-xl text-gray-300 max-w-3xl mx-auto">
             Stake your favorite memecoins and earn rewards with up to 200% APY. 
@@ -386,7 +386,7 @@ const Staking = () => {
         >
           <div className="text-center mb-12">
             <h2 className="text-4xl font-bold text-white mb-4">
-              Why Stake with <span className="gradient-text">WIF</span>?
+              Why Stake with <span className="gradient-text">IncryptX</span>?
             </h2>
             <p className="text-xl text-gray-300 max-w-3xl mx-auto">
               Industry-leading staking infrastructure with maximum security and transparency

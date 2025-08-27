@@ -59,7 +59,7 @@ const LaunchpadHome = () => {
           className="text-center mb-12"
         >
           <h1 className="text-5xl md:text-7xl font-bold mb-6">
-            <span className="gradient-text">WIF Pad</span>
+            <span className="gradient-text">Launchpad</span>
           </h1>
           <p className="text-xl md:text-2xl text-gray-300 max-w-3xl mx-auto mb-8">
             The ultimate memecoin launchpad. Launch, discover, and trade the next big thing in crypto.
@@ -255,7 +255,7 @@ const LaunchpadHome = () => {
             <ClockIcon className="w-8 h-8 text-blue-500" />
             Recent Launches
           </h2>
-          <p className="text-gray-400">Latest tokens launched on WIF Pad</p>
+          <p className="text-gray-400">Latest tokens launched on IncryptX</p>
         </motion.div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">

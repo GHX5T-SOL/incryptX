@@ -15,12 +15,11 @@ const Footer = () => {
     <footer className="bg-meme-black text-dog-white p-4 text-center">
       <div className="flex justify-center space-x-4 mb-2">
         <Link to="/">Home</Link>
-        <Link to="/pad">WIF Pad</Link>
-        <Link to="/trade">WIF Trade</Link>
-        <Link to="/perps">WIF Perps</Link>
-        <Link to="/social/feed">WIF Social</Link>
+        <Link to="/pad">Launchpad</Link>
+        <Link to="/trade">Trade</Link>
+        <Link to="/perps">Perps</Link>
+        <Link to="/social/feed">Social</Link>
       </div>
-      <div>Charity: Supporting dog rescues! 🐶</div>
       <div className="flex justify-center space-x-4 mt-2">
         <button onClick={() => openModal('Twitter')}>Twitter</button>
         <button onClick={() => openModal('Discord')}>Discord</button>

@@ -28,7 +28,7 @@ const Navbar = () => {
 
   const navigationItems = [
     {
-      name: 'WIF Pad',
+      name: 'Launchpad',
       icon: FireIcon,
       path: '/pad',
       submenu: [
@@ -40,7 +40,7 @@ const Navbar = () => {
       ]
     },
     {
-      name: 'WIF Trade',
+      name: 'Trade',
       icon: ChartBarIcon,
       path: '/trade',
       submenu: [
@@ -53,7 +53,7 @@ const Navbar = () => {
       ]
     },
     {
-      name: 'WIF Perps',
+      name: 'Perps',
       icon: CurrencyDollarIcon,
       path: '/perps',
       submenu: [
@@ -62,7 +62,7 @@ const Navbar = () => {
       ]
     },
     {
-      name: 'WIF Social',
+      name: 'Social',
       icon: UserGroupIcon,
       path: '/social',
       submenu: [
@@ -111,7 +111,7 @@ const Navbar = () => {
               <div className="absolute -top-1 -right-1 w-4 h-4 bg-gradient-to-r from-blue-400 to-cyan-400 rounded-full animate-pulse"></div>
             </motion.div>
             <div className="hidden sm:block">
-              <span className="text-2xl font-bold gradient-text">WIF Ecosystem</span>
+              <span className="text-2xl font-bold gradient-text">IncryptX</span>
             </div>
           </Link>
 

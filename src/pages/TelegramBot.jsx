@@ -26,7 +26,7 @@ const TelegramBot = () => {
       id: 'overview',
       title: 'Overview',
       icon: GlobeAltIcon,
-      description: 'Get started with WIF Telegram Bot'
+      description: 'Get started with IncryptX Telegram Bot'
     },
     {
       id: 'launch',
@@ -129,10 +129,10 @@ const TelegramBot = () => {
           className="text-center mb-12"
         >
           <h1 className="text-5xl md:text-6xl font-bold mb-6">
-            🤖 <span className="gradient-text">WIF Telegram Bot</span>
+            🤖 <span className="gradient-text">IncryptX Telegram Bot</span>
           </h1>
           <p className="text-xl text-gray-300 max-w-3xl mx-auto">
-            Trade, launch, and manage your WIF portfolio directly from Telegram. 
+            Trade, launch, and manage your IncryptX portfolio directly from Telegram. 
             The most powerful crypto bot on Solana with zero coding required.
           </p>
         </motion.div>
@@ -184,7 +184,7 @@ const TelegramBot = () => {
                     <div className="w-20 h-20 mx-auto mb-4 rounded-full bg-gradient-to-r from-blue-500 to-cyan-500 flex items-center justify-center">
                       <PaperAirplaneIcon className="w-10 h-10 text-white" />
                     </div>
-                    <h2 className="text-3xl font-bold text-white mb-4">Get Started with WIF Bot</h2>
+                    <h2 className="text-3xl font-bold text-white mb-4">Get Started with IncryptX Bot</h2>
                     <p className="text-gray-300">Follow these simple steps to start using the most powerful crypto bot on Solana</p>
                   </div>
 
@@ -198,7 +198,7 @@ const TelegramBot = () => {
                         </div>
                         <div className="flex items-center space-x-3">
                           <div className="w-8 h-8 rounded-full bg-gradient-to-r from-green-500 to-emerald-500 flex items-center justify-center text-white font-bold">2</div>
-                          <span className="text-gray-300">Search for <span className="text-white font-mono">@WIF_Ecosystem_Bot</span></span>
+                          <span className="text-gray-300">Search for <span className="text-white font-mono">@IncryptX_Ecosystem_Bot</span></span>
                         </div>
                         <div className="flex items-center space-x-3">
                           <div className="w-8 h-8 rounded-full bg-gradient-to-r from-green-500 to-emerald-500 flex items-center justify-center text-white font-bold">3</div>
@@ -291,7 +291,7 @@ const TelegramBot = () => {
                           <div className="w-6 h-6 rounded-full bg-gradient-to-r from-blue-500 to-cyan-500 flex items-center justify-center">
                             <span className="text-white text-xs">🤖</span>
                           </div>
-                          <span className="text-sm text-gray-400">WIF Bot Response:</span>
+                          <span className="text-sm text-gray-400">IncryptX Bot Response:</span>
                         </div>
                         <p className="font-mono text-sm text-white whitespace-pre-line">{response}</p>
                       </motion.div>
@@ -357,7 +357,7 @@ const TelegramBot = () => {
         >
           <div className="text-center mb-12">
             <h2 className="text-4xl font-bold text-white mb-4">
-              Why Choose <span className="gradient-text">WIF Bot</span>?
+              Why Choose <span className="gradient-text">IncryptX Bot</span>?
             </h2>
             <p className="text-xl text-gray-300 max-w-3xl mx-auto">
               The most advanced Telegram bot for Solana trading and memecoin launches
