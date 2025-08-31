@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { 
@@ -25,6 +25,20 @@ const Navbar = () => {
   const { theme, toggleTheme } = useTheme();
 
   const toggleMenu = () => setIsOpen(!isOpen);
+
+  // Prevent background scroll when mobile menu is open
+  useEffect(() => {
+    if (isOpen) {
+      const prevHtmlOverflow = document.documentElement.style.overflow;
+      const prevBodyOverflow = document.body.style.overflow;
+      document.documentElement.style.overflow = 'hidden';
+      document.body.style.overflow = 'hidden';
+      return () => {
+        document.documentElement.style.overflow = prevHtmlOverflow;
+        document.body.style.overflow = prevBodyOverflow;
+      };
+    }
+  }, [isOpen]);
 
   const navigationItems = [
     {
@@ -194,7 +208,7 @@ const Navbar = () => {
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               transition={{ duration: 0.2 }}
-              className="lg:hidden fixed inset-0 z-50 modal-overlay"
+              className="lg:hidden fixed inset-0 z-[100] modal-overlay overflow-y-auto"
               onClick={() => setIsOpen(false)}
             >
               <motion.div
@@ -202,10 +216,10 @@ const Navbar = () => {
                 animate={{ y: 0 }}
                 exit={{ y: '100%' }}
                 transition={{ type: 'spring', stiffness: 260, damping: 30 }}
-                className="absolute bottom-0 left-0 right-0 bg-black/60 backdrop-blur-xl border-t border-white/10 rounded-t-2xl navbar-mobile"
+                className="fixed inset-0 bg-black/70 backdrop-blur-xl border-t border-white/10 navbar-mobile overflow-y-auto"
                 onClick={(e) => e.stopPropagation()}
               >
-              <div className="py-4 space-y-2 max-h-[75vh] overflow-y-auto">
+              <div className="pt-16 pb-safe px-0 space-y-2 min-h-screen">
                 {navigationItems.map((item) => (
                   <div key={item.name} className="px-4">
                     <div className="text-white/60 text-sm font-medium mb-2 flex items-center space-x-2">

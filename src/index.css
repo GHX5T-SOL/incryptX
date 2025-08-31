@@ -576,6 +576,25 @@ body {
   color: #0f172a !important;
 }
 
+/* Ensure IncryptAI panel is fully readable in light mode */
+[data-theme="light"] .ai-panel,
+[data-theme="light"] .ai-panel * {
+  color: #0f172a !important;
+}
+[data-theme="light"] .ai-panel .bg-white\/10,
+[data-theme="light"] .ai-panel .text-white\/80,
+[data-theme="light"] .ai-panel .text-white {
+  color: #0f172a !important;
+}
+[data-theme="light"] .ai-panel .btn-primary svg,
+[data-theme="light"] .ai-panel svg {
+  color: #0f172a !important;
+  stroke: #0f172a !important;
+}
+[data-theme="light"] .ai-panel .input-modern::placeholder { color: #334155 !important; }
+[data-theme="light"] .ai-panel .bg-white\/10 { background-color: rgba(0,0,0,0.05) !important; }
+[data-theme="light"] .ai-panel .btn-primary { color: #0f172a !important; }
+
 [data-theme="light"] .text-white {
   color: #0f172a !important;
 }
