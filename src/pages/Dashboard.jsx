@@ -17,6 +17,7 @@ import {
 } from '@heroicons/react/24/outline';
 import useMockData from '../hooks/useMockData';
 import { useWallet } from '@solana/wallet-adapter-react';
+import HolographicCard from '../components/HolographicCard.jsx';
 
 const Dashboard = () => {
   const { publicKey, connected } = useWallet();
@@ -192,12 +193,7 @@ const Dashboard = () => {
         </motion.div>
 
         {/* Portfolio Overview */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.2 }}
-          className="glass-card p-8 mb-8"
-        >
+        <HolographicCard className="mb-8">
           <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
             {[
               { 
@@ -229,13 +225,7 @@ const Dashboard = () => {
                 color: 'from-purple-500 to-pink-500' 
               }
             ].map((stat, index) => (
-              <motion.div
-                key={stat.label}
-                initial={{ opacity: 0, scale: 0.8 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.5, delay: 0.4 + index * 0.1 }}
-                className="text-center group"
-              >
+              <div key={stat.label} className="text-center group">
                 <div className={`w-16 h-16 mx-auto mb-4 rounded-2xl bg-gradient-to-r ${stat.color} flex items-center justify-center group-hover:scale-110 transition-transform duration-300`}>
                   <stat.icon className="w-8 h-8 text-white" />
                 </div>
@@ -246,20 +236,15 @@ const Dashboard = () => {
                   </div>
                 )}
                 <div className="text-sm text-gray-400">{stat.label}</div>
-              </motion.div>
+              </div>
             ))}
           </div>
-        </motion.div>
+        </HolographicCard>
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           {/* Quick Actions */}
           <div className="lg:col-span-2">
-            <motion.div
-              initial={{ opacity: 0, x: -20 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.8, delay: 0.4 }}
-              className="glass-card p-6 mb-8"
-            >
+            <HolographicCard className="mb-8">
               <h2 className="text-2xl font-bold text-white mb-6">Quick Actions</h2>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 {quickActions.map((action, index) => (
@@ -282,15 +267,10 @@ const Dashboard = () => {
                   </motion.div>
                 ))}
               </div>
-            </motion.div>
+            </HolographicCard>
 
             {/* Recent Activity */}
-            <motion.div
-              initial={{ opacity: 0, x: -20 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.8, delay: 0.6 }}
-              className="glass-card p-6"
-            >
+            <HolographicCard>
               <div className="flex items-center justify-between mb-6">
                 <h2 className="text-2xl font-bold text-white">Recent Activity</h2>
                 <Link to="/social/feed" className="text-purple-400 hover:text-purple-300 transition-colors">
@@ -321,18 +301,13 @@ const Dashboard = () => {
                   </motion.div>
                 ))}
               </div>
-            </motion.div>
+            </HolographicCard>
           </div>
 
           {/* Sidebar */}
           <div className="space-y-6">
             {/* Portfolio Summary */}
-            <motion.div
-              initial={{ opacity: 0, x: 20 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.8, delay: 0.8 }}
-              className="glass-card p-6"
-            >
+            <HolographicCard>
               <h3 className="text-xl font-bold text-white mb-4">Portfolio Summary</h3>
               <div className="space-y-4">
                 <div className="flex items-center justify-between">
@@ -354,15 +329,10 @@ const Dashboard = () => {
                   <span className="text-white font-medium">{portfolioStats.activePositions}</span>
                 </div>
               </div>
-            </motion.div>
+            </HolographicCard>
 
             {/* Quick Stats */}
-            <motion.div
-              initial={{ opacity: 0, x: 20 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.8, delay: 1.0 }}
-              className="glass-card p-6"
-            >
+            <HolographicCard>
               <h3 className="text-xl font-bold text-white mb-4">Quick Stats</h3>
               <div className="space-y-4">
                 <div className="flex items-center gap-3">
@@ -387,15 +357,10 @@ const Dashboard = () => {
                   </div>
                 </div>
               </div>
-            </motion.div>
+            </HolographicCard>
 
             {/* Notifications */}
-            <motion.div
-              initial={{ opacity: 0, x: 20 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.8, delay: 1.2 }}
-              className="glass-card p-6"
-            >
+            <HolographicCard>
               <h3 className="text-xl font-bold text-white mb-4">Notifications</h3>
               <div className="space-y-3">
                 <div className="flex items-center gap-3 p-3 bg-yellow-500/10 rounded-lg">
@@ -413,7 +378,7 @@ const Dashboard = () => {
                   </div>
                 </div>
               </div>
-            </motion.div>
+            </HolographicCard>
           </div>
         </div>
       </div>

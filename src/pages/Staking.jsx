@@ -15,6 +15,8 @@ import {
   TrophyIcon
 } from '@heroicons/react/24/outline';
 import useMockData from '../hooks/useMockData';
+import HolographicCard from '../components/HolographicCard.jsx';
+import HoloButton from '../components/HoloButton.jsx';
 
 const Staking = () => {
   const tokens = useMockData('mock-tokens.json');
@@ -120,19 +122,13 @@ const Staking = () => {
             { label: 'Active Stakes', value: userStats.activeStakes, icon: ChartBarIcon, color: 'from-blue-500 to-cyan-500' },
             { label: 'Avg APY', value: `${userStats.totalAPY.toFixed(1)}%`, icon: ArrowTrendingUpIcon, color: 'from-orange-500 to-red-500' }
           ].map((stat, index) => (
-            <motion.div
-              key={stat.label}
-              initial={{ opacity: 0, scale: 0.8 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.5, delay: 0.4 + index * 0.1 }}
-              className="glass-card glass-card-hover p-6 text-center group"
-            >
+            <HolographicCard key={stat.label} className="text-center group">
               <div className={`w-16 h-16 mx-auto mb-4 rounded-2xl bg-gradient-to-r ${stat.color} flex items-center justify-center group-hover:scale-110 transition-transform duration-300`}>
                 <stat.icon className="w-8 h-8 text-white" />
               </div>
               <div className="text-2xl font-bold text-white mb-2">{stat.value}</div>
               <div className="text-sm text-gray-400">{stat.label}</div>
-            </motion.div>
+            </HolographicCard>
           ))}
         </motion.div>
 
@@ -141,8 +137,9 @@ const Staking = () => {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.4 }}
-          className="glass-card p-2 mb-8 inline-flex rounded-xl"
+          className="mb-8 inline-flex"
         >
+          <HolographicCard className="p-2 rounded-xl">
           {[
             { id: 'stake', name: 'Stake Tokens', icon: PlusIcon },
             { id: 'pools', name: 'Staking Pools', icon: ChartBarIcon },
@@ -162,6 +159,7 @@ const Staking = () => {
               {tab.name}
             </button>
           ))}
+          </HolographicCard>
         </motion.div>
 
         {/* Content based on active tab */}
@@ -177,7 +175,7 @@ const Staking = () => {
             >
               {/* Staking Form */}
               <div className="lg:col-span-1">
-                <div className="glass-card p-6 sticky top-24">
+                <HolographicCard className="sticky top-24 p-6">
                   <h3 className="text-2xl font-bold text-white mb-6">Stake Tokens</h3>
                   
                   {selectedPool ? (
@@ -226,13 +224,13 @@ const Staking = () => {
                       </div>
 
                       <div className="flex gap-3">
-                        <button
+                        <HoloButton
                           onClick={handleStake}
+                          className="flex-1 justify-center py-3 disabled:opacity-50 disabled:cursor-not-allowed"
                           disabled={!stakeAmount || parseFloat(stakeAmount) < selectedPool.minStake}
-                          className="flex-1 btn-primary py-3 disabled:opacity-50 disabled:cursor-not-allowed"
                         >
                           Stake Now
-                        </button>
+                        </HoloButton>
                         <button
                           onClick={() => setSelectedPool(null)}
                           className="px-4 py-3 bg-white/10 hover:bg-white/20 text-white rounded-lg transition-colors"
@@ -247,7 +245,7 @@ const Staking = () => {
                       <p className="text-gray-400">Select a staking pool to get started</p>
                     </div>
                   )}
-                </div>
+                </HolographicCard>
               </div>
 
               {/* Available Pools */}
@@ -255,17 +253,13 @@ const Staking = () => {
                 <h3 className="text-2xl font-bold text-white mb-6">Available Staking Pools</h3>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   {stakingPools.map((pool, index) => (
-                    <motion.div
+                    <HolographicCard
                       key={pool.id}
-                      initial={{ opacity: 0, y: 30 }}
-                      whileInView={{ opacity: 1, y: 0 }}
-                      transition={{ duration: 0.6, delay: index * 0.1 }}
-                      viewport={{ once: true }}
-                      className={`glass-card glass-card-hover p-6 cursor-pointer relative ${
+                      className={`p-6 cursor-pointer relative ${
                         selectedPool?.id === pool.id ? 'ring-2 ring-purple-500' : ''
                       }`}
-                      onClick={() => setSelectedPool(pool)}
                     >
+                      <div onClick={() => setSelectedPool(pool)}>
                       {pool.isHot && (
                         <div className="absolute -top-2 -right-2 bg-gradient-to-r from-orange-500 to-red-500 text-white text-xs px-2 py-1 rounded-full font-bold">
                           🔥 HOT
@@ -328,7 +322,8 @@ const Staking = () => {
                           <span className="text-white">{pool.minStake} {pool.name}</span>
                         </div>
                       </div>
-                    </motion.div>
+                      </div>
+                    </HolographicCard>
                   ))}
                 </div>
               </div>
@@ -344,7 +339,7 @@ const Staking = () => {
               transition={{ duration: 0.5 }}
               className="space-y-6"
             >
-              <div className="glass-card p-6">
+              <HolographicCard className="p-6">
                 <h3 className="text-2xl font-bold text-white mb-6">Recent Rewards</h3>
                 <div className="space-y-4">
                   {recentRewards.map((reward, index) => (
@@ -371,7 +366,7 @@ const Staking = () => {
                     </motion.div>
                   ))}
                 </div>
-              </div>
+              </HolographicCard>
             </motion.div>
           )}
         </AnimatePresence>

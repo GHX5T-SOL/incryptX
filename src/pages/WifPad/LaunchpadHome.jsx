@@ -14,6 +14,8 @@ import {
   HeartIcon
 } from '@heroicons/react/24/outline';
 import useMockData from '../../hooks/useMockData';
+import HolographicCard from '../../components/HolographicCard.jsx';
+import HoloButton from '../../components/HoloButton.jsx';
 
 const LaunchpadHome = () => {
   const tokens = useMockData('mock-tokens.json');
@@ -66,16 +68,16 @@ const LaunchpadHome = () => {
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link to="/pad/launch/degen">
-              <button className="btn-primary text-lg px-8 py-4 flex items-center gap-2">
+              <HoloButton className="text-lg">
                 <FireIcon className="w-6 h-6" />
                 Launch Degen Token
-              </button>
+              </HoloButton>
             </Link>
             <Link to="/pad/launch/custom">
-              <button className="btn-secondary text-lg px-8 py-4 flex items-center gap-2">
+              <HoloButton className="text-lg">
                 <RocketLaunchIcon className="w-6 h-6" />
                 Custom Launch
-              </button>
+              </HoloButton>
             </Link>
           </div>
         </motion.div>
@@ -93,19 +95,13 @@ const LaunchpadHome = () => {
             { label: 'Active Users', value: stats.activeUsers.toLocaleString(), icon: UserGroupIcon, color: 'from-blue-500 to-cyan-500' },
             { label: 'Success Rate', value: `${stats.successRate}%`, icon: StarIcon, color: 'from-orange-500 to-red-500' }
           ].map((stat, index) => (
-            <motion.div
-              key={stat.label}
-              initial={{ opacity: 0, scale: 0.8 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.5, delay: 0.4 + index * 0.1 }}
-              className="glass-card glass-card-hover p-6 text-center"
-            >
+            <HolographicCard key={stat.label} className="text-center">
               <div className={`w-12 h-12 mx-auto mb-3 rounded-full bg-gradient-to-r ${stat.color} flex items-center justify-center`}>
                 <stat.icon className="w-6 h-6 text-white" />
               </div>
               <div className="text-2xl font-bold text-white mb-1">{stat.value}</div>
               <div className="text-sm text-gray-400">{stat.label}</div>
-            </motion.div>
+            </HolographicCard>
           ))}
         </motion.div>
       </section>
@@ -180,14 +176,7 @@ const LaunchpadHome = () => {
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           {trendingTokens.map((token, index) => (
-            <motion.div
-              key={token.id}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: index * 0.1 }}
-              viewport={{ once: true }}
-              className="token-card group cursor-pointer relative"
-            >
+            <HolographicCard key={token.id} className="group cursor-pointer relative">
               {token.isTrending && (
                 <div className="absolute -top-2 -right-2 bg-gradient-to-r from-orange-500 to-red-500 text-white text-xs px-2 py-1 rounded-full font-bold">
                   🔥 HOT
@@ -237,7 +226,7 @@ const LaunchpadHome = () => {
                   <HeartIcon className="w-4 h-4 text-gray-400" />
                 </button>
               </div>
-            </motion.div>
+            </HolographicCard>
           ))}
         </div>
       </section>
@@ -260,14 +249,7 @@ const LaunchpadHome = () => {
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {recentLaunches.map((token, index) => (
-            <motion.div
-              key={token.id}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: index * 0.1 }}
-              viewport={{ once: true }}
-              className="glass-card glass-card-hover p-6"
-            >
+            <HolographicCard key={token.id}>
               <div className="flex items-center justify-between mb-4">
                 <div className="flex items-center gap-3">
                   <div className="w-10 h-10 rounded-full bg-gradient-to-r from-blue-500 to-cyan-500 flex items-center justify-center">
@@ -304,7 +286,7 @@ const LaunchpadHome = () => {
                   View Token
                 </button>
               </Link>
-            </motion.div>
+            </HolographicCard>
           ))}
         </div>
       </section>

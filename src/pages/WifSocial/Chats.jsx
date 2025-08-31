@@ -12,6 +12,8 @@ import {
   MicrophoneIcon,
   PaperAirplaneIcon
 } from '@heroicons/react/24/outline';
+import HolographicCard from '../../components/HolographicCard.jsx';
+import HoloButton from '../../components/HoloButton.jsx';
 
 const Chats = () => {
   const [myChats, setMyChats] = useState([]);
@@ -122,8 +124,9 @@ const Chats = () => {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.2 }}
-          className="glass-card p-6 mb-8"
+          className="mb-8"
         >
+          <HolographicCard className="p-6">
           <div className="flex flex-col lg:flex-row gap-4 items-center justify-between mb-4">
             <div className="relative flex-1 max-w-md">
               <MagnifyingGlassIcon className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" />
@@ -136,10 +139,10 @@ const Chats = () => {
               />
             </div>
 
-            <button className="btn-primary px-6 py-3 flex items-center gap-2">
+            <HoloButton className="px-6 py-3 flex items-center gap-2">
               <PlusIcon className="w-5 h-5" />
               New Chat
-            </button>
+            </HoloButton>
           </div>
 
           <div className="flex gap-2 overflow-x-auto">
@@ -165,14 +168,15 @@ const Chats = () => {
               </button>
             ))}
           </div>
+          </HolographicCard>
         </motion.div>
 
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.4 }}
-          className="glass-card"
         >
+          <HolographicCard>
           <div className="p-6 border-b border-white/10">
             <h2 className="text-xl font-bold text-white">Recent Conversations</h2>
           </div>
@@ -272,6 +276,7 @@ const Chats = () => {
               ))}
             </div>
           )}
+          </HolographicCard>
         </motion.div>
 
         <motion.div
@@ -280,34 +285,34 @@ const Chats = () => {
           transition={{ duration: 0.8, delay: 0.6 }}
           className="mt-8 grid grid-cols-1 md:grid-cols-3 gap-4"
         >
-          <div className="glass-card p-6 text-center">
+          <HolographicCard className="p-6 text-center">
             <UserGroupIcon className="w-12 h-12 mx-auto text-purple-400 mb-4" />
             <h3 className="text-lg font-semibold text-white mb-2">Join Communities</h3>
             <p className="text-sm text-gray-400 mb-4">
               Connect with traders and enthusiasts
             </p>
             <Link to="/social/communities">
-              <button className="btn-secondary w-full">Browse</button>
+              <HoloButton className="w-full">Browse</HoloButton>
             </Link>
-          </div>
+          </HolographicCard>
 
-          <div className="glass-card p-6 text-center">
+          <HolographicCard className="p-6 text-center">
             <ChatBubbleLeftIcon className="w-12 h-12 mx-auto text-blue-400 mb-4" />
             <h3 className="text-lg font-semibold text-white mb-2">Start Chat</h3>
             <p className="text-sm text-gray-400 mb-4">
               Begin a conversation with friends
             </p>
-            <button className="btn-secondary w-full">New Chat</button>
-          </div>
+            <HoloButton className="w-full">New Chat</HoloButton>
+          </HolographicCard>
 
-          <div className="glass-card p-6 text-center">
+          <HolographicCard className="p-6 text-center">
             <ClockIcon className="w-12 h-12 mx-auto text-green-400 mb-4" />
             <h3 className="text-lg font-semibold text-white mb-2">Recent Activity</h3>
             <p className="text-sm text-gray-400 mb-4">
               View your chat history
             </p>
-            <button className="btn-secondary w-full">View All</button>
-          </div>
+            <HoloButton className="w-full">View All</HoloButton>
+          </HolographicCard>
         </motion.div>
       </div>
     </div>

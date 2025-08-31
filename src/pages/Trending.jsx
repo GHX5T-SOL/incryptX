@@ -13,6 +13,8 @@ import {
 } from '@heroicons/react/24/outline';
 import { Link } from 'react-router-dom';
 import useMockData from '../hooks/useMockData';
+import HolographicCard from '../components/HolographicCard.jsx';
+import HoloButton from '../components/HoloButton.jsx';
 
 const Trending = () => {
   const tokens = useMockData('mock-tokens.json');
@@ -120,8 +122,9 @@ const Trending = () => {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.2 }}
-          className="glass-card p-6 mb-8"
+          className="mb-8"
         >
+          <HolographicCard>
           <div className="flex flex-col lg:flex-row gap-4 items-center justify-between">
             {/* Search */}
             <div className="relative flex-1 max-w-md">
@@ -182,6 +185,7 @@ const Trending = () => {
               </button>
             ))}
           </div>
+          </HolographicCard>
         </motion.div>
 
         {/* Table Header */}
@@ -189,8 +193,9 @@ const Trending = () => {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.4 }}
-          className="glass-card p-4 mb-4"
+          className="mb-4"
         >
+          <HolographicCard className="p-4">
           <div className="grid grid-cols-12 gap-4 text-sm font-medium text-gray-400 items-center">
             <div className="col-span-1">#</div>
             <div className="col-span-3">Token</div>
@@ -200,6 +205,7 @@ const Trending = () => {
             <div className="col-span-1">Market Cap</div>
             <div className="col-span-1">Actions</div>
           </div>
+          </HolographicCard>
         </motion.div>
 
         {/* Tokens List */}
@@ -215,13 +221,9 @@ const Trending = () => {
             const volume = getVolume(token);
             
             return (
-              <motion.div
+              <HolographicCard
                 key={token.id}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: index * 0.02 }}
-                viewport={{ once: true }}
-                className="glass-card glass-card-hover p-4"
+                className="p-4"
               >
                 <div className="grid grid-cols-12 gap-4 text-sm items-center">
                   {/* Rank */}
@@ -296,7 +298,7 @@ const Trending = () => {
                     </div>
                   </div>
                 </div>
-              </motion.div>
+              </HolographicCard>
             );
           })}
         </motion.div>
@@ -309,9 +311,7 @@ const Trending = () => {
           viewport={{ once: true }}
           className="text-center mt-12"
         >
-          <button className="btn-secondary px-8 py-3">
-            Load More Tokens
-          </button>
+          <HoloButton className="px-8 py-3">Load More Tokens</HoloButton>
         </motion.div>
       </div>
     </div>

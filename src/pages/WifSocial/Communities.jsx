@@ -11,6 +11,8 @@ import {
   CheckBadgeIcon,
   FireIcon
 } from '@heroicons/react/24/outline';
+import HolographicCard from '../../components/HolographicCard.jsx';
+import HoloButton from '../../components/HoloButton.jsx';
 
 const Communities = () => {
   const [communities, setCommunities] = useState([]);
@@ -122,8 +124,9 @@ const Communities = () => {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.2 }}
-          className="glass-card p-6 mb-8"
+          className="mb-8"
         >
+          <HolographicCard className="p-6">
           <div className="flex flex-col lg:flex-row gap-4 items-center justify-between">
             {/* Search */}
             <div className="relative flex-1 max-w-md">
@@ -155,11 +158,12 @@ const Communities = () => {
               ))}
             </div>
 
-            <button className="btn-primary px-6 py-3 flex items-center gap-2">
+            <HoloButton className="px-6 py-3 flex items-center gap-2">
               <PlusIcon className="w-5 h-5" />
               Create
-            </button>
+            </HoloButton>
           </div>
+          </HolographicCard>
         </motion.div>
 
         {/* Communities Grid */}
@@ -170,12 +174,9 @@ const Communities = () => {
           className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
         >
           {filteredCommunities.map((community, index) => (
-            <motion.div
+            <HolographicCard
               key={community.id}
-              initial={{ opacity: 0, scale: 0.8 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
-              className="glass-card p-6 hover:scale-105 transition-all duration-300"
+              className="p-6 hover:scale-105 transition-all duration-300"
             >
               {/* Community Header */}
               <div className="flex items-start justify-between mb-4">
@@ -240,23 +241,21 @@ const Communities = () => {
               )}
 
               <div className="flex gap-2">
-                <button
+                <HoloButton
                   onClick={() => handleJoinCommunity(community.id)}
-                  className={`flex-1 py-2 px-4 rounded-lg font-medium transition-colors ${
-                    community.isJoined
-                      ? 'bg-green-500/20 text-green-400 hover:bg-green-500/30'
-                      : 'btn-primary'
+                  className={`flex-1 justify-center py-2 ${
+                    community.isJoined ? '' : ''
                   }`}
                 >
                   {community.isJoined ? 'Joined' : 'Join'}
-                </button>
+                </HoloButton>
                 <Link to={`/social/chat/${community.id}`}>
-                  <button className="px-4 py-2 bg-white/10 text-gray-300 hover:bg-white/20 rounded-lg transition-colors">
+                  <HoloButton className="px-4 py-2"> 
                     <ChatBubbleLeftIcon className="w-5 h-5" />
-                  </button>
+                  </HoloButton>
                 </Link>
               </div>
-            </motion.div>
+            </HolographicCard>
           ))}
         </motion.div>
 

@@ -7,6 +7,8 @@ import {
   ExclamationTriangleIcon
 } from '@heroicons/react/24/outline';
 import useMockData from '../../hooks/useMockData';
+import HolographicCard from '../../components/HolographicCard.jsx';
+import HoloButton from '../../components/HoloButton.jsx';
 
 const PerpMarket = () => {
   const { id } = useParams();
@@ -95,8 +97,9 @@ const PerpMarket = () => {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.2 }}
-          className="glass-card p-6 mb-8"
+          className="mb-8"
         >
+          <HolographicCard>
           <div className="grid grid-cols-2 md:grid-cols-5 gap-6">
             <div className="text-center">
               <div className="text-2xl font-bold text-white">${marketData.price.toFixed(6)}</div>
@@ -123,6 +126,7 @@ const PerpMarket = () => {
               <div className="text-sm text-gray-400">Funding Rate</div>
             </div>
           </div>
+          </HolographicCard>
         </motion.div>
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
@@ -131,8 +135,8 @@ const PerpMarket = () => {
               initial={{ opacity: 0, x: -20 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.8, delay: 0.4 }}
-              className="glass-card p-8"
             >
+              <HolographicCard>
               <h2 className="text-2xl font-bold text-white mb-6">Open Position</h2>
               
               <div className="grid grid-cols-2 gap-4 mb-6">
@@ -191,17 +195,14 @@ const PerpMarket = () => {
                 />
               </div>
 
-              <button
+              <HoloButton
                 onClick={handleOpenPosition}
+                className={`w-full justify-center py-4 text-lg ${direction === 'long' ? '' : ''}`}
                 disabled={!amount}
-                className={`w-full py-4 rounded-lg font-semibold text-lg transition-all duration-200 ${
-                  direction === 'long'
-                    ? 'bg-gradient-to-r from-green-500 to-emerald-500 hover:from-green-600 hover:to-emerald-600'
-                    : 'bg-gradient-to-r from-red-500 to-pink-500 hover:from-red-600 hover:to-pink-600'
-                } text-white disabled:opacity-50 disabled:cursor-not-allowed`}
               >
                 Open {direction.toUpperCase()} Position
-              </button>
+              </HoloButton>
+              </HolographicCard>
             </motion.div>
           </div>
 
@@ -210,8 +211,8 @@ const PerpMarket = () => {
               initial={{ opacity: 0, x: 20 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.8, delay: 0.6 }}
-              className="glass-card p-6"
             >
+              <HolographicCard>
               <h3 className="text-lg font-bold text-white mb-4">Live Portfolio PnL</h3>
               <div className="text-center">
                 <div className={`text-3xl font-bold ${getPnLColor(livePnL)}`}>
@@ -219,14 +220,15 @@ const PerpMarket = () => {
                 </div>
                 <div className="text-sm text-gray-400 mt-1">Unrealized PnL</div>
               </div>
+              </HolographicCard>
             </motion.div>
 
             <motion.div
               initial={{ opacity: 0, x: 20 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.8, delay: 0.8 }}
-              className="glass-card p-6"
             >
+              <HolographicCard>
               <div className="flex items-center gap-3 mb-3">
                 <ExclamationTriangleIcon className="w-6 h-6 text-yellow-500" />
                 <h3 className="text-lg font-bold text-white">Risk Warning</h3>
@@ -236,6 +238,7 @@ const PerpMarket = () => {
                 <p>• High leverage amplifies gains and losses</p>
                 <p>• Monitor positions to avoid liquidation</p>
               </div>
+              </HolographicCard>
             </motion.div>
           </div>
         </div>

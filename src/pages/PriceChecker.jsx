@@ -13,6 +13,8 @@ import {
   ShareIcon
 } from '@heroicons/react/24/outline';
 import useMockData from '../hooks/useMockData';
+import HolographicCard from '../components/HolographicCard.jsx';
+import HoloButton from '../components/HoloButton.jsx';
 
 const PriceChecker = () => {
   const tokens = useMockData('mock-tokens.json');
@@ -123,8 +125,8 @@ const PriceChecker = () => {
               initial={{ opacity: 0, x: -20 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.8, delay: 0.2 }}
-              className="glass-card p-6 sticky top-24"
             >
+              <HolographicCard className="p-6 sticky top-24">
               {/* Search */}
               <div className="relative mb-6">
                 <input
@@ -174,6 +176,7 @@ const PriceChecker = () => {
                   </motion.div>
                 ))}
               </div>
+              </HolographicCard>
             </motion.div>
           </div>
 
@@ -187,7 +190,7 @@ const PriceChecker = () => {
                 className="space-y-6"
               >
                 {/* Token Header */}
-                <div className="glass-card p-6">
+                <HolographicCard className="p-6">
                   <div className="flex items-center justify-between mb-6">
                     <div className="flex items-center gap-4">
                       <img 
@@ -255,10 +258,10 @@ const PriceChecker = () => {
                       </div>
                     </div>
                   </div>
-                </div>
+                </HolographicCard>
 
                 {/* Key Metrics */}
-                <div className="glass-card p-6">
+                <HolographicCard className="p-6">
                   <h3 className="text-xl font-bold text-white mb-4">Key Metrics</h3>
                   <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                     {[
@@ -276,10 +279,10 @@ const PriceChecker = () => {
                       </div>
                     ))}
                   </div>
-                </div>
+                </HolographicCard>
 
                 {/* Detailed Analytics */}
-                <div className="glass-card p-6">
+                <HolographicCard className="p-6">
                   <h3 className="text-xl font-bold text-white mb-4">Detailed Analytics</h3>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div className="space-y-4">
@@ -325,10 +328,10 @@ const PriceChecker = () => {
                       </div>
                     </div>
                   </div>
-                </div>
+                </HolographicCard>
 
                 {/* Description & Links */}
-                <div className="glass-card p-6">
+                <HolographicCard className="p-6">
                   <h3 className="text-xl font-bold text-white mb-4">About {selectedToken.name}</h3>
                   <p className="text-gray-300 mb-6">{selectedToken.description}</p>
                   
@@ -346,35 +349,31 @@ const PriceChecker = () => {
                       💬 Telegram
                     </a>
                   </div>
-                </div>
+                </HolographicCard>
 
                 {/* Quick Actions */}
-                <div className="glass-card p-6">
+                <HolographicCard className="p-6">
                   <h3 className="text-xl font-bold text-white mb-4">Quick Actions</h3>
                   <div className="flex flex-wrap gap-4">
-                    <button className="btn-primary px-6 py-3">
-                      Trade Now
-                    </button>
-                    <button className="btn-secondary px-6 py-3">
-                      Add to Watchlist
-                    </button>
-                    <button className="btn-secondary px-6 py-3">
-                      View Chart
-                    </button>
+                    <HoloButton className="px-6 py-3">Trade Now</HoloButton>
+                    <HoloButton className="px-6 py-3">Add to Watchlist</HoloButton>
+                    <HoloButton className="px-6 py-3">View Chart</HoloButton>
                   </div>
-                </div>
+                </HolographicCard>
               </motion.div>
             ) : (
               <motion.div
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
-                className="glass-card p-12 text-center"
+                className="p-12 text-center"
               >
+                <HolographicCard className="p-12">
                 <ChartBarIcon className="w-24 h-24 mx-auto mb-6 text-gray-400" />
                 <h3 className="text-2xl font-bold text-white mb-4">Select a Token</h3>
                 <p className="text-gray-400">
                   Choose a token from the list to view detailed price analytics and market data
                 </p>
+                </HolographicCard>
               </motion.div>
             )}
           </div>

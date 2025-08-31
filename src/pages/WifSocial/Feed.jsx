@@ -13,6 +13,8 @@ import {
   ShareIcon
 } from '@heroicons/react/24/outline';
 import useMockData from '../../hooks/useMockData';
+import HolographicCard from '../../components/HolographicCard.jsx';
+import HoloButton from '../../components/HoloButton.jsx';
 
 const Feed = () => {
   const users = useMockData('mock-users.json');
@@ -175,8 +177,9 @@ const Feed = () => {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.2 }}
-          className="glass-card p-6 mb-8"
+          className="mb-8"
         >
+          <HolographicCard>
           <div className="flex items-start gap-4">
             <div className="w-12 h-12 rounded-full bg-gradient-to-r from-purple-500 to-pink-500 flex items-center justify-center">
               <span className="text-white font-bold text-lg">C</span>
@@ -198,16 +201,17 @@ const Feed = () => {
                     <FireIcon className="w-5 h-5 text-orange-500" />
                   </button>
                 </div>
-                <button
+                <HoloButton
                   onClick={handleCreatePost}
+                  className="px-6 py-2 disabled:opacity-50 disabled:cursor-not-allowed"
                   disabled={!newPost.trim()}
-                  className="btn-primary px-6 py-2 disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   Post
-                </button>
+                </HoloButton>
               </div>
             </div>
           </div>
+          </HolographicCard>
         </motion.div>
 
         {/* Filters */}
@@ -243,13 +247,9 @@ const Feed = () => {
           className="space-y-6"
         >
           {posts.map((post, index) => (
-            <motion.div
+            <HolographicCard
               key={post.id}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: index * 0.05 }}
-              viewport={{ once: true }}
-              className="glass-card glass-card-hover p-6"
+              className="p-6"
             >
               {/* Post Header */}
               <div className="flex items-start gap-4 mb-4">
@@ -350,7 +350,7 @@ const Feed = () => {
                   </div>
                 </div>
               </div>
-            </motion.div>
+            </HolographicCard>
           ))}
         </motion.div>
 
@@ -362,9 +362,7 @@ const Feed = () => {
           viewport={{ once: true }}
           className="text-center mt-12"
         >
-          <button className="btn-secondary px-8 py-3">
-            Load More Posts
-          </button>
+          <HoloButton className="px-8 py-3">Load More Posts</HoloButton>
         </motion.div>
       </div>
     </div>

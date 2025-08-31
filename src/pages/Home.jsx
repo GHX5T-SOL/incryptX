@@ -12,6 +12,8 @@ import {
   GlobeAltIcon
 } from '@heroicons/react/24/outline';
 import useMockData from '../hooks/useMockData';
+import HolographicCard from '../components/HolographicCard.jsx';
+import HoloButton from '../components/HoloButton.jsx';
 
 const Home = () => {
   const tokens = useMockData('mock-tokens.json');
@@ -81,7 +83,7 @@ const Home = () => {
           >
 
 
-            <h1 className="text-6xl md:text-8xl font-bold mb-6 relative z-10">
+            <h1 className="text-6xl md:text-8xl font-extrabold mb-6 relative z-10 glitch heading-contrast" data-text="IncryptX">
               <span className="gradient-text">IncryptX</span>
             </h1>
             
@@ -114,16 +116,16 @@ const Home = () => {
             className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-12"
           >
             <Link to="/pad/launch/degen">
-              <button className="btn-primary text-lg px-8 py-4 flex items-center gap-2">
+              <HoloButton className="text-lg">
                 <RocketLaunchIcon className="w-6 h-6" />
                 Launch Token Now
-              </button>
+              </HoloButton>
             </Link>
             <Link to="/trade">
-              <button className="btn-secondary text-lg px-8 py-4 flex items-center gap-2">
+              <HoloButton className="text-lg">
                 <ChartBarIcon className="w-6 h-6" />
                 Start Trading
-              </button>
+              </HoloButton>
             </Link>
           </motion.div>
 
@@ -140,19 +142,13 @@ const Home = () => {
               { label: "Active Users", value: stats.activeUsers.toLocaleString(), icon: UserGroupIcon, color: "from-blue-500 to-cyan-500" },
               { label: "Market Cap", value: `$${(stats.totalMarketCap / 1000000).toFixed(1)}M`, icon: CurrencyDollarIcon, color: "from-orange-500 to-red-500" }
             ].map((stat, index) => (
-              <motion.div
-                key={stat.label}
-                initial={{ opacity: 0, scale: 0.8 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.5, delay: 0.6 + index * 0.1 }}
-                className="glass-card glass-card-hover p-6 text-center"
-              >
+              <HolographicCard key={stat.label} className="text-center">
                 <div className={`w-12 h-12 mx-auto mb-3 rounded-full bg-gradient-to-r ${stat.color} flex items-center justify-center`}>
                   <stat.icon className="w-6 h-6 text-white" />
                 </div>
                 <div className="text-2xl font-bold text-white mb-1">{stat.value}</div>
                 <div className="text-sm text-gray-400">{stat.label}</div>
-              </motion.div>
+              </HolographicCard>
             ))}
           </motion.div>
         </div>
@@ -180,20 +176,13 @@ const Home = () => {
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             {features.map((feature, index) => (
-              <motion.div
-                key={feature.title}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: index * 0.1 }}
-                viewport={{ once: true }}
-                className="glass-card glass-card-hover p-6 text-center group"
-              >
+              <HolographicCard key={feature.title} className="text-center group">
                 <div className={`w-16 h-16 mx-auto mb-4 rounded-2xl bg-gradient-to-r ${feature.gradient} flex items-center justify-center group-hover:scale-110 transition-transform duration-300`}>
                   <feature.icon className="w-8 h-8 text-white" />
                 </div>
                 <h3 className="text-xl font-semibold text-white mb-3">{feature.title}</h3>
                 <p className="text-gray-400 leading-relaxed">{feature.description}</p>
-              </motion.div>
+              </HolographicCard>
             ))}
           </div>
         </div>
@@ -221,14 +210,7 @@ const Home = () => {
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {recentLaunches.map((token, index) => (
-              <motion.div
-                key={token.id}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: index * 0.1 }}
-                viewport={{ once: true }}
-                className="token-card group cursor-pointer"
-              >
+              <HolographicCard key={token.id} className="group cursor-pointer">
                 <div className="flex items-center justify-between mb-4">
                   <div className="flex items-center gap-3">
                     <div className="w-12 h-12 rounded-full bg-gradient-to-r from-purple-500 to-pink-500 flex items-center justify-center">
@@ -263,7 +245,7 @@ const Home = () => {
                     </button>
                   </Link>
                 </div>
-              </motion.div>
+              </HolographicCard>
             ))}
           </div>
 

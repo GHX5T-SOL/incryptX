@@ -17,6 +17,8 @@ import {
   ArrowPathIcon
 } from '@heroicons/react/24/outline';
 import useMockData from '../../hooks/useMockData';
+import HolographicCard from '../../components/HolographicCard.jsx';
+import HoloButton from '../../components/HoloButton.jsx';
 
 const TradeHome = () => {
   const tokens = useMockData('mock-tokens.json');
@@ -87,18 +89,13 @@ const TradeHome = () => {
 
   const handleSwap = async () => {
     if (!fromToken || !toToken || !fromAmount) return;
-    
     setIsSwapping(true);
-    // Simulate swap process
     setTimeout(() => {
       setIsSwapping(false);
-      // Update balances
       const newBalance = { ...balance };
       newBalance[fromToken.symbol] = (newBalance[fromToken.symbol] || 0) - parseFloat(fromAmount);
       newBalance[toToken.symbol] = (newBalance[toToken.symbol] || 0) + parseFloat(toAmount);
       setBalance(newBalance);
-      
-      // Show success notification
       alert(`Successfully swapped ${fromAmount} ${fromToken.symbol} for ${toAmount} ${toToken.symbol}!`);
     }, 2000);
   };
@@ -252,12 +249,7 @@ const TradeHome = () => {
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           {/* Swap Interface */}
           <div className="lg:col-span-2">
-            <motion.div
-              initial={{ opacity: 0, x: -20 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.8, delay: 0.4 }}
-              className="glass-card p-8"
-            >
+            <HolographicCard>
               <div className="flex items-center justify-between mb-8">
                 <h2 className="text-3xl font-bold text-white flex items-center gap-3">
                   <BoltIcon className="w-8 h-8 text-yellow-500" />
@@ -450,10 +442,10 @@ const TradeHome = () => {
                 )}
 
                 {/* Swap Button */}
-                <button
+                <HoloButton
                   onClick={handleSwap}
+                  className="w-full justify-center mt-6 text-xl"
                   disabled={!fromToken || !toToken || !fromAmount || isSwapping || parseFloat(fromAmount) > (fromToken?.balance || 0)}
-                  className="w-full btn-primary py-5 text-xl font-bold disabled:opacity-50 disabled:cursor-not-allowed mt-6 flex items-center justify-center gap-3"
                 >
                   {isSwapping ? (
                     <>
@@ -472,20 +464,15 @@ const TradeHome = () => {
                       Swap
                     </>
                   )}
-                </button>
+                </HoloButton>
               </div>
-            </motion.div>
+            </HolographicCard>
           </div>
 
           {/* Sidebar */}
           <div className="space-y-6">
             {/* Market Stats */}
-            <motion.div
-              initial={{ opacity: 0, x: 20 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.8, delay: 0.6 }}
-              className="glass-card p-6"
-            >
+            <HolographicCard>
               <h3 className="text-xl font-bold text-white mb-4">24h Statistics</h3>
               <div className="space-y-4">
                 {[
@@ -505,15 +492,10 @@ const TradeHome = () => {
                   </div>
                 ))}
               </div>
-            </motion.div>
+            </HolographicCard>
 
             {/* Live Trades */}
-            <motion.div
-              initial={{ opacity: 0, x: 20 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.8, delay: 0.8 }}
-              className="glass-card p-6"
-            >
+            <HolographicCard>
               <h3 className="text-xl font-bold text-white mb-4 flex items-center gap-2">
                 <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
                 Live Trades
@@ -543,15 +525,10 @@ const TradeHome = () => {
                   </motion.div>
                 ))}
               </div>
-            </motion.div>
+            </HolographicCard>
 
             {/* Hot Tokens */}
-            <motion.div
-              initial={{ opacity: 0, x: 20 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.8, delay: 1.0 }}
-              className="glass-card p-6"
-            >
+            <HolographicCard>
               <h3 className="text-xl font-bold text-white mb-4 flex items-center gap-2">
                 <FireIcon className="w-5 h-5 text-orange-500" />
                 Hot Tokens
@@ -581,7 +558,7 @@ const TradeHome = () => {
                   </button>
                 ))}
               </div>
-            </motion.div>
+            </HolographicCard>
           </div>
         </div>
 

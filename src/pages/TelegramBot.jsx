@@ -14,6 +14,8 @@ import {
   BoltIcon,
   GlobeAltIcon
 } from '@heroicons/react/24/outline';
+import HolographicCard from '../components/HolographicCard.jsx';
+import HoloButton from '../components/HoloButton.jsx';
 
 const TelegramBot = () => {
   const [selectedFeature, setSelectedFeature] = useState('overview');
@@ -99,9 +101,7 @@ const TelegramBot = () => {
 
   const handleCommand = async () => {
     if (!command.trim()) return;
-    
     setIsLoading(true);
-    // Simulate bot response
     setTimeout(() => {
       const mockResponses = {
         '/launch': '🚀 Launching CatWifHat... Success! Token deployed at 0x123...\n\n📊 Initial MC: $1,000\n💰 Supply: 1,000,000,000\n🎯 Migration MC: $69,000',
@@ -111,7 +111,6 @@ const TelegramBot = () => {
         '/leaderboard': '🏆 Top Traders This Week\n\n🥇 @DegenPuppy: +150% ($2,500)\n🥈 @MemeMaster: +120% ($1,800)\n🥉 @WifWhale: +95% ($3,200)',
         '/copy': '📋 Now copying @DegenPuppy trades\n\n⚙️ Settings:\n• Copy %: 100%\n• Max trade: $100\n• Auto-follow: Enabled'
       };
-      
       const response = mockResponses[command.split(' ')[0]] || '🤖 Command not recognized. Type /help for available commands.';
       setResponse(response);
       setIsLoading(false);
@@ -273,13 +272,13 @@ const TelegramBot = () => {
                       </div>
                     </div>
                     
-                    <button
+                    <HoloButton
                       onClick={handleCommand}
                       disabled={isLoading || !command.trim()}
-                      className="btn-primary w-full py-3 disabled:opacity-50 disabled:cursor-not-allowed"
+                      className="w-full justify-center py-3 disabled:opacity-50 disabled:cursor-not-allowed"
                     >
                       {isLoading ? '🤖 Processing...' : 'Send Command'}
-                    </button>
+                    </HoloButton>
                     
                     {response && (
                       <motion.div
@@ -311,13 +310,13 @@ const TelegramBot = () => {
               >
                 {Object.entries(commands).map(([category, categoryCommands]) => (
                   <div key={category} className="glass-card p-6">
-                                         <h3 className="text-2xl font-bold text-white mb-6 flex items-center gap-3">
-                       {(() => {
-                         const feature = features.find(f => f.id === category);
-                         return feature?.icon ? <feature.icon className="w-8 h-8 text-purple-400" /> : null;
-                       })()}
-                       {features.find(f => f.id === category)?.title} Commands
-                     </h3>
+                    <h3 className="text-2xl font-bold text-white mb-6 flex items-center gap-3">
+                      {(() => {
+                        const feature = features.find(f => f.id === category);
+                        return feature?.icon ? <feature.icon className="w-8 h-8 text-purple-400" /> : null;
+                      })()}
+                      {features.find(f => f.id === category)?.title} Commands
+                    </h3>
                     
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                       {categoryCommands.map((cmd, index) => (

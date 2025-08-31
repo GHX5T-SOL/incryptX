@@ -11,18 +11,16 @@ import {
   CurrencyDollarIcon,
   UserGroupIcon,
   CogIcon,
-  StarIcon,
-  SunIcon,
-  MoonIcon
+  StarIcon
 } from '@heroicons/react/24/outline';
 import { useWallet } from '@solana/wallet-adapter-react';
 import { WalletMultiButton } from '@solana/wallet-adapter-react-ui';
-import { useTheme } from '../contexts/ThemeContext';
+// Theme is dark-only; no toggle
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const { publicKey, connected } = useWallet();
-  const { theme, toggleTheme } = useTheme();
+  
 
   const toggleMenu = () => setIsOpen(!isOpen);
 
@@ -100,7 +98,7 @@ const Navbar = () => {
   ];
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 bg-black/20 backdrop-blur-xl border-b border-white/10 transition-all duration-300">
+    <nav className="fixed top-0 left-0 right-0 z-50 bg-black/30 backdrop-blur-2xl border-b border-cyan-400/20 shadow-[0_0_24px_rgba(0,255,255,0.08)] transition-all duration-300">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           {/* Logo */}
@@ -110,7 +108,7 @@ const Navbar = () => {
               whileTap={{ scale: 0.9 }}
               className="relative"
             >
-              <div className="w-10 h-10 rounded-xl bg-gradient-to-r from-purple-500 to-pink-500 flex items-center justify-center overflow-hidden shadow-lg">
+              <div className="w-10 h-10 rounded-xl bg-gradient-to-r from-cyan-500 to-fuchsia-500 flex items-center justify-center overflow-hidden shadow-lg ring-1 ring-white/10">
                 <img 
                   src="/assets/images/wif-hat.svg" 
                   alt="IncryptX Icon" 
@@ -122,10 +120,10 @@ const Navbar = () => {
                 />
                 <span className="text-white font-bold text-xl hidden">W</span>
               </div>
-              <div className="absolute -top-1 -right-1 w-4 h-4 bg-gradient-to-r from-blue-400 to-cyan-400 rounded-full animate-pulse"></div>
+              <div className="absolute -top-1 -right-1 w-4 h-4 bg-gradient-to-r from-cyan-400 to-fuchsia-400 rounded-full animate-pulse"></div>
             </motion.div>
             <div className="hidden sm:block">
-              <span className="text-2xl font-bold gradient-text">IncryptX</span>
+              <span className="text-2xl font-extrabold gradient-text" style={{ fontFamily: 'Orbitron, sans-serif' }}>IncryptX</span>
             </div>
           </Link>
 
@@ -141,7 +139,7 @@ const Navbar = () => {
                 
                 {/* Dropdown */}
                 <div className="absolute top-full left-0 mt-2 w-56 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform origin-top scale-95 group-hover:scale-100">
-                  <div className="bg-black/80 backdrop-blur-xl border border-white/20 p-2 space-y-1 rounded-xl navbar-dropdown">
+                  <div className="bg-black/70 backdrop-blur-2xl border border-cyan-400/20 p-2 space-y-1 rounded-xl navbar-dropdown shadow-[0_0_24px_rgba(0,255,255,0.08)]">
                     {item.submenu.map((subItem) => (
                       <Link
                         key={subItem.name}
@@ -174,18 +172,7 @@ const Navbar = () => {
               </motion.div>
             )}
 
-            {/* Theme Toggle */}
-            <button
-              onClick={toggleTheme}
-              className="p-2 rounded-lg text-white/80 hover:text-white hover:bg-white/10 transition-colors mr-2"
-              title={`Switch to ${theme === 'light' ? 'dark' : 'light'} mode`}
-            >
-              {theme === 'light' ? (
-                <MoonIcon className="w-5 h-5" />
-              ) : (
-                <SunIcon className="w-5 h-5" />
-              )}
-            </button>
+            {/* Theme toggle removed (dark-only) */}
 
             {/* Wallet Button */}
             <WalletMultiButton className="btn-primary flex items-center space-x-2 min-w-0 overflow-hidden" />
@@ -260,25 +247,7 @@ const Navbar = () => {
                   </div>
                 ))}
                 
-                {/* Theme Toggle Mobile */}
-                <div className="px-4 py-2 border-t border-white/10">
-                  <button
-                    onClick={toggleTheme}
-                    className="flex items-center space-x-2 w-full px-3 py-2 rounded-lg text-white/80 hover:text-white hover:bg-white/10 transition-colors"
-                  >
-                    {theme === 'light' ? (
-                      <>
-                        <MoonIcon className="w-4 h-4" />
-                        <span>Switch to Dark Mode</span>
-                      </>
-                    ) : (
-                      <>
-                        <SunIcon className="w-4 h-4" />
-                        <span>Switch to Light Mode</span>
-                      </>
-                    )}
-                  </button>
-                </div>
+                {/* Theme toggle removed in mobile menu (dark-only) */}
 
                 {/* Additional Mobile Links */}
                 <div className="px-4 pt-4 border-t border-white/10">

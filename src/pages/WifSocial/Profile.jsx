@@ -25,6 +25,8 @@ import {
 } from '@heroicons/react/24/outline';
 import { useWallet } from '@solana/wallet-adapter-react';
 import useMockData from '../../hooks/useMockData';
+import HolographicCard from '../../components/HolographicCard.jsx';
+import HoloButton from '../../components/HoloButton.jsx';
 
 const Profile = () => {
   const { username } = useParams();
@@ -171,8 +173,9 @@ const Profile = () => {
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
-          className="glass-card p-8 mb-8"
+          className="mb-8"
         >
+          <HolographicCard>
           <div className="flex flex-col lg:flex-row gap-8">
             {/* Profile Info */}
             <div className="flex-1">
@@ -210,24 +213,24 @@ const Profile = () => {
 
               {/* Action Buttons */}
               <div className="flex flex-wrap gap-3">
-                <button className="btn-primary px-6 py-2">
-                  <ShareIcon className="w-4 h-4 mr-2" />
-                  Share Profile
-                </button>
-                <button className="btn-secondary px-6 py-2">
-                  <ChatBubbleLeftIcon className="w-4 h-4 mr-2" />
-                  Send Message
-                </button>
-                <button className="px-6 py-2 bg-white/10 text-gray-300 hover:bg-white/20 rounded-lg transition-colors">
-                  <HeartIcon className="w-4 h-4 mr-2" />
-                  Follow
-                </button>
+                <HoloButton>
+                  <ShareIcon className="w-4 h-4" />
+                  <span className="ml-2">Share Profile</span>
+                </HoloButton>
+                <HoloButton>
+                  <ChatBubbleLeftIcon className="w-4 h-4" />
+                  <span className="ml-2">Send Message</span>
+                </HoloButton>
+                <HoloButton className="bg-white/10">
+                  <HeartIcon className="w-4 h-4" />
+                  <span className="ml-2">Follow</span>
+                </HoloButton>
               </div>
             </div>
 
             {/* Wallet Info */}
             <div className="lg:w-80">
-              <div className="glass-card p-6">
+              <HolographicCard>
                 <h3 className="text-lg font-semibold text-white mb-4 flex items-center gap-2">
                   <WalletIcon className="w-5 h-5" />
                   Wallet Information
@@ -299,9 +302,10 @@ const Profile = () => {
                     Address copied to clipboard!
                   </motion.div>
                 )}
-              </div>
+              </HolographicCard>
             </div>
           </div>
+        </HolographicCard>
         </motion.div>
 
         {/* Tabs */}
@@ -309,8 +313,9 @@ const Profile = () => {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.2 }}
-          className="glass-card p-2 mb-8 inline-flex rounded-xl"
+          className="mb-8 inline-flex"
         >
+          <HolographicCard className="p-2 rounded-xl">
           {[
             { id: 'overview', name: 'Overview', icon: EyeIcon },
             { id: 'tokens', name: 'Tokens Launched', icon: FireIcon },
@@ -331,6 +336,7 @@ const Profile = () => {
               {tab.name}
             </button>
           ))}
+          </HolographicCard>
         </motion.div>
 
         {/* Tab Content */}
@@ -352,24 +358,18 @@ const Profile = () => {
                   { label: 'Active Positions', value: userPositions.length, icon: ChartBarIcon, color: 'from-blue-500 to-cyan-500' },
                   { label: 'Groups Joined', value: userGroups.length, icon: UserGroupIcon, color: 'from-purple-500 to-pink-500' }
                 ].map((stat, index) => (
-                  <motion.div
-                    key={stat.label}
-                    initial={{ opacity: 0, y: 30 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.5, delay: index * 0.1 }}
-                    className="glass-card p-6 text-center group"
-                  >
+                  <HolographicCard key={stat.label} className="text-center group">
                     <div className={`w-16 h-16 mx-auto mb-4 rounded-2xl bg-gradient-to-r ${stat.color} flex items-center justify-center group-hover:scale-110 transition-transform duration-300`}>
                       <stat.icon className="w-8 h-8 text-white" />
                     </div>
                     <div className="text-2xl font-bold text-white mb-2">{stat.value}</div>
                     <div className="text-sm text-gray-400">{stat.label}</div>
-                  </motion.div>
+                  </HolographicCard>
                 ))}
               </div>
 
               {/* Recent Activity */}
-              <div className="glass-card p-6">
+              <HolographicCard>
                 <h3 className="text-xl font-bold text-white mb-4">Recent Activity</h3>
                 <div className="space-y-3">
                   {[
@@ -401,7 +401,7 @@ const Profile = () => {
                     </motion.div>
                   ))}
                 </div>
-              </div>
+              </HolographicCard>
             </motion.div>
           )}
 

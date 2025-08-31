@@ -15,6 +15,8 @@ import {
   MinusIcon
 } from '@heroicons/react/24/outline';
 import useMockData from '../../hooks/useMockData';
+import HolographicCard from '../../components/HolographicCard.jsx';
+import HoloButton from '../../components/HoloButton.jsx';
 
 const PerpsHome = () => {
   const tokens = useMockData('mock-tokens.json');
@@ -89,19 +91,13 @@ const PerpsHome = () => {
             { label: 'Active Traders', value: stats.activeTraders.toLocaleString(), icon: UserGroupIcon, color: 'from-purple-500 to-pink-500' },
             { label: 'Total Markets', value: stats.totalMarkets, icon: StarIcon, color: 'from-orange-500 to-red-500' }
           ].map((stat, index) => (
-            <motion.div
-              key={stat.label}
-              initial={{ opacity: 0, scale: 0.8 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.5, delay: 0.4 + index * 0.1 }}
-              className="glass-card glass-card-hover p-6 text-center"
-            >
+            <HolographicCard key={stat.label} className="text-center">
               <div className={`w-12 h-12 mx-auto mb-3 rounded-full bg-gradient-to-r ${stat.color} flex items-center justify-center`}>
                 <stat.icon className="w-6 h-6 text-white" />
               </div>
               <div className="text-2xl font-bold text-white mb-1">{stat.value}</div>
               <div className="text-sm text-gray-400">{stat.label}</div>
-            </motion.div>
+            </HolographicCard>
           ))}
         </motion.div>
 
@@ -110,8 +106,9 @@ const PerpsHome = () => {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.4 }}
-          className="glass-card p-6 mb-8"
+          className="mb-8"
         >
+          <HolographicCard>
           <div className="flex flex-col lg:flex-row gap-4 items-center justify-between">
             <div className="flex flex-wrap gap-2">
               {categories.map((category) => (
@@ -143,13 +140,16 @@ const PerpsHome = () => {
 
               <button
                 onClick={() => setShowProposalModal(true)}
-                className="btn-primary px-6 py-2 flex items-center gap-2"
+                className="flex items-center gap-2"
               >
-                <PlusIcon className="w-5 h-5" />
-                Propose Market
+                <HoloButton>
+                  <PlusIcon className="w-5 h-5" />
+                  Propose Market
+                </HoloButton>
               </button>
             </div>
           </div>
+          </HolographicCard>
         </motion.div>
 
         {/* Markets Grid */}
@@ -162,13 +162,9 @@ const PerpsHome = () => {
         >
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {perpetualMarkets.map((market, index) => (
-              <motion.div
+              <HolographicCard
                 key={market.id}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: index * 0.05 }}
-                viewport={{ once: true }}
-                className="glass-card glass-card-hover p-6 cursor-pointer relative"
+                className="cursor-pointer relative"
               >
                 {market.isHot && (
                   <div className="absolute -top-2 -right-2 bg-gradient-to-r from-orange-500 to-red-500 text-white text-xs px-2 py-1 rounded-full font-bold">
@@ -225,14 +221,14 @@ const PerpsHome = () => {
                 </div>
 
                 <div className="flex gap-2">
-                  <button className="flex-1 btn-primary py-2 text-sm">
+                  <HoloButton className="flex-1 justify-center py-2 text-sm">
                     Trade Now
-                  </button>
+                  </HoloButton>
                   <button className="px-3 py-2 bg-white/10 hover:bg-white/20 rounded-lg transition-colors">
                     <EyeIcon className="w-4 h-4 text-gray-400" />
                   </button>
                 </div>
-              </motion.div>
+              </HolographicCard>
             ))}
           </div>
         </motion.div>
@@ -248,7 +244,7 @@ const PerpsHome = () => {
           <h2 className="text-3xl font-bold text-white mb-8 text-center">
             🏆 Top <span className="gradient-text">Traders</span> This Week
           </h2>
-          <div className="glass-card p-6">
+          <HolographicCard>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
               {topTraders.map((trader, index) => (
                 <motion.div
@@ -280,7 +276,7 @@ const PerpsHome = () => {
                 </motion.div>
               ))}
             </div>
-          </div>
+          </HolographicCard>
         </motion.div>
 
         {/* Features */}

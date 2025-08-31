@@ -5,6 +5,7 @@ import { useLocation } from 'react-router-dom';
 import WalletProvider from './components/WalletProvider';
 import { ThemeProvider } from './contexts/ThemeContext';
 import Navbar from './components/Navbar';
+import Starfield from './components/Starfield';
 import Footer from './components/Footer';
 import IncryptAI from './components/IncryptAI';
 
@@ -89,6 +90,7 @@ const AppContent = () => {
   
   return (
     <div className="min-h-screen">
+      <Starfield />
       <div className="animated-bg" aria-hidden="true"></div>
       <Navbar />
       <AnimatePresence mode="wait">

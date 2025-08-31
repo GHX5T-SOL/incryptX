@@ -7,6 +7,8 @@ import {
   XMarkIcon,
   CogIcon
 } from '@heroicons/react/24/outline';
+import HolographicCard from '../../components/HolographicCard.jsx';
+import HoloButton from '../../components/HoloButton.jsx';
 
 const MyPositions = () => {
   const [myPositions, setMyPositions] = useState([]);
@@ -111,19 +113,13 @@ const MyPositions = () => {
             { label: 'Open Positions', value: totalStats.totalPositions, icon: ChartBarIcon },
             { label: 'Profitable', value: `${totalStats.profitablePositions}/${totalStats.totalPositions}`, icon: ArrowTrendingUpIcon }
           ].map((stat, index) => (
-            <motion.div
-              key={stat.label}
-              initial={{ opacity: 0, scale: 0.8 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.5, delay: 0.4 + index * 0.1 }}
-              className="glass-card p-6 text-center"
-            >
+            <HolographicCard key={stat.label} className="text-center">
               <div className="w-16 h-16 mx-auto mb-4 rounded-2xl bg-gradient-to-r from-purple-500 to-pink-500 flex items-center justify-center">
                 <stat.icon className="w-8 h-8 text-white" />
               </div>
               <div className="text-2xl font-bold text-white mb-2">{stat.value}</div>
               <div className="text-sm text-gray-400">{stat.label}</div>
-            </motion.div>
+            </HolographicCard>
           ))}
         </motion.div>
 
@@ -131,8 +127,8 @@ const MyPositions = () => {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.6 }}
-          className="glass-card p-6"
         >
+          <HolographicCard>
           <h2 className="text-2xl font-bold text-white mb-6">Open Positions</h2>
           
           {myPositions.length === 0 ? (
@@ -140,9 +136,7 @@ const MyPositions = () => {
               <ChartBarIcon className="w-24 h-24 mx-auto text-gray-400 mb-4" />
               <h3 className="text-2xl font-bold text-white mb-2">No Open Positions</h3>
               <p className="text-gray-400 mb-6">You don't have any open perpetual positions yet.</p>
-              <button className="btn-primary px-8 py-3 text-lg">
-                Open Your First Position
-              </button>
+              <HoloButton className="px-8 py-3 text-lg">Open Your First Position</HoloButton>
             </div>
           ) : (
             <div className="space-y-4">
@@ -204,6 +198,7 @@ const MyPositions = () => {
               ))}
             </div>
           )}
+          </HolographicCard>
         </motion.div>
 
         <AnimatePresence>

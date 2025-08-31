@@ -15,26 +15,18 @@ export const useTheme = () => {
 // ThemeProvider component
 // eslint-disable-next-line react-refresh/only-export-components
 export const ThemeProvider = ({ children }) => {
-  // Initialize theme state based on localStorage (default to dark)
-  const [theme, setTheme] = useState(() => {
-    const savedTheme = localStorage.getItem('wifpad-theme');
-    if (savedTheme) {
-      return savedTheme;
-    }
-    return 'dark';
-  });
+  // Lock theme to dark only
+  const [theme] = useState('dark');
 
-  // Toggle between light and dark themes
+  // No-op toggle retained for API compatibility
   const toggleTheme = () => {
-    const newTheme = theme === 'light' ? 'dark' : 'light';
-    setTheme(newTheme);
-    localStorage.setItem('wifpad-theme', newTheme);
+    // Intentionally no-op to enforce dark-only theme
   };
 
   // Apply the theme class to the body element
   useEffect(() => {
-    document.documentElement.setAttribute('data-theme', theme);
-    document.body.className = theme;
+    document.documentElement.setAttribute('data-theme', 'dark');
+    document.body.className = 'dark';
 
     // Update theme-color meta for supported browsers
     const ensureMeta = (name) => {
@@ -47,7 +39,7 @@ export const ThemeProvider = ({ children }) => {
       return el;
     };
     const meta = ensureMeta('theme-color');
-    meta.setAttribute('content', theme === 'dark' ? '#0f0f23' : '#ffffff');
+    meta.setAttribute('content', '#0b0b14');
   }, [theme]);
 
   // Ignore system theme changes; user can toggle explicitly
