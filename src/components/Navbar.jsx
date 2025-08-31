@@ -208,18 +208,37 @@ const Navbar = () => {
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               transition={{ duration: 0.2 }}
-              className="lg:hidden fixed inset-0 z-[100] modal-overlay overflow-y-auto"
+              className="lg:hidden fixed inset-0 z-[9999] modal-overlay"
               onClick={() => setIsOpen(false)}
+              aria-modal="true"
+              role="dialog"
             >
               <motion.div
                 initial={{ y: '100%' }}
                 animate={{ y: 0 }}
                 exit={{ y: '100%' }}
                 transition={{ type: 'spring', stiffness: 260, damping: 30 }}
-                className="fixed inset-0 h-[100dvh] min-h-[100dvh] bg-black/70 backdrop-blur-xl border-t border-white/10 navbar-mobile flex flex-col"
+                className="fixed inset-0 bg-black/70 backdrop-blur-xl navbar-mobile flex flex-col"
                 onClick={(e) => e.stopPropagation()}
+                style={{ height: '100dvh' }}
               >
-              <div className="flex-1 overflow-y-auto pt-16 pb-safe px-0 space-y-2">
+              {/* Mobile Sheet Header */}
+              <div className="sticky top-0 z-[1] h-16 px-4 flex items-center justify-between border-b border-white/10 bg-black/70 backdrop-blur-xl">
+                <div className="flex items-center gap-2 text-white/90">
+                  <FireIcon className="w-5 h-5" />
+                  <span className="font-semibold">Menu</span>
+                </div>
+                <button
+                  onClick={() => setIsOpen(false)}
+                  className="p-2 rounded-lg text-white/80 hover:text-white hover:bg-white/10"
+                  aria-label="Close menu"
+                >
+                  <XMarkIcon className="w-6 h-6" />
+                </button>
+              </div>
+
+              {/* Scrollable Content */}
+              <div className="flex-1 overflow-y-auto pb-safe px-0 space-y-2">
                 {navigationItems.map((item) => (
                   <div key={item.name} className="px-4">
                     <div className="text-white/60 text-sm font-medium mb-2 flex items-center space-x-2">
