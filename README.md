@@ -13,6 +13,8 @@ IncryptX is a professional, end‑to‑end DeFi platform on Solana. It unifies a
 
 - Demo: [incryptx-demo.vercel.app](https://incryptx-demo.vercel.app)
 - X (Twitter): [@Incrypt_defi](https://x.com/Incrypt_defi)
+ 
+ <!-- trigger: redeploy 36cca41 -->
 - Repository: [GHX5T-SOL/incryptX](https://github.com/GHX5T-SOL/incryptX)
 - Contact: <incryptinvestments@protonmail.com>
 
