@@ -127,12 +127,12 @@ const Navbar = () => {
                 
                 {/* Dropdown */}
                 <div className="absolute top-full left-0 mt-2 w-56 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform origin-top scale-95 group-hover:scale-100">
-                  <div className="bg-black/80 backdrop-blur-xl border border-white/20 p-2 space-y-1 rounded-xl">
+                  <div className="bg-black/80 backdrop-blur-xl border border-white/20 p-2 space-y-1 rounded-xl navbar-dropdown">
                     {item.submenu.map((subItem) => (
                       <Link
                         key={subItem.name}
                         to={subItem.path}
-                        className="flex items-center space-x-3 px-3 py-2 rounded-lg text-white/80 hover:text-white hover:bg-white/10 transition-all duration-200"
+                        className="flex items-center space-x-3 px-3 py-2 rounded-lg text-white/80 hover:text-white hover:bg-white/10 transition-all duration-200 dropdown-item"
                       >
                         <subItem.icon className="w-4 h-4" />
                         <span>{subItem.name}</span>
@@ -202,7 +202,7 @@ const Navbar = () => {
                 animate={{ y: 0 }}
                 exit={{ y: '100%' }}
                 transition={{ type: 'spring', stiffness: 260, damping: 30 }}
-                className="absolute bottom-0 left-0 right-0 bg-black/60 backdrop-blur-xl border-t border-white/10 rounded-t-2xl"
+                className="absolute bottom-0 left-0 right-0 bg-black/60 backdrop-blur-xl border-t border-white/10 rounded-t-2xl navbar-mobile"
                 onClick={(e) => e.stopPropagation()}
               >
               <div className="py-4 space-y-2 max-h-[75vh] overflow-y-auto">

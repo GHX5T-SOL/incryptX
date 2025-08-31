@@ -556,6 +556,26 @@ body {
   color: #1e293b !important;
 }
 
+/* Ensure navbar dropdown text is white on dark dropdowns in light mode */
+[data-theme="light"] .navbar-dropdown {
+  color: #ffffff !important;
+}
+[data-theme="light"] .navbar-dropdown .dropdown-item {
+  color: #ffffff !important;
+}
+[data-theme="light"] .navbar-dropdown .dropdown-item:hover {
+  color: #ffffff !important;
+}
+
+/* Ensure mobile sheet links remain readable in light mode */
+[data-theme="light"] .navbar-mobile a,
+[data-theme="light"] .navbar-mobile .dropdown-item {
+  color: #0f172a !important;
+}
+[data-theme="light"] .navbar-mobile a:hover {
+  color: #0f172a !important;
+}
+
 [data-theme="light"] .text-white {
   color: #0f172a !important;
 }
