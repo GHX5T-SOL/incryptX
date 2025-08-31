@@ -72,7 +72,7 @@ const IncryptAI = () => {
         <div className="ai-panel glass-card">
           <div className="flex items-center justify-between p-3 border-b border-white/10" role="region" aria-label="Incrypt AI header">
             <div className="flex items-center gap-2">
-              <div className="w-8 h-8 rounded-full bg-gradient-to-r from-purple-500 to-pink-500 flex items-center justify-center text-white font-bold" aria-hidden="true">IA</div>
+              <div className="w-8 h-8 rounded-full bg-gradient-to-r from-purple-500 to-pink-500 flex items-center justify-center text-lg" aria-hidden="true">🧠</div>
               <div>
                 <div className="text-white font-semibold">Incrypt AI</div>
                 <div className="text-xs text-gray-400">Cyberpunk assistant • Demo</div>
@@ -133,9 +133,8 @@ const IncryptAI = () => {
               placeholder="Type a message..."
               className="flex-1 input-modern"
             />
-            <button aria-label="Send" className="btn-primary flex items-center gap-2" onClick={handleSend}>
-              <PaperAirplaneIcon className="w-4 h-4" />
-              Send
+            <button aria-label="Send message" className="btn-primary p-2 rounded-full h-10 w-10 flex items-center justify-center" onClick={handleSend}>
+              <PaperAirplaneIcon className="w-5 h-5" />
             </button>
           </div>
         </div>
