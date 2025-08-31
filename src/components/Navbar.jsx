@@ -216,10 +216,10 @@ const Navbar = () => {
                 animate={{ y: 0 }}
                 exit={{ y: '100%' }}
                 transition={{ type: 'spring', stiffness: 260, damping: 30 }}
-                className="fixed inset-0 bg-black/70 backdrop-blur-xl border-t border-white/10 navbar-mobile overflow-y-auto"
+                className="fixed inset-0 h-[100dvh] min-h-[100dvh] bg-black/70 backdrop-blur-xl border-t border-white/10 navbar-mobile flex flex-col"
                 onClick={(e) => e.stopPropagation()}
               >
-              <div className="pt-16 pb-safe px-0 space-y-2 min-h-screen">
+              <div className="flex-1 overflow-y-auto pt-16 pb-safe px-0 space-y-2">
                 {navigationItems.map((item) => (
                   <div key={item.name} className="px-4">
                     <div className="text-white/60 text-sm font-medium mb-2 flex items-center space-x-2">
