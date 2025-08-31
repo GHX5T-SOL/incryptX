@@ -96,10 +96,10 @@ const Navbar = () => {
               whileTap={{ scale: 0.9 }}
               className="relative"
             >
-              <div className="w-10 h-10 rounded-xl bg-gradient-to-r from-purple-500 to-pink-500 flex items-center justify-center overflow-hidden">
+              <div className="w-10 h-10 rounded-xl bg-gradient-to-r from-purple-500 to-pink-500 flex items-center justify-center overflow-hidden shadow-lg">
                 <img 
                   src="/assets/images/wif-hat.svg" 
-                  alt="WIF Hat" 
+                  alt="IncryptX Icon" 
                   className="w-full h-full object-cover"
                   onError={(e) => {
                     e.target.style.display = 'none';
@@ -190,13 +190,22 @@ const Navbar = () => {
         <AnimatePresence>
           {isOpen && (
             <motion.div
-              initial={{ opacity: 0, height: 0 }}
-              animate={{ opacity: 1, height: 'auto' }}
-              exit={{ opacity: 0, height: 0 }}
-              transition={{ duration: 0.3 }}
-              className="lg:hidden border-t border-white/10 overflow-hidden"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.2 }}
+              className="lg:hidden fixed inset-0 z-50 modal-overlay"
+              onClick={() => setIsOpen(false)}
             >
-              <div className="py-4 space-y-2">
+              <motion.div
+                initial={{ y: '100%' }}
+                animate={{ y: 0 }}
+                exit={{ y: '100%' }}
+                transition={{ type: 'spring', stiffness: 260, damping: 30 }}
+                className="absolute bottom-0 left-0 right-0 bg-black/60 backdrop-blur-xl border-t border-white/10 rounded-t-2xl"
+                onClick={(e) => e.stopPropagation()}
+              >
+              <div className="py-4 space-y-2 max-h-[75vh] overflow-y-auto">
                 {navigationItems.map((item) => (
                   <div key={item.name} className="px-4">
                     <div className="text-white/60 text-sm font-medium mb-2 flex items-center space-x-2">
@@ -280,6 +289,7 @@ const Navbar = () => {
                   </div>
                 </div>
               </div>
+              </motion.div>
             </motion.div>
           )}
         </AnimatePresence>

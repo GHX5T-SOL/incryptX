@@ -13,18 +13,15 @@ export const useTheme = () => {
 };
 
 // ThemeProvider component
+// eslint-disable-next-line react-refresh/only-export-components
 export const ThemeProvider = ({ children }) => {
-  // Initialize theme state based on localStorage or system preference
+  // Initialize theme state based on localStorage (default to dark)
   const [theme, setTheme] = useState(() => {
     const savedTheme = localStorage.getItem('wifpad-theme');
     if (savedTheme) {
       return savedTheme;
     }
-    // Check system preference
-    if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
-      return 'dark';
-    }
-    return 'light';
+    return 'dark';
   });
 
   // Toggle between light and dark themes
@@ -38,20 +35,22 @@ export const ThemeProvider = ({ children }) => {
   useEffect(() => {
     document.documentElement.setAttribute('data-theme', theme);
     document.body.className = theme;
+
+    // Update theme-color meta for supported browsers
+    const ensureMeta = (name) => {
+      let el = document.querySelector(`meta[name="${name}"]`);
+      if (!el) {
+        el = document.createElement('meta');
+        el.setAttribute('name', name);
+        document.head.appendChild(el);
+      }
+      return el;
+    };
+    const meta = ensureMeta('theme-color');
+    meta.setAttribute('content', theme === 'dark' ? '#0f0f23' : '#ffffff');
   }, [theme]);
 
-  // Listen for system theme changes
-  useEffect(() => {
-    const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
-    const handleChange = (e) => {
-      if (!localStorage.getItem('wifpad-theme')) {
-        setTheme(e.matches ? 'dark' : 'light');
-      }
-    };
-
-    mediaQuery.addEventListener('change', handleChange);
-    return () => mediaQuery.removeEventListener('change', handleChange);
-  }, []);
+  // Ignore system theme changes; user can toggle explicitly
 
   return (
     <ThemeContext.Provider value={{ theme, toggleTheme }}>
