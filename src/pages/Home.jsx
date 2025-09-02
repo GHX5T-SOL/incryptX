@@ -83,8 +83,8 @@ const Home = () => {
           >
 
 
-            <h1 className="text-6xl md:text-8xl font-extrabold mb-6 relative z-10 glitch heading-contrast" data-text="IncryptX">
-              <span className="gradient-text">IncryptX</span>
+            <h1 className="text-6xl md:text-8xl font-extrabold mb-6 relative z-10 heading-contrast" style={{ fontFamily: 'Orbitron, sans-serif', letterSpacing: '0.06em' }}>
+              <span className="gradient-text">INCRYPT</span>
             </h1>
             
             {/* Logo (kept, will be replaced with same filename externally) */}
@@ -103,7 +103,7 @@ const Home = () => {
             
 
 
-            <p className="text-xl md:text-2xl text-gray-300 max-w-3xl mx-auto leading-relaxed">
+            <p className="text-xl md:text-2xl text-gray-300 max-w-3xl mx-auto leading-relaxed" style={{ fontFamily: 'Inter, system-ui, -apple-system, Segoe UI, Roboto, sans-serif' }}>
               The ultimate memecoin launchpad and trading ecosystem. Launch, trade, and earn with 
               <span className="gradient-text-secondary font-semibold"> zero coding required</span>.
             </p>
@@ -174,9 +174,9 @@ const Home = () => {
             </p>
           </motion.div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 items-stretch">
             {features.map((feature, index) => (
-              <HolographicCard key={feature.title} className="text-center group">
+              <HolographicCard key={feature.title} className="text-center group h-full">
                 <div className={`w-16 h-16 mx-auto mb-4 rounded-2xl bg-gradient-to-r ${feature.gradient} flex items-center justify-center group-hover:scale-110 transition-transform duration-300`}>
                   <feature.icon className="w-8 h-8 text-white" />
                 </div>

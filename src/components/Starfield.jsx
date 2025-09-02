@@ -12,7 +12,7 @@ const Starfield = () => {
     let height = 0;
     const deviceRatio = Math.min(window.devicePixelRatio || 1, 2);
 
-    const STAR_COUNT = 220; // balanced for performance
+    const STAR_COUNT = 240; // slight increase for richness
     const stars = [];
     const randomBetween = (min, max) => Math.random() * (max - min) + min;
 
@@ -23,9 +23,9 @@ const Starfield = () => {
           x: Math.random() * width,
           y: Math.random() * height,
           z: Math.random() * 0.8 + 0.2, // depth 0.2..1.0
-          r: randomBetween(0.4, 1.8),
-          twinkle: randomBetween(0.2, 1),
-          hue: Math.random() < 0.7 ? 190 : 300 // cyan or magenta bias
+          r: randomBetween(0.4, 1.6),
+          twinkle: randomBetween(0.1, 0.5), // reduce twinkle amplitude to avoid flashing
+          tone: Math.random() < 0.85 ? 'white' : 'cyan' // mostly white stars, occasional cyan
         });
       }
     };
@@ -44,29 +44,18 @@ const Starfield = () => {
     const draw = (t) => {
       ctx.clearRect(0, 0, width, height);
 
-      // subtle vignette/space glow
-      const gradient = ctx.createRadialGradient(
-        width * 0.7,
-        height * 0.3,
-        0,
-        width * 0.5,
-        height * 0.5,
-        Math.max(width, height) * 0.9
-      );
-      gradient.addColorStop(0, 'rgba(0, 10, 25, 0.4)');
-      gradient.addColorStop(1, 'rgba(0, 0, 0, 0.0)');
-      ctx.fillStyle = gradient;
-      ctx.fillRect(0, 0, width, height);
+      // keep background fully black; no vignette to avoid any color flashing
 
       for (let i = 0; i < stars.length; i += 1) {
         const s = stars[i];
-        const tw = (Math.sin(t * 0.002 + i) + 1) * 0.5; // 0..1
-        const alpha = 0.5 + 0.5 * tw * s.twinkle;
-        const size = s.r + tw * 0.8 * s.z;
+        const tw = (Math.sin(t * 0.0012 + i) + 1) * 0.5; // slower twinkle
+        const alpha = 0.35 + 0.35 * tw * s.twinkle; // lower peak alpha
+        const size = s.r + tw * 0.4 * s.z; // smaller size change
         ctx.beginPath();
-        ctx.fillStyle = `hsla(${s.hue}, 100%, ${70 + s.z * 20}%, ${alpha})`;
-        ctx.shadowBlur = 8 + s.z * 8;
-        ctx.shadowColor = `hsla(${s.hue}, 100%, 60%, ${alpha})`;
+        const color = s.tone === 'white' ? `rgba(255,255,255,${alpha})` : `rgba(125,249,255,${alpha})`;
+        ctx.fillStyle = color;
+        ctx.shadowBlur = 6 + s.z * 6;
+        ctx.shadowColor = s.tone === 'white' ? `rgba(255,255,255,${alpha})` : `rgba(125,249,255,${alpha})`;
         ctx.arc(s.x, s.y, size, 0, Math.PI * 2);
         ctx.fill();
       }
@@ -74,8 +63,8 @@ const Starfield = () => {
       // slow parallax drift
       for (let i = 0; i < stars.length; i += 1) {
         const s = stars[i];
-        s.x += 0.02 * (1.5 - s.z);
-        s.y += 0.01 * (1.5 - s.z);
+        s.x += 0.03 * (1.5 - s.z);
+        s.y += 0.015 * (1.5 - s.z);
         if (s.x > width) s.x = 0;
         if (s.y > height) s.y = 0;
       }
