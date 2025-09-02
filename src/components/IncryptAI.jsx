@@ -13,7 +13,7 @@ const IncryptAI = () => {
   const [open, setOpen] = useState(false);
   const [input, setInput] = useState('');
   const [messages, setMessages] = useState([
-    { id: 'sys-hello', role: 'assistant', text: 'Hello, I am Incrypt AI, your trusty AI cryptopunk. What can I help you with today?' }
+    { id: 'sys-hello', role: 'assistant', text: 'Hello, I am Zyra, your trusty AI assistant. What can I help you with today?' }
   ]);
   const [isRecording, setIsRecording] = useState(false);
   const [attachedFiles, setAttachedFiles] = useState([]);
