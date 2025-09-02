@@ -7,13 +7,15 @@ export default {
   theme: {
     extend: {
       colors: {
-        'primary-pink': '#FF69B4',
-        'hat-blue': '#00BFFF',
-        'dog-white': '#FFFFFF',
-        'meme-black': '#000000',
+        'neon-cyan': '#00FFF0',
+        'neon-pink': '#FF00CC',
+        'neon-purple': '#8A2BE2',
+        'neon-blue': '#00BFFF',
+        'space-black': '#0b0b14',
       },
       fontFamily: {
-        'comic': ['"Comic Neue"', 'cursive'],
+        'tech': ['Orbitron', 'Rajdhani', 'Chakra Petch', 'Inter', 'sans-serif'],
+        'mono': ['JetBrains Mono', 'Fira Code', 'monospace'],
       },
     },
   },

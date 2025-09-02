@@ -7,7 +7,7 @@ const HoloButton = ({ children, className = '', onClick }) => {
       onClick={onClick}
       whileHover={{ scale: 1.04 }}
       whileTap={{ scale: 0.96 }}
-      className={`relative inline-flex items-center gap-2 px-6 py-3 rounded-xl text-white font-semibold transition-all ${className}`}
+      className={`relative inline-flex items-center gap-2 px-6 py-3 rounded-xl text-white font-semibold transition-all group ${className}`}
       style={{
         background: 'linear-gradient(90deg, rgba(0,255,255,0.12), rgba(255,0,204,0.12))',
         border: '1px solid rgba(0,255,255,0.25)',

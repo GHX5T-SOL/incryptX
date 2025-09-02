@@ -19,6 +19,7 @@ const IncryptAI = () => {
   const [attachedFiles, setAttachedFiles] = useState([]);
   const fileInputRef = useRef(null);
   const listRef = useRef(null);
+  const audioRef = useRef(null);
 
   useEffect(() => {
     if (listRef.current) {
@@ -55,13 +56,48 @@ const IncryptAI = () => {
     }
   };
 
+  const handleToggle = () => {
+    setOpen(prev => {
+      const next = !prev;
+      if (next) {
+        try {
+          if (audioRef.current) {
+            audioRef.current.currentTime = 0;
+            audioRef.current.volume = 0.85;
+            // Attempt playback on user gesture
+            audioRef.current.play().catch(() => {});
+          }
+        } catch (_) {}
+      } else {
+        try {
+          if (audioRef.current) {
+            audioRef.current.pause();
+            audioRef.current.currentTime = 0;
+          }
+        } catch (_) {}
+      }
+      return next;
+    });
+  };
+
+  const handleClose = () => {
+    try {
+      if (audioRef.current) {
+        audioRef.current.pause();
+        audioRef.current.currentTime = 0;
+      }
+    } catch (_) {}
+    setOpen(false);
+  };
+
   return (
     <>
+      <audio ref={audioRef} src="/assets/zyra_voice.mp3" preload="auto" />
       {/* Floating Action Button */}
       <button
         aria-label="Open Incrypt AI"
         className="ai-fab group"
-        onClick={() => setOpen(o => !o)}
+        onClick={handleToggle}
       >
         <SparklesIcon className="w-6 h-6 text-white" />
         <span className="ml-2 hidden sm:block text-white font-semibold">Incrypt AI</span>
@@ -78,7 +114,7 @@ const IncryptAI = () => {
                 <div className="text-xs text-gray-400">Cyberpunk assistant • Demo</div>
               </div>
             </div>
-            <button aria-label="Close Incrypt AI" className="p-2 hover:bg-white/10 rounded-lg" onClick={() => setOpen(false)}>
+            <button aria-label="Close Incrypt AI" className="p-2 hover:bg-white/10 rounded-lg" onClick={handleClose}>
               <XMarkIcon className="w-5 h-5 text-white/80" />
             </button>
           </div>
@@ -137,6 +173,18 @@ const IncryptAI = () => {
               <PaperAirplaneIcon className="w-5 h-5" />
             </button>
           </div>
+        </div>
+      )}
+
+      {/* Anime Companion GIF */}
+      {open && (
+        <div className="ai-companion" aria-hidden="true">
+          <img
+            src="/assets/zyra_ai.gif"
+            alt="Zyra, your anime AI companion"
+            className="w-full h-auto select-none"
+            draggable="false"
+          />
         </div>
       )}
     </>

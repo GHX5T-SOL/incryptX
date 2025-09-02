@@ -126,6 +126,22 @@ body {
   z-index: 60;
 }
 
+/* Companion GIF container placed to the left of the AI panel on desktop, stacks on mobile */
+.ai-companion {
+  position: fixed;
+  right: calc(20px + 360px + 16px);
+  bottom: 80px;
+  width: 320px;
+  max-width: 28vw;
+  z-index: 59;
+  filter: drop-shadow(0 0 22px rgba(255,0,204,0.22)) drop-shadow(0 0 18px rgba(0,255,255,0.18));
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.ai-companion:hover {
+  transform: translateY(-4px) scale(1.02);
+}
+
 @media (max-width: 640px) {
   .ai-fab {
     padding: 10px 12px;
@@ -135,6 +151,13 @@ body {
     left: 10px;
     width: auto;
     bottom: 70px;
+  }
+  .ai-companion {
+    right: 10px;
+    left: 10px;
+    bottom: calc(70px + 360px + 10px);
+    width: auto;
+    max-width: calc(100vw - 20px);
   }
 }
 
