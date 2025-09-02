@@ -47,13 +47,13 @@ const HolographicCard = ({ children, className = '', intensity = 12, variant = '
           <div
             className="absolute -inset-1 opacity-30"
             style={{
-              background: 'conic-gradient(from 0deg, rgba(0,255,255,0.08), rgba(255,0,204,0.12), rgba(0,255,255,0.08))'
+              background: 'conic-gradient(from 0deg, rgba(125,249,255,0.10), rgba(255,67,230,0.10), rgba(255,209,102,0.06), rgba(125,249,255,0.10))'
             }}
           />
         </div>
 
         {/* Neon border glow */}
-        <div className={`pointer-events-none absolute inset-0 rounded-2xl ring-1 ${borderClass}`} style={{ transform: 'translateZ(10px)' }} />
+        <div className={`pointer-events-none absolute inset-0 rounded-2xl ring-1 ${borderClass}`} style={{ transform: 'translateZ(10px)', borderImage: 'var(--holo-iridescent) 1' }} />
 
         <div style={{ transform: 'translateZ(20px)' }}>
           {children}

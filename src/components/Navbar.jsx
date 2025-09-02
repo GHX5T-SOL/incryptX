@@ -98,7 +98,7 @@ const Navbar = () => {
   ];
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 bg-black/30 backdrop-blur-2xl border-b border-cyan-400/20 shadow-[0_0_24px_rgba(0,255,255,0.08)] transition-all duration-300">
+    <nav className="fixed top-0 left-0 right-0 z-50 bg-black/40 backdrop-blur-2xl border-b border-white/10 shadow-[0_8px_24px_rgba(0,0,0,0.45)] transition-all duration-300">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           {/* Logo */}
@@ -139,7 +139,7 @@ const Navbar = () => {
                 
                 {/* Dropdown */}
                 <div className="absolute top-full left-0 mt-2 w-56 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform origin-top scale-95 group-hover:scale-100">
-                  <div className="bg-black/70 backdrop-blur-2xl border border-cyan-400/20 p-2 space-y-1 rounded-xl navbar-dropdown shadow-[0_0_24px_rgba(0,255,255,0.08)]">
+                  <div className="bg-black/70 backdrop-blur-2xl border border-white/10 p-2 space-y-1 rounded-xl navbar-dropdown shadow-[0_10px_32px_rgba(0,0,0,0.45)]">
                     {item.submenu.map((subItem) => (
                       <Link
                         key={subItem.name}

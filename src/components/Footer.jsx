@@ -12,7 +12,7 @@ const Footer = () => {
   };
 
   return (
-    <footer className="p-6 text-center border-t border-white/10 bg-black/30 backdrop-blur-xl">
+    <footer className="p-6 text-center border-t border-white/10 bg-black/40 backdrop-blur-xl">
       <div className="flex flex-wrap justify-center gap-6 mb-3 text-white/80">
         <Link className="hover:text-white" to="/">Home</Link>
         <Link className="hover:text-white" to="/pad">Launchpad</Link>
