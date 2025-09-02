@@ -60,11 +60,11 @@ const Starfield = () => {
         ctx.fill();
       }
 
-      // slow parallax drift
+      // faster parallax drift (Chumchon-like)
       for (let i = 0; i < stars.length; i += 1) {
         const s = stars[i];
-        s.x += 0.03 * (1.5 - s.z);
-        s.y += 0.015 * (1.5 - s.z);
+        s.x += 0.14 * (1.5 - s.z);
+        s.y += 0.06 * (1.5 - s.z);
         if (s.x > width) s.x = 0;
         if (s.y > height) s.y = 0;
       }
