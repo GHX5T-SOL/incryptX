@@ -244,6 +244,19 @@ body {
   text-shadow: 0 2px 24px rgba(0,0,0,0.35);
 }
 
+/* Chumchon-like heading/subheading utilities */
+.hx-hero {
+  font-family: 'Orbitron', 'Rajdhani', 'Chakra Petch', sans-serif;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  line-height: 1.05;
+}
+.hx-subtitle {
+  font-family: 'Inter', system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+  font-weight: 700;
+  color: rgba(232,236,245,0.92);
+}
+
 .gradient-text-secondary {
   background: var(--secondary-gradient);
   -webkit-background-clip: text;

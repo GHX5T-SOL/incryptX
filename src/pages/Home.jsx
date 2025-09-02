@@ -116,7 +116,7 @@ const Home = () => {
             className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-12"
           >
             <Link to="/pad/launch/degen">
-              <HoloButton className="text-lg">
+              <HoloButton className="text-lg" variant="gradient">
                 <RocketLaunchIcon className="w-6 h-6" />
                 Launch Token Now
               </HoloButton>
