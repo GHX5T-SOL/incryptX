@@ -52,7 +52,7 @@ const CustomLaunch = () => {
     vrfRandomStart: false,
     antiVampMode: false,
     transactionTax: 0,
-    migrationDex: 'WIF Swap'
+    migrationDex: 'IncryptSwap'
   });
 
   const bondingCurves = [
@@ -545,7 +545,7 @@ const CustomLaunch = () => {
                     <div>
                       <label className="block text-sm font-medium text-gray-300 mb-2">Migration DEX</label>
                       <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-                        {['WIF Swap', 'Raydium', 'Meteora', 'PumpSwap', 'PancakeSwap', 'FluxBeam'].map((dex) => (
+                        {['IncryptSwap', 'Raydium', 'Meteora', 'PumpSwap', 'PancakeSwap', 'FluxBeam'].map((dex) => (
                           <button
                             key={dex}
                             onClick={() => handleInputChange('migrationDex', dex)}

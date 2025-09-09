@@ -96,7 +96,7 @@ const Home = () => {
             >
               <img 
                 src="/assets/images/wif-logo.svg" 
-                alt="WIF Logo" 
+                alt="Incrypt Logo" 
                 className="w-20 h-20 md:w-24 md:h-24 opacity-80 drop-shadow-2xl"
               />
             </motion.div>
