@@ -7,16 +7,24 @@ import { AnimationMixer, Clock } from 'three';
 const AvatarModel = ({ mixerRef, actionsRef, onAnimationReady }) => {
   const modelRef = useRef();
   
-  // Load the base avatar model
-  const { scene, animations } = useGLTF('https://models.readyplayer.me/68c01a8b8c3845189b12570c.glb');
+  // Load the base avatar model (using local file)
+  const { scene, animations } = useGLTF('/avatars/incrypt_ai_avatar.glb');
   
   // Load individual animation clips with exact names from inspection
-  const { animations: idleAnimations } = useGLTF('/avatars/rpm-animations/animation-library-master/masculine/glb/idle/M_Standing_Idle_001.glb');
-  const { animations: danceAnimations } = useGLTF('/avatars/rpm-animations/animation-library-master/masculine/glb/dance/M_Dances_001.glb');
-  const { animations: expressionAnimations } = useGLTF('/avatars/rpm-animations/animation-library-master/masculine/glb/expression/M_Standing_Expressions_001.glb');
+  const { animations: idleAnimations } = useGLTF('/avatars/avatar movements/idle.glb');
+  const { animations: danceAnimations } = useGLTF('/avatars/avatar movements/happy_dance.glb');
+  const { animations: sadAnimations } = useGLTF('/avatars/avatar movements/sad.glb');
 
   useEffect(() => {
-    if (modelRef.current && animations.length > 0) {
+    console.log('🎭 AvatarModel useEffect triggered');
+    console.log('🎭 modelRef.current:', modelRef.current);
+    console.log('🎭 animations.length:', animations.length);
+    console.log('🎭 idleAnimations.length:', idleAnimations.length);
+    console.log('🎭 danceAnimations.length:', danceAnimations.length);
+    console.log('🎭 sadAnimations.length:', sadAnimations.length);
+    
+    if (modelRef.current && (animations.length > 0 || idleAnimations.length > 0)) {
+      console.log('🎭 Creating mixer for model');
       // Create mixer for the model
       const mixer = new AnimationMixer(modelRef.current);
       mixerRef.current = mixer;
@@ -26,36 +34,50 @@ const AvatarModel = ({ mixerRef, actionsRef, onAnimationReady }) => {
       
       // Add base model animations
       animations.forEach(clip => {
+        console.log('🎭 Adding base animation:', clip.name);
         actions[clip.name] = mixer.clipAction(clip);
       });
       
       // Add idle animations
       idleAnimations.forEach(clip => {
+        console.log('🎭 Adding idle animation:', clip.name);
         actions[clip.name] = mixer.clipAction(clip);
       });
       
       // Add dance animations  
       danceAnimations.forEach(clip => {
+        console.log('🎭 Adding dance animation:', clip.name);
         actions[clip.name] = mixer.clipAction(clip);
       });
       
-      // Add expression animations
-      expressionAnimations.forEach(clip => {
+      // Add sad animations
+      sadAnimations.forEach(clip => {
+        console.log('🎭 Adding sad animation:', clip.name);
         actions[clip.name] = mixer.clipAction(clip);
       });
       
       actionsRef.current = actions;
       
       // Start with idle animation
-      if (actions['M_Standing_Idle_001']) {
-        actions['M_Standing_Idle_001'].play();
-        console.log('🎭 Started idle animation: M_Standing_Idle_001');
+      if (actions['idle']) {
+        actions['idle'].play();
+        console.log('🎭 Started idle animation: idle');
+      } else {
+        console.warn('🎭 No idle animation found in actions:', Object.keys(actions));
       }
       
       onAnimationReady(mixer, actions);
       console.log('🎭 Avatar model loaded with animations:', Object.keys(actions));
+    } else {
+      console.warn('🎭 Avatar model not ready:', {
+        modelRef: !!modelRef.current,
+        animationsLength: animations.length,
+        idleAnimationsLength: idleAnimations.length,
+        danceAnimationsLength: danceAnimations.length,
+        sadAnimationsLength: sadAnimations.length
+      });
     }
-  }, [animations, idleAnimations, danceAnimations, expressionAnimations, mixerRef, actionsRef, onAnimationReady]);
+  }, [animations, idleAnimations, danceAnimations, sadAnimations, mixerRef, actionsRef, onAnimationReady]);
 
   useFrame((state, delta) => {
     if (mixerRef.current) {
@@ -80,10 +102,10 @@ const ZyraAvatar = forwardRef(({
 
   // Animation mapping with exact clip names from inspection
   const animationClips = {
-    idle: 'M_Standing_Idle_001',
-    happy: 'M_Dances_001', 
-    sad: 'M_Standing_Expressions_001',
-    greeting: 'M_Dances_001' // Using dance for greeting
+    idle: 'idle',
+    happy: 'happy_dance', 
+    sad: 'sad',
+    greeting: 'happy_dance' // Using dance for greeting
   };
 
   // Expose methods to parent component
