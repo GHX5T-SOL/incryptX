@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { PaperAirplaneIcon, XMarkIcon, MicrophoneIcon, PaperClipIcon, SparklesIcon } from '@heroicons/react/24/outline';
+import ZyraAvatar from './ZyraAvatar';
 
 const examplePrompts = [
   'Do market research on SOL ecosystem narratives',
@@ -13,13 +14,20 @@ const IncryptAI = () => {
   const [open, setOpen] = useState(false);
   const [input, setInput] = useState('');
   const [messages, setMessages] = useState([
-    { id: 'sys-hello', role: 'assistant', text: 'Hello, I am Zyra, your trusty AI assistant. What can I help you with today?' }
+    { 
+      id: 'sys-hello', 
+      role: 'assistant', 
+      text: "Hi, I'm Zyra, your AI companion for Solana degen adventures! How can I help you today?", 
+      timestamp: new Date()
+    }
   ]);
   const [isRecording, setIsRecording] = useState(false);
   const [attachedFiles, setAttachedFiles] = useState([]);
+  const [avatarEmotion, setAvatarEmotion] = useState('idle');
   const fileInputRef = useRef(null);
   const listRef = useRef(null);
   const audioRef = useRef(null);
+  const avatarRef = useRef(null);
 
   useEffect(() => {
     if (listRef.current) {
@@ -27,15 +35,90 @@ const IncryptAI = () => {
     }
   }, [messages, open]);
 
+  // Simple sentiment analysis for avatar emotions
+  const analyzeSentiment = (text) => {
+    const lowerText = text.toLowerCase();
+    if (lowerText.includes('won') || lowerText.includes('win')) {
+      return 'happy';
+    } else if (lowerText.includes('loss')) {
+      return 'sad';
+    } else if (lowerText.includes('success') || lowerText.includes('great') || lowerText.includes('awesome') || lowerText.includes('celebration')) {
+      return 'happy';
+    } else if (lowerText.includes('sad') || lowerText.includes('disappointed')) {
+      return 'sad';
+    } else if (lowerText.includes('excited') || lowerText.includes('thrilled') || lowerText.includes('amazing')) {
+      return 'excited';
+    } else if (lowerText.includes('fun') || lowerText.includes('dance') || lowerText.includes('party')) {
+      return 'fun';
+    } else if (lowerText.includes('walk') || lowerText.includes('move') || lowerText.includes('travel')) {
+      return 'walking';
+    }
+    return 'idle';
+  };
+
   const handleSend = () => {
     if (!input.trim() && attachedFiles.length === 0) return;
     const userMsg = { id: `u-${Date.now()}`, role: 'user', text: input.trim(), files: attachedFiles };
     setMessages(prev => [...prev, userMsg]);
+    
+    // Analyze sentiment and set avatar emotion
+    const sentiment = analyzeSentiment(input.trim());
+    setAvatarEmotion(sentiment);
+    
     setInput('');
     setAttachedFiles([]);
-    // Mock assistant reply
+    
+    // Play audio and send custom response based on sentiment
     setTimeout(() => {
-      setMessages(prev => [...prev, { id: `a-${Date.now()}`, role: 'assistant', text: 'Got it. I will simulate this request in the demo environment and outline next steps.' }]);
+      let responseText = '';
+      let audioFile = '';
+      
+      if (sentiment === 'sad') {
+        responseText = "Aww, don't worry you will make it back. Oneday you will be a better trader than Cupsey, just don't give up";
+        audioFile = '/assets/Sad_message.mp3';
+        // Play sad animation
+        if (avatarRef.current) {
+          avatarRef.current.playAnimation('sad');
+        }
+      } else if (sentiment === 'happy') {
+        responseText = "Yay!! Well done! I am so proud of you! You are the best trencher in the world!";
+        audioFile = '/assets/Happy_message.mp3';
+        // Play happy animation
+        if (avatarRef.current) {
+          avatarRef.current.playAnimation('happy');
+        }
+      } else {
+        // Default responses for other sentiments
+        const responses = {
+          excited: "Wow, that sounds thrilling! I'm excited to help you with this!",
+          fun: "That sounds like so much fun! Let's make this enjoyable!",
+          walking: "Great! Let's get moving on this together!",
+          idle: "Got it. I will simulate this request in the demo environment and outline next steps."
+        };
+        responseText = responses[sentiment] || responses.idle;
+      }
+      
+      // Play audio if available
+      if (audioFile) {
+        const audio = new Audio(audioFile);
+        audio.play().catch(error => {
+          console.warn('Could not play audio:', error);
+        });
+      }
+      
+      setMessages(prev => [...prev, { 
+        id: `a-${Date.now()}`, 
+        role: 'assistant', 
+        text: responseText 
+      }]);
+      
+      // Return to idle after response
+      setTimeout(() => {
+        setAvatarEmotion('idle');
+        if (avatarRef.current) {
+          avatarRef.current.playAnimation('idle');
+        }
+      }, 3000);
     }, 700);
   };
 
@@ -60,6 +143,11 @@ const IncryptAI = () => {
     setOpen(prev => {
       const next = !prev;
       if (next) {
+        // Play greeting animation when opening
+        if (avatarRef.current) {
+          avatarRef.current.playAnimation('greeting');
+        }
+        
         try {
           if (audioRef.current) {
             audioRef.current.currentTime = 0;
@@ -67,14 +155,18 @@ const IncryptAI = () => {
             // Attempt playback on user gesture
             audioRef.current.play().catch(() => {});
           }
-        } catch (_) {}
+        } catch (error) {
+          console.warn('Audio playback failed:', error);
+        }
       } else {
         try {
           if (audioRef.current) {
             audioRef.current.pause();
             audioRef.current.currentTime = 0;
           }
-        } catch (_) {}
+        } catch (error) {
+          console.warn('Audio pause failed:', error);
+        }
       }
       return next;
     });
@@ -86,26 +178,42 @@ const IncryptAI = () => {
         audioRef.current.pause();
         audioRef.current.currentTime = 0;
       }
-    } catch (_) {}
+    } catch (error) {
+      console.warn('Audio close failed:', error);
+    }
     setOpen(false);
   };
 
   return (
     <>
       <audio ref={audioRef} src="/assets/zyra_voice.mp3" preload="auto" />
-      {/* Floating Action Button */}
-      <button
-        aria-label="Open Incrypt AI"
-        className="ai-fab group"
-        onClick={handleToggle}
-      >
-        <SparklesIcon className="w-6 h-6 text-white" />
-        <span className="ml-2 hidden sm:block text-white font-semibold">Incrypt AI</span>
-      </button>
+      
+      {/* Floating Container with Avatar and Button */}
+      <div className="ai-floating-container">
+        {/* 3D Avatar - Always visible, positioned on top of button */}
+        <div className="ai-avatar-persistent" aria-hidden="true">
+          <ZyraAvatar 
+            ref={avatarRef}
+            onGreeting={open}
+            emotion={avatarEmotion}
+            className="w-full h-full"
+          />
+        </div>
+        
+        {/* Floating Action Button */}
+        <button
+          aria-label="Open Incrypt AI"
+          className="ai-fab group"
+          onClick={handleToggle}
+        >
+          <SparklesIcon className="w-6 h-6 text-white" />
+          <span className="ml-2 hidden sm:block text-white font-semibold">Incrypt AI</span>
+        </button>
+      </div>
 
-      {/* Panel */}
+      {/* Chat Panel - Opens to the left of avatar */}
       {open && (
-        <div className="ai-panel glass-card">
+        <div className="ai-panel-left glass-card">
           <div className="flex items-center justify-between p-3 border-b border-white/10" role="region" aria-label="Incrypt AI header">
             <div className="flex items-center gap-2">
               <div className="w-8 h-8 rounded-full bg-gradient-to-r from-purple-500 to-pink-500 flex items-center justify-center text-lg" aria-hidden="true">🧠</div>
@@ -169,22 +277,10 @@ const IncryptAI = () => {
               placeholder="Type a message..."
               className="flex-1 input-modern"
             />
-            <button aria-label="Send message" className="btn-primary p-2 rounded-full h-10 w-10 flex items-center justify-center" onClick={handleSend}>
-              <PaperAirplaneIcon className="w-5 h-5" />
+            <button aria-label="Send message" className="bg-[#33e1ff] hover:bg-[#33e1ff]/80 p-2 rounded-full h-10 w-10 flex items-center justify-center transition-all duration-300" onClick={handleSend}>
+              <PaperAirplaneIcon className="w-5 h-5 text-white" />
             </button>
           </div>
-        </div>
-      )}
-
-      {/* Anime Companion GIF */}
-      {open && (
-        <div className="ai-companion" aria-hidden="true">
-          <img
-            src="/assets/zyra_ai.gif"
-            alt="Zyra, your anime AI companion"
-            className="w-full h-auto select-none"
-            draggable="false"
-          />
         </div>
       )}
     </>

@@ -131,7 +131,7 @@ const Navbar = () => {
           <div className="hidden lg:flex items-center space-x-1">
             {navigationItems.map((item) => (
               <div key={item.name} className="relative group">
-                <button className="flex items-center space-x-2 px-4 py-2 rounded-xl text-white/80 hover:text-white hover:bg-white/10 transition-all duration-300 group-hover:bg-white/5">
+                <button className="flex items-center space-x-2 px-4 py-2 rounded-xl text-[#33e1ff] hover:text-[#33e1ff] hover:bg-white/10 transition-all duration-300 group-hover:bg-white/5">
                   <item.icon className="w-5 h-5" />
                   <span className="font-medium">{item.name}</span>
                   <ChevronDownIcon className="w-4 h-4 transition-transform duration-300 group-hover:rotate-180" />
@@ -144,7 +144,7 @@ const Navbar = () => {
                       <Link
                         key={subItem.name}
                         to={subItem.path}
-                        className="flex items-center space-x-3 px-3 py-2 rounded-lg text-white/80 hover:text-white hover:bg-white/10 transition-all duration-200 dropdown-item"
+                        className="flex items-center space-x-3 px-3 py-2 rounded-lg text-white/80 hover:text-[#33e1ff] hover:bg-white/10 transition-all duration-200 dropdown-item"
                       >
                         <subItem.icon className="w-4 h-4" />
                         <span>{subItem.name}</span>
@@ -228,7 +228,7 @@ const Navbar = () => {
               <div className="flex-1 overflow-y-auto pb-safe px-0 space-y-2">
                 {navigationItems.map((item) => (
                   <div key={item.name} className="px-4">
-                    <div className="text-white/60 text-sm font-medium mb-2 flex items-center space-x-2">
+                    <div className="text-[#33e1ff] text-sm font-medium mb-2 flex items-center space-x-2">
                       <item.icon className="w-4 h-4" />
                       <span>{item.name}</span>
                     </div>
@@ -238,7 +238,7 @@ const Navbar = () => {
                           key={subItem.name}
                           to={subItem.path}
                           onClick={() => setIsOpen(false)}
-                          className="block px-3 py-2 rounded-lg text-white/80 hover:text-white hover:bg-white/10 transition-colors"
+                          className="block px-3 py-2 rounded-lg text-white/80 hover:text-[#33e1ff] hover:bg-white/10 transition-colors"
                         >
                           {subItem.name}
                         </Link>
@@ -251,40 +251,40 @@ const Navbar = () => {
 
                 {/* Additional Mobile Links */}
                 <div className="px-4 pt-4 border-t border-white/10">
-                  <div className="text-white/60 text-sm font-medium mb-2">Utilities</div>
+                  <div className="text-[#33e1ff] text-sm font-medium mb-2">Utilities</div>
                   <div className="space-y-1">
                     <Link
                       to="/staking"
                       onClick={() => setIsOpen(false)}
-                      className="block px-3 py-2 rounded-lg text-white/80 hover:text-white hover:bg-white/10 transition-colors"
+                      className="block px-3 py-2 rounded-lg text-white/80 hover:text-[#33e1ff] hover:bg-white/10 transition-colors"
                     >
                       Staking
                     </Link>
                     <Link
                       to="/trending"
                       onClick={() => setIsOpen(false)}
-                      className="block px-3 py-2 rounded-lg text-white/80 hover:text-white hover:bg-white/10 transition-colors"
+                      className="block px-3 py-2 rounded-lg text-white/80 hover:text-[#33e1ff] hover:bg-white/10 transition-colors"
                     >
                       Trending
                     </Link>
                     <Link
                       to="/price-checker"
                       onClick={() => setIsOpen(false)}
-                      className="block px-3 py-2 rounded-lg text-white/80 hover:text-white hover:bg-white/10 transition-colors"
+                      className="block px-3 py-2 rounded-lg text-white/80 hover:text-[#33e1ff] hover:bg-white/10 transition-colors"
                     >
                       Price Checker
                     </Link>
                     <Link
                       to="/telegram-bot"
                       onClick={() => setIsOpen(false)}
-                      className="block px-3 py-2 rounded-lg text-white/80 hover:text-white hover:bg-white/10 transition-colors"
+                      className="block px-3 py-2 rounded-lg text-white/80 hover:text-[#33e1ff] hover:bg-white/10 transition-colors"
                     >
                       Telegram Bot
                     </Link>
                     <Link
                       to="/dashboard"
                       onClick={() => setIsOpen(false)}
-                      className="block px-3 py-2 rounded-lg text-white/80 hover:text-white hover:bg-white/10 transition-colors"
+                      className="block px-3 py-2 rounded-lg text-white/80 hover:text-[#33e1ff] hover:bg-white/10 transition-colors"
                     >
                       Dashboard
                     </Link>

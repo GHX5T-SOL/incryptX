@@ -265,7 +265,7 @@ const Profile = () => {
                       >
                         <div className="w-32 h-32 mx-auto bg-white rounded-lg p-2">
                           <div className="w-full h-full bg-gray-200 rounded flex items-center justify-center">
-                            <QrCodeIcon className="w-16 h-16 text-gray-600" />
+                            <QrCodeIcon className="w-16 h-16 text-white" />
                           </div>
                         </div>
                         <p className="text-xs text-gray-400 mt-2">QR Code for {formatAddress(publicKey)}</p>

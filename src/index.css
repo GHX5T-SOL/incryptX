@@ -1,29 +1,38 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;800;900&family=Chakra+Petch:wght@400;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700&family=Inter:wght@300;400;600;700&display=swap');
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 :root {
+  /* Chumchon-inspired color scheme */
+  --bg: #070712;
+  --card: #0e0e1c;
+  --text: #e9e9ff;
+  --muted: #a7a7c8;
+  --neon-pink: #ff3fd1; /* Exact Chumchon "TOOLKIT" color */
+  --neon-purple: #9b5cff;
+  --neon-blue: #33e1ff;
+  --accent: #00ffc6; /* Exact Chumchon "Decentralized" green */
+  --container: 1200px;
+  
   /* Theme Variables */
-  --primary-gradient: linear-gradient(135deg, #7DF9FF 0%, #FF43E6 100%);
+  --primary-gradient: linear-gradient(135deg, var(--neon-pink), var(--neon-purple), var(--neon-blue));
   --secondary-gradient: linear-gradient(135deg, #4F46E5 0%, #22D3EE 100%);
   --accent-gradient: linear-gradient(135deg, #7DF9FF 0%, #FFD166 100%);
   --success-gradient: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
   --warning-gradient: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
   
   /* Dark Theme (Default) — cyberpunk night sky */
-  --bg-primary: #0b0b14;
-  --bg-secondary: #0f1326;
+  --bg-primary: var(--bg);
+  --bg-secondary: var(--card);
   --bg-tertiary: #101735;
   --bg-quaternary: #0b1a2f;
   --bg-accent: #1c1d3a;
   
-  --text-primary: #E8ECF5; /* high-contrast but softer than pure white */
+  --text-primary: var(--text);
   --text-secondary: #C7D2FE;
-  --text-tertiary: #94a3b8;
+  --text-tertiary: var(--muted);
   --text-muted: #64748b;
   
   --glass-bg: rgba(12, 16, 32, 0.55);
@@ -45,9 +54,9 @@
 
   /* Neon palettes */
   --neon-cyan: #7DF9FF;
-  --neon-pink: #FF43E6;
-  --neon-purple: #A78BFA;
-  --neon-blue: #22D3EE;
+  --neon-pink: var(--neon-pink);
+  --neon-purple: var(--neon-purple);
+  --neon-blue: var(--neon-blue);
   --neon-amber: #FFD166;
   --holo-iridescent: linear-gradient(120deg, rgba(125,249,255,0.25), rgba(255,67,230,0.22), rgba(255,209,102,0.18));
   --heading-gradient: linear-gradient(90deg, #7DF9FF, #FF43E6);
@@ -89,12 +98,149 @@
 }
 
 body {
-  font-family: 'Chakra Petch', 'Inter', sans-serif;
-  background: #000000;
+  font-family: 'Inter', sans-serif;
+  background: radial-gradient(1200px 600px at 80% -10%, rgba(153, 72, 255, 0.2), transparent 60%),
+              radial-gradient(900px 500px at -10% 20%, rgba(0, 255, 198, 0.12), transparent 60%),
+              var(--bg);
   background-attachment: fixed;
-  color: var(--text-primary);
+  color: var(--text);
   overflow-x: hidden;
   transition: background 0.3s ease, color 0.3s ease;
+}
+
+/* Chumchon-inspired typography */
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Orbitron', 'Inter', sans-serif;
+  font-weight: 700;
+  line-height: 1.1;
+  margin: 0;
+}
+
+h1 {
+  font-size: 2.5rem;
+  letter-spacing: 0.04em;
+}
+
+h2 {
+  font-size: 2rem;
+  letter-spacing: 0.04em;
+}
+
+h3 {
+  font-size: 1.5rem;
+  letter-spacing: 0.04em;
+}
+
+h4 {
+  font-size: 1.25rem;
+  letter-spacing: 0.04em;
+}
+
+/* Neon text effects */
+.neon-text {
+  color: var(--neon-pink);
+  text-shadow: 
+    0 0 5px var(--neon-pink),
+    0 0 10px var(--neon-pink),
+    0 0 15px var(--neon-pink),
+    0 0 20px var(--neon-pink),
+    0 0 25px var(--neon-pink),
+    0 0 30px var(--neon-pink),
+    0 0 35px var(--neon-pink);
+}
+
+.neon-text-blue {
+  color: var(--neon-blue);
+  text-shadow: 
+    0 0 5px var(--neon-blue),
+    0 0 10px var(--neon-blue),
+    0 0 15px var(--neon-blue),
+    0 0 20px var(--neon-blue),
+    0 0 25px var(--neon-blue),
+    0 0 30px var(--neon-blue),
+    0 0 35px var(--neon-blue);
+}
+
+.neon-text-purple {
+  color: var(--neon-purple);
+  text-shadow: 
+    0 0 5px var(--neon-purple),
+    0 0 10px var(--neon-purple),
+    0 0 15px var(--neon-purple),
+    0 0 20px var(--neon-purple),
+    0 0 25px var(--neon-purple),
+    0 0 30px var(--neon-purple),
+    0 0 35px var(--neon-purple);
+}
+
+.neon-text-green {
+  color: var(--accent);
+  text-shadow: 
+    0 0 5px var(--accent),
+    0 0 10px var(--accent),
+    0 0 15px var(--accent),
+    0 0 20px var(--accent),
+    0 0 25px var(--accent),
+    0 0 30px var(--accent),
+    0 0 35px var(--accent);
+}
+
+/* Flickering animation for neon text */
+@keyframes flicker {
+  0% {
+    text-shadow:
+      0 0 5px var(--neon-pink),
+      0 0 10px var(--neon-pink),
+      0 0 15px var(--neon-pink),
+      0 0 20px var(--neon-pink),
+      0 0 25px var(--neon-pink),
+      0 0 30px var(--neon-pink),
+      0 0 35px var(--neon-pink);
+  }
+  100% {
+    text-shadow:
+      0 0 10px var(--neon-pink),
+      0 0 20px var(--neon-pink),
+      0 0 30px var(--neon-pink),
+      0 0 40px var(--neon-pink),
+      0 0 50px var(--neon-pink),
+      0 0 60px var(--neon-pink),
+      0 0 70px var(--neon-pink);
+  }
+}
+
+.neon-flicker {
+  animation: flicker 1s infinite alternate;
+}
+
+/* Animated starfield background */
+#stars {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+}
+
+.star {
+  position: absolute;
+  background: white;
+  border-radius: 50%;
+  animation: twinkle 3s infinite;
+}
+
+.star:nth-child(1) { top: 20%; left: 10%; width: 1px; height: 1px; animation-delay: 0s; }
+.star:nth-child(2) { top: 30%; left: 20%; width: 2px; height: 2px; animation-delay: 0.5s; }
+.star:nth-child(3) { top: 40%; left: 30%; width: 1px; height: 1px; animation-delay: 1s; }
+.star:nth-child(4) { top: 50%; left: 40%; width: 2px; height: 2px; animation-delay: 1.5s; }
+.star:nth-child(5) { top: 60%; left: 50%; width: 1px; height: 1px; animation-delay: 2s; }
+.star:nth-child(6) { top: 70%; left: 60%; width: 2px; height: 2px; animation-delay: 2.5s; }
+.star:nth-child(7) { top: 80%; left: 70%; width: 1px; height: 1px; animation-delay: 3s; }
+.star:nth-child(8) { top: 90%; left: 80%; width: 2px; height: 2px; animation-delay: 3.5s; }
+.star:nth-child(9) { top: 10%; left: 90%; width: 1px; height: 1px; animation-delay: 4s; }
+.star:nth-child(10) { top: 25%; left: 5%; width: 2px; height: 2px; animation-delay: 4.5s; }
+
+@keyframes twinkle {
+  0%, 100% { opacity: 0.3; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.2); }
 }
 
 /* Incrypt AI floating widget */
@@ -127,20 +273,109 @@ body {
   z-index: 60;
 }
 
-/* Companion GIF container placed to the left of the AI panel on desktop, stacks on mobile */
+/* Companion 3D avatar container positioned above the AI panel */
 .ai-companion {
   position: fixed;
-  right: calc(20px + 360px + 16px);
-  bottom: 80px;
-  width: 320px;
-  max-width: 28vw;
+  right: 40px; /* Moved left by 20px to center better with chat box */
+  bottom: calc(80px + 400px - 140px); /* Adjusted for smaller avatar */
+  width: 280px;
+  height: 320px; /* Reduced height for smaller avatar */
+  max-width: 25vw;
   z-index: 59;
   filter: drop-shadow(0 0 22px rgba(255,0,204,0.22)) drop-shadow(0 0 18px rgba(0,255,255,0.18));
   transition: transform 0.3s ease, opacity 0.3s ease;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  padding: 0; /* Remove any padding that might affect positioning */
+  overflow: visible; /* Ensure avatar head is not cut off */
 }
 
 .ai-companion:hover {
   transform: translateY(-4px) scale(1.02);
+}
+
+/* Floating container for avatar and button */
+.ai-floating-container {
+  position: fixed;
+  right: 40px; /* Move container more to the left */
+  bottom: 15px; /* Move container down a bit */
+  z-index: 50;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+/* Persistent 3D avatar positioned on top of button */
+.ai-avatar-persistent {
+  position: absolute;
+  bottom: calc(100% + 30px); /* Move avatar even higher up above the button */
+  left: calc(50% - 20px); /* Move avatar significantly more to the left */
+  transform: translateX(-50%);
+  width: 180px;
+  height: 220px;
+  margin-bottom: 0; /* Remove margin to get closer to button */
+  pointer-events: none;
+  overflow: hidden;
+  z-index: 55; /* Ensure avatar is above the button */
+}
+
+/* Chat panel positioned to the left of avatar */
+.ai-panel-left {
+  position: fixed;
+  right: 220px; /* Position to the left of the avatar */
+  bottom: 20px;
+  width: 360px;
+  max-width: calc(100vw - 40px);
+  z-index: 60;
+}
+
+@media (max-width: 1024px) {
+  .ai-companion {
+    right: 30px; /* Adjusted for better centering */
+    bottom: calc(80px + 400px - 120px); /* Adjusted for smaller avatar */
+    width: 240px;
+    height: 280px; /* Reduced height for smaller avatar */
+  }
+  
+  .ai-avatar-persistent {
+    width: 160px;
+    height: 200px;
+    bottom: calc(100% + 30px); /* Move avatar even higher up above the button */
+    left: calc(50% - 20px); /* Move avatar significantly more to the left */
+  }
+  
+  .ai-panel-left {
+    right: 200px;
+    width: 320px;
+  }
+}
+
+@media (max-width: 768px) {
+  .ai-panel {
+    width: 320px;
+    right: 20px;
+    bottom: 80px;
+  }
+  .ai-companion {
+    right: 30px; /* Adjusted for better centering */
+    bottom: calc(80px + 320px - 100px); /* Adjusted for smaller avatar */
+    width: 200px;
+    height: 240px; /* Reduced height for smaller avatar */
+  }
+  
+  .ai-avatar-persistent {
+    width: 140px;
+    height: 180px;
+    bottom: calc(100% + 30px); /* Move avatar even higher up above the button */
+    left: calc(50% - 20px); /* Move avatar significantly more to the left */
+  }
+  
+  .ai-panel-left {
+    right: 180px;
+    width: 280px;
+  }
 }
 
 @media (max-width: 640px) {
@@ -152,13 +387,33 @@ body {
     left: 10px;
     width: auto;
     bottom: 70px;
+    height: 300px;
   }
   .ai-companion {
-    right: 10px;
+    right: 20px; /* Adjusted for better centering */
+    left: 20px;
+    bottom: calc(70px + 300px - 80px); /* Adjusted for smaller avatar */
+    width: 160px;
+    height: 200px; /* Reduced height for smaller avatar */
+    max-width: calc(100vw - 40px);
+  }
+  
+  .ai-floating-container {
+    right: 30px; /* Move container more to the left on mobile */
+    bottom: 10px;
+  }
+  
+  .ai-avatar-persistent {
+    width: 120px;
+    height: 160px;
+    bottom: calc(100% + 30px); /* Move avatar even higher up above the button */
+    left: calc(50% - 20px); /* Move avatar significantly more to the left */
+  }
+  
+  .ai-panel-left {
+    right: 150px;
     left: 10px;
-    bottom: calc(70px + 360px + 10px);
     width: auto;
-    max-width: calc(100vw - 20px);
   }
 }
 
@@ -273,18 +528,19 @@ body {
 
 /* Animated Buttons */
 .btn-primary {
-  background: linear-gradient(90deg, rgba(0, 255, 255, 0.12), rgba(255, 0, 204, 0.12));
-  border: 1px solid rgba(0, 255, 255, 0.25);
+  background: linear-gradient(135deg, var(--neon-pink), var(--neon-purple), var(--neon-blue));
   border: none;
   border-radius: 12px;
   padding: 12px 24px;
   color: white;
-  font-weight: 600;
+  font-weight: 800;
   cursor: pointer;
   transition: all 0.3s ease;
   position: relative;
   overflow: hidden;
-  box-shadow: 0 0 24px rgba(0, 255, 255, 0.08) inset;
+  box-shadow: 
+    rgba(255, 63, 209, 0.45) 0px 0px 24px,
+    rgba(255, 255, 255, 0.25) 0px 0px 16px inset;
 }
 
 .btn-primary::before {
@@ -308,19 +564,19 @@ body {
 }
 
 .btn-secondary {
-  background: var(--secondary-gradient);
-  border: none;
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.12);
   border-radius: 12px;
   padding: 12px 24px;
-  color: white;
-  font-weight: 600;
+  color: var(--text);
+  font-weight: 800;
   cursor: pointer;
   transition: all 0.3s ease;
 }
 
 .btn-secondary:hover {
+  border-color: rgba(255, 255, 255, 0.35);
   transform: translateY(-2px);
-  box-shadow: 0 10px 20px rgba(240, 147, 251, 0.4);
 }
 
 /* Floating Elements */

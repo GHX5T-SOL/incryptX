@@ -70,6 +70,20 @@ const Home = () => {
       {/* Animated Background */}
       <div className="animated-bg"></div>
       
+      {/* Starfield Background */}
+      <div id="stars">
+        <div className="star"></div>
+        <div className="star"></div>
+        <div className="star"></div>
+        <div className="star"></div>
+        <div className="star"></div>
+        <div className="star"></div>
+        <div className="star"></div>
+        <div className="star"></div>
+        <div className="star"></div>
+        <div className="star"></div>
+      </div>
+      
 
 
       {/* Hero Section */}
@@ -83,29 +97,26 @@ const Home = () => {
           >
 
 
-            <h1 className="text-6xl md:text-8xl font-extrabold mb-6 relative z-10 heading-contrast" style={{ fontFamily: 'Orbitron, sans-serif', letterSpacing: '0.06em' }}>
-              <span className="gradient-text">INCRYPT</span>
-            </h1>
-            
-            {/* Logo (kept, will be replaced with same filename externally) */}
+            {/* Hero Image */}
             <motion.div
-              initial={{ opacity: 0, scale: 0.5, y: 20 }}
-              animate={{ opacity: 1, scale: 1, y: 0 }}
-              transition={{ duration: 1, delay: 0.3 }}
-              className="flex justify-center mb-6"
+              initial={{ opacity: 0, scale: 0.8 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 1, delay: 0.2 }}
+              className="flex justify-center mb-8"
             >
               <img 
-                src="/assets/images/wif-logo.svg" 
-                alt="Incrypt Logo" 
-                className="w-20 h-20 md:w-24 md:h-24 opacity-80 drop-shadow-2xl"
+                src="/assets/images/INCRYPT.svg" 
+                alt="INCRYPT Logo" 
+                className="max-w-2xl w-full h-auto"
               />
             </motion.div>
+            
             
 
 
             <p className="text-xl md:text-2xl text-gray-300 max-w-3xl mx-auto leading-relaxed" style={{ fontFamily: 'Inter, system-ui, -apple-system, Segoe UI, Roboto, sans-serif' }}>
               The ultimate memecoin launchpad and trading ecosystem. Launch, trade, and earn with 
-              <span className="gradient-text-secondary font-semibold"> zero coding required</span>.
+              <span className="neon-text-blue font-semibold"> zero coding required</span>.
             </p>
           </motion.div>
 
@@ -167,7 +178,7 @@ const Home = () => {
             {/* Floating hat images removed per rebrand */}
 
             <h2 className="text-4xl md:text-5xl font-bold mb-6">
-              Why Choose <span className="gradient-text">IncryptX</span>?
+              Why Choose <span className="neon-text-purple">IncryptX</span>?
             </h2>
             <p className="text-xl text-gray-300 max-w-2xl mx-auto">
               Built for the modern memecoin era with cutting-edge technology and user experience
@@ -201,7 +212,7 @@ const Home = () => {
 
 
             <h2 className="text-4xl md:text-5xl font-bold mb-6">
-              <span className="gradient-text">Hot</span> Recent Launches
+              <span className="neon-text">Hot</span> Recent Launches
             </h2>
             <p className="text-xl text-gray-300 max-w-2xl mx-auto">
               Discover the latest memecoins launched on our platform
@@ -276,7 +287,7 @@ const Home = () => {
             className="glass-card p-12"
           >
             <h2 className="text-4xl md:text-5xl font-bold mb-6">
-              Ready to Launch Your <span className="gradient-text">Memecoin</span>?
+              Ready to Launch Your <span className="neon-text-blue">Memecoin</span>?
             </h2>
             <p className="text-xl text-gray-300 mb-8 max-w-2xl mx-auto">
               Join thousands of creators who have already launched successful tokens on our platform. 
