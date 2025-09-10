@@ -34,46 +34,25 @@ const ChatPopup = ({ isOpen, onClose, onSendMessage, messages = [], onVoiceRecor
     return 'idle';
   };
 
-  // Show greeting animation when popup opens
+  // Show greeting when popup opens
   useEffect(() => {
     if (isOpen) {
       setShowGreeting(true);
-      // Play greeting animation
-      if (avatarRef.current) {
-        avatarRef.current.playAnimation('Wave');
-      }
       const timer = setTimeout(() => setShowGreeting(false), 3000);
       return () => clearTimeout(timer);
     }
   }, [isOpen]);
 
-  // Handle sentiment-based animations
+  // Handle sentiment state (no animations)
   useEffect(() => {
-    if (sentiment && avatarRef.current) {
-      if (sentiment === 'happy') {
-        avatarRef.current.playAnimation('Victory_Dance');
-        setTimeout(() => {
-          if (avatarRef.current) {
-            avatarRef.current.playAnimation('Idle_Loop');
-          }
-        }, 2000);
-      } else if (sentiment === 'sad') {
-        avatarRef.current.playAnimation('Sad_Pose');
-        setTimeout(() => {
-          if (avatarRef.current) {
-            avatarRef.current.playAnimation('Idle_Loop');
-          }
-        }, 2000);
-      } else if (sentiment === 'idle') {
-        avatarRef.current.playAnimation('Idle_Loop');
-      }
-    }
+    // Sentiment state is tracked but no animations are triggered
+    console.log('Sentiment changed to:', sentiment);
   }, [sentiment]);
 
   const handleSend = () => {
     if (!input.trim() && attachedFiles.length === 0) return;
     
-    // Analyze sentiment and trigger animation
+    // Analyze sentiment (no animation trigger)
     const detectedSentiment = analyzeSentiment(input.trim());
     setSentiment(detectedSentiment);
     

@@ -158,22 +158,6 @@ const Navbar = () => {
 
           {/* Right Side */}
           <div className="flex items-center space-x-4">
-            {/* Balance Display */}
-            {connected && publicKey && (
-              <motion.div
-                initial={{ opacity: 0, x: 20 }}
-                animate={{ opacity: 1, x: 0 }}
-                className="hidden md:flex items-center space-x-2 glass-card px-3 py-2"
-              >
-                <div className="w-2 h-2 bg-gradient-to-r from-green-400 to-emerald-400 rounded-full animate-pulse"></div>
-                <span className="text-sm font-medium text-white">
-                  {publicKey.toString().slice(0, 4)}...{publicKey.toString().slice(-4)}
-                </span>
-              </motion.div>
-            )}
-
-            {/* Theme toggle removed (dark-only) */}
-
             {/* Wallet Button */}
             <WalletMultiButton className="btn-primary flex items-center space-x-2 min-w-0 overflow-hidden" />
 

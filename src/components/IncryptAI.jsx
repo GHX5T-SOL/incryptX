@@ -76,17 +76,9 @@ const IncryptAI = () => {
       if (sentiment === 'sad') {
         responseText = "Aww, don't worry you will make it back. Oneday you will be a better trader than Cupsey, just don't give up";
         audioFile = '/assets/Sad_message.mp3';
-        // Play sad animation
-        if (avatarRef.current) {
-          avatarRef.current.playAnimation('sad');
-        }
       } else if (sentiment === 'happy') {
         responseText = "Yay!! Well done! I am so proud of you! You are the best trencher in the world!";
         audioFile = '/assets/Happy_message.mp3';
-        // Play happy animation
-        if (avatarRef.current) {
-          avatarRef.current.playAnimation('happy');
-        }
       } else {
         // Default responses for other sentiments
         const responses = {
@@ -115,9 +107,6 @@ const IncryptAI = () => {
       // Return to idle after response
       setTimeout(() => {
         setAvatarEmotion('idle');
-        if (avatarRef.current) {
-          avatarRef.current.playAnimation('idle');
-        }
       }, 3000);
     }, 700);
   };
@@ -143,11 +132,6 @@ const IncryptAI = () => {
     setOpen(prev => {
       const next = !prev;
       if (next) {
-        // Play greeting animation when opening
-        if (avatarRef.current) {
-          avatarRef.current.playAnimation('greeting');
-        }
-        
         try {
           if (audioRef.current) {
             audioRef.current.currentTime = 0;
