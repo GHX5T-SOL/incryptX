@@ -23,7 +23,7 @@ export default defineConfig({
     host: '0.0.0.0',
     port: 5000,
     strictPort: true,
-    allowedHosts: 'all',
+    allowedHosts: ['8fcd0b9a-3300-4323-92e2-b7771df5a1f5-00-249362y0qe7u4.riker.replit.dev'],
     hmr: {
       clientPort: 443,
       protocol: 'wss'
