@@ -10,7 +10,7 @@ const AvatarModel = ({ mixerRef, actionsRef, onAnimationReady }) => {
   // Load the base avatar model (using local file)
   const { scene, animations } = useGLTF('/avatars/incrypt_ai_avatar.glb');
   
-  // Load individual animation clips with exact names from inspection
+  // Load individual animation clips from avatar movements folder (rpm folders are corrupted)
   const { animations: idleAnimations } = useGLTF('/avatars/avatar movements/idle.glb');
   const { animations: danceAnimations } = useGLTF('/avatars/avatar movements/happy_dance.glb');
   const { animations: sadAnimations } = useGLTF('/avatars/avatar movements/sad.glb');
@@ -41,18 +41,22 @@ const AvatarModel = ({ mixerRef, actionsRef, onAnimationReady }) => {
       // Add idle animations
       idleAnimations.forEach(clip => {
         console.log('🎭 Adding idle animation:', clip.name);
+        actions['idle'] = mixer.clipAction(clip);
         actions[clip.name] = mixer.clipAction(clip);
       });
       
       // Add dance animations  
       danceAnimations.forEach(clip => {
         console.log('🎭 Adding dance animation:', clip.name);
+        actions['happy'] = mixer.clipAction(clip);
+        actions['greeting'] = mixer.clipAction(clip); // Use dance for greeting
         actions[clip.name] = mixer.clipAction(clip);
       });
       
       // Add sad animations
       sadAnimations.forEach(clip => {
         console.log('🎭 Adding sad animation:', clip.name);
+        actions['sad'] = mixer.clipAction(clip);
         actions[clip.name] = mixer.clipAction(clip);
       });
       
@@ -100,12 +104,12 @@ const ZyraAvatar = forwardRef(({
   const [isLoaded, setIsLoaded] = useState(false);
   const [currentEmotion, setCurrentEmotion] = useState('idle');
 
-  // Animation mapping with exact clip names from inspection
+  // Animation mapping to available animations
   const animationClips = {
     idle: 'idle',
-    happy: 'happy_dance', 
+    happy: 'happy',
     sad: 'sad',
-    greeting: 'happy_dance' // Using dance for greeting
+    greeting: 'greeting' // Will use happy_dance for greeting
   };
 
   // Expose methods to parent component

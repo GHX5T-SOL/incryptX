@@ -61,9 +61,11 @@ const IncryptAI = () => {
     const userMsg = { id: `u-${Date.now()}`, role: 'user', text: input.trim(), files: attachedFiles };
     setMessages(prev => [...prev, userMsg]);
     
-    // Analyze sentiment and set avatar emotion
+    // Analyze sentiment and trigger avatar animation
     const sentiment = analyzeSentiment(input.trim());
-    setAvatarEmotion(sentiment);
+    if (avatarRef.current) {
+      avatarRef.current.playAnimation(sentiment);
+    }
     
     setInput('');
     setAttachedFiles([]);
@@ -104,10 +106,7 @@ const IncryptAI = () => {
         text: responseText 
       }]);
       
-      // Return to idle after response
-      setTimeout(() => {
-        setAvatarEmotion('idle');
-      }, 3000);
+      // Avatar automatically returns to idle after animation
     }, 700);
   };
 
@@ -132,6 +131,11 @@ const IncryptAI = () => {
     setOpen(prev => {
       const next = !prev;
       if (next) {
+        // Play greeting animation when opening
+        if (avatarRef.current) {
+          avatarRef.current.playAnimation('greeting');
+        }
+        
         try {
           if (audioRef.current) {
             audioRef.current.currentTime = 0;
@@ -143,6 +147,11 @@ const IncryptAI = () => {
           console.warn('Audio playback failed:', error);
         }
       } else {
+        // Stop animation when closing
+        if (avatarRef.current) {
+          avatarRef.current.stopAnimation();
+        }
+        
         try {
           if (audioRef.current) {
             audioRef.current.pause();
@@ -178,8 +187,6 @@ const IncryptAI = () => {
         <div className="ai-avatar-persistent" aria-hidden="true">
           <ZyraAvatar 
             ref={avatarRef}
-            onGreeting={open}
-            emotion={avatarEmotion}
             className="w-full h-full"
           />
         </div>
