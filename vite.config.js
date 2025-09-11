@@ -19,7 +19,18 @@ export default defineConfig({
     exclude: ['three'],
     include: ['buffer', 'process', 'util'],
   },
+  server: {
+    host: '0.0.0.0',
+    port: 5000,
+    strictPort: true,
+    hmr: {
+      clientPort: 443,
+      protocol: 'wss'
+    }
+  },
   preview: {
-    open: true,
+    host: '0.0.0.0',
+    port: 5000,
+    strictPort: true,
   },
 })
