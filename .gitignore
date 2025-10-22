@@ -457,3 +457,8 @@ secrets.json
 # Local configuration
 config.local.json
 settings.local.json
+
+# Exclude problematic submodules from Vercel build
+incryptx-backend/incryptx-launchpad/
+incryptx-backend/offchain/damm-v2-sdk/
+incryptx-backend/offchain/dlmm-sdk/

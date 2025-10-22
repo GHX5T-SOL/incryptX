@@ -28,7 +28,9 @@
     "@solana/wallet-adapter-base": "^0.9.27",
     "@solana/wallet-adapter-react": "^0.15.39",
     "@solana/wallet-adapter-react-ui": "^0.9.39",
-    "@solana/wallet-adapter-wallets": "^0.19.37",
+    "@solana/wallet-adapter-phantom": "^0.9.27",
+    "@solana/wallet-adapter-solflare": "^0.6.27",
+    "@solana/wallet-adapter-backpack": "^0.1.12",
     "@solana/web3.js": "^1.98.4",
     "@supabase/supabase-js": "^2.57.4",
     "buffer": "^6.0.3",
@@ -43,6 +45,16 @@
     "three": "^0.166.1",
     "util": "^0.12.5",
     "vite-plugin-node-polyfills": "^0.24.0"
+  },
+  "overrides": {
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "bs58": "^4.0.1"
+  },
+  "resolutions": {
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "bs58": "^4.0.1"
   },
   "devDependencies": {
     "@babel/preset-env": "^7.28.3",
