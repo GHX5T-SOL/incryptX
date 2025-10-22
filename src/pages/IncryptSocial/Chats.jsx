@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
-import { 
+import {
   ChatBubbleLeftIcon,
   MagnifyingGlassIcon,
   PlusIcon,
@@ -12,71 +12,37 @@ import {
   MicrophoneIcon,
   PaperAirplaneIcon
 } from '@heroicons/react/24/outline';
+import { useWallet } from '@solana/wallet-adapter-react';
+import { useSocials } from '../../hooks/useSocials';
 import HolographicCard from '../../components/HolographicCard.jsx';
 import HoloButton from '../../components/HoloButton.jsx';
 
 const Chats = () => {
-  const [myChats, setMyChats] = useState([]);
+  const { connected } = useWallet();
+  const { chats, sendMessage, createChat, loading } = useSocials();
   const [searchTerm, setSearchTerm] = useState('');
   const [activeTab, setActiveTab] = useState('all');
+  const [showNewChatModal, setShowNewChatModal] = useState(false);
+  const [newChatRecipient, setNewChatRecipient] = useState('');
+  const [newChatMessage, setNewChatMessage] = useState('');
 
   useEffect(() => {
-    const mockChats = [
-      {
-        id: 1,
-        name: 'WIF Warriors',
-        type: 'group',
-        avatar: '/assets/images/placeholder-meme.svg',
-        lastMessage: 'Just bought more WIF! 🚀',
-        lastSender: 'CryptoWhale',
-        timestamp: new Date(Date.now() - 5 * 60 * 1000),
-        unreadCount: 3,
-        isOnline: true,
-        members: 1547,
-        isVerified: true,
-        messageType: 'text'
-      },
-      {
-        id: 2,
-        name: 'MemeLord',
-        type: 'direct',
-        avatar: '/assets/images/user-avatars/avatar2.svg',
-        lastMessage: 'Check out this new token I found',
-        lastSender: 'MemeLord',
-        timestamp: new Date(Date.now() - 15 * 60 * 1000),
-        unreadCount: 0,
-        isOnline: true,
-        messageType: 'text'
-      },
-      {
-        id: 3,
-        name: 'Meme Hunters',
-        type: 'group',
-        avatar: '/assets/images/placeholder-meme.svg',
-        lastMessage: 'Photo',
-        lastSender: 'GemFinder',
-        timestamp: new Date(Date.now() - 2 * 60 * 60 * 1000),
-        unreadCount: 12,
-        isOnline: false,
-        members: 892,
-        isVerified: false,
-        messageType: 'image'
-      },
-      {
-        id: 4,
-        name: 'TraderBot',
-        type: 'direct',
-        avatar: '/assets/images/user-avatars/avatar4.svg',
-        lastMessage: 'Voice message',
-        lastSender: 'TraderBot',
-        timestamp: new Date(Date.now() - 4 * 60 * 60 * 1000),
-        unreadCount: 1,
-        isOnline: false,
-        messageType: 'voice'
-      }
-    ];
-    setMyChats(mockChats);
-  }, []);
+    setMyChats(chats);
+  }, [chats]);
+
+  const handleCreateChat = async (newChatRecipient, newChatMessage) => {
+    if (!connected || !newChatRecipient.trim() || !newChatMessage.trim()) return;
+
+    try {
+      await createChat(newChatRecipient, newChatMessage);
+      setShowNewChatModal(false);
+      setNewChatRecipient('');
+      setNewChatMessage('');
+    } catch (error) {
+      console.error('Failed to create chat:', error);
+      alert('Failed to create chat. Check console for details.');
+    }
+  };
 
   const filteredChats = myChats.filter(chat => {
     const matchesSearch = chat.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -139,10 +105,23 @@ const Chats = () => {
               />
             </div>
 
-            <HoloButton className="px-6 py-3 flex items-center gap-2">
+            <HoloButton
+              onClick={() => setShowNewChatModal(true)}
+              className="px-6 py-3 flex items-center gap-2 disabled:opacity-50"
+              disabled={!connected}
+            >
               <PlusIcon className="w-5 h-5" />
-              New Chat
+              {loading ? (
+                <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin"></div>
+              ) : (
+                'New Chat'
+              )}
             </HoloButton>
+            {!connected && (
+              <div className="text-yellow-400 text-sm mt-2">
+                Connect your wallet to start chatting
+              </div>
+            )}
           </div>
 
           <div className="flex gap-2 overflow-x-auto">
@@ -314,6 +293,69 @@ const Chats = () => {
             <HoloButton className="w-full">View All</HoloButton>
           </HolographicCard>
         </motion.div>
+
+        {/* New Chat Modal */}
+        {showNewChatModal && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            className="fixed inset-0 bg-black/50 flex items-center justify-center z-50"
+            onClick={() => setShowNewChatModal(false)}
+          >
+            <motion.div
+              initial={{ scale: 0.9, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              className="bg-gray-900 p-6 rounded-lg w-full max-w-md mx-4"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <h3 className="text-xl font-bold text-white mb-4">Start New Chat</h3>
+
+              <div className="space-y-4">
+                <div>
+                  <label className="block text-sm text-gray-400 mb-2">Recipient</label>
+                  <input
+                    type="text"
+                    value={newChatRecipient}
+                    onChange={(e) => setNewChatRecipient(e.target.value)}
+                    placeholder="Enter username or wallet address"
+                    className="input-modern w-full"
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-sm text-gray-400 mb-2">Initial Message</label>
+                  <textarea
+                    value={newChatMessage}
+                    onChange={(e) => setNewChatMessage(e.target.value)}
+                    placeholder="Type your first message..."
+                    className="input-modern w-full resize-none"
+                    rows={3}
+                  />
+                </div>
+              </div>
+
+              <div className="flex gap-3 mt-6">
+                <HoloButton
+                  onClick={() => setShowNewChatModal(false)}
+                  className="flex-1"
+                >
+                  Cancel
+                </HoloButton>
+                <HoloButton
+                  onClick={handleCreateChat}
+                  disabled={!newChatRecipient.trim() || !newChatMessage.trim() || loading}
+                  className="flex-1"
+                >
+                  {loading ? (
+                    <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin"></div>
+                  ) : (
+                    'Start Chat'
+                  )}
+                </HoloButton>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
       </div>
     </div>
   );

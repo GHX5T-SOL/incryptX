@@ -1,20 +1,30 @@
 import { useParams } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { 
+import {
   ArrowTrendingUpIcon,
   ArrowTrendingDownIcon,
   ExclamationTriangleIcon
 } from '@heroicons/react/24/outline';
-import useMockData from '../../hooks/useMockData';
+import { useWallet } from '@solana/wallet-adapter-react';
+import { usePerps } from '../../hooks/usePerps';
 import HolographicCard from '../../components/HolographicCard.jsx';
 import HoloButton from '../../components/HoloButton.jsx';
 
 const PerpMarket = () => {
   const { id } = useParams();
-  const tokens = useMockData('mock-tokens.json');
+  const { connected, publicKey } = useWallet();
+  const {
+    openPosition,
+    closePosition,
+    getPositions,
+    positions,
+    loading,
+    leverage,
+    setLeverage
+  } = usePerps();
+
   const [token, setToken] = useState(null);
-  const [leverage, setLeverage] = useState(10);
   const [direction, setDirection] = useState('long');
   const [amount, setAmount] = useState('');
   const [showOrderModal, setShowOrderModal] = useState(false);
@@ -48,13 +58,26 @@ const PerpMarket = () => {
   }, [id, tokens]);
 
   const handleOpenPosition = () => {
+    if (!connected) {
+      alert('Please connect your wallet first');
+      return;
+    }
     setShowOrderModal(true);
   };
 
-  const confirmOrder = () => {
-    alert(`Opened ${direction} position: ${amount} ${token?.name} at ${leverage}x leverage`);
-    setShowOrderModal(false);
-    setAmount('');
+  const confirmOrder = async () => {
+    if (!connected || !token) return;
+
+    try {
+      const tokenMint = new PublicKey('11111111111111111111111111111112'); // Mock token mint
+      await openPosition(tokenMint, direction, parseFloat(amount), leverage);
+      alert(`Opened ${direction} position: ${amount} ${token?.name} at ${leverage}x leverage`);
+      setShowOrderModal(false);
+      setAmount('');
+    } catch (error) {
+      console.error('Open position failed:', error);
+      alert('Open position failed. Check console for details.');
+    }
   };
 
   const formatNumber = (num) => {
@@ -198,10 +221,19 @@ const PerpMarket = () => {
               <HoloButton
                 onClick={handleOpenPosition}
                 className={`w-full justify-center py-4 text-lg ${direction === 'long' ? '' : ''}`}
-                disabled={!amount}
+                disabled={!connected || !amount || loading}
               >
-                Open {direction.toUpperCase()} Position
+                {loading ? (
+                  <div className="w-6 h-6 border-2 border-white/30 border-t-white rounded-full animate-spin"></div>
+                ) : (
+                  `Open ${direction.toUpperCase()} Position`
+                )}
               </HoloButton>
+              {!connected && (
+                <div className="text-yellow-400 text-sm mt-2 text-center">
+                  Connect your wallet to open positions
+                </div>
+              )}
               </HolographicCard>
             </motion.div>
           </div>

@@ -1,6 +1,3 @@
-
- 
- 
 # IncryptX: Revolutionizing Memecoin Launches, DEX Trading and Beyond
 
 ## Introduction

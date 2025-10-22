@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { 
-  FireIcon, 
+import {
+  FireIcon,
   HeartIcon,
   ChatBubbleLeftIcon,
   ArrowPathIcon,
@@ -12,16 +12,18 @@ import {
   EyeIcon,
   ShareIcon
 } from '@heroicons/react/24/outline';
-import useMockData from '../../hooks/useMockData';
+import { useWallet } from '@solana/wallet-adapter-react';
+import { useSocials } from '../../hooks/useSocials';
 import HolographicCard from '../../components/HolographicCard.jsx';
 import HoloButton from '../../components/HoloButton.jsx';
 
 const Feed = () => {
-  const users = useMockData('mock-users.json');
-  const [posts, setPosts] = useState([]);
+  const { connected } = useWallet();
+  const { posts, createPost, getFeed, postToX, scanForMentions, loading } = useSocials();
   const [newPost, setNewPost] = useState('');
   const [selectedFilter, setSelectedFilter] = useState('all');
-  const [showCreatePost, setShowCreatePost] = useState(false);
+  const [postToXFlag, setPostToXFlag] = useState(false);
+  const [showXPreview, setShowXPreview] = useState(false);
 
   const filters = [
     { id: 'all', name: 'All Posts', count: 200 },
@@ -115,28 +117,43 @@ const Feed = () => {
     ));
   };
 
-  const handleCreatePost = () => {
-    if (!newPost.trim()) return;
-    
-    const newPostObj = {
-      id: posts.length + 1,
-      user: users[0], // Current user
-      content: newPost,
-      image: null,
-      tags: newPost.match(/#\w+/g) || [],
-      timestamp: new Date().toISOString(),
-      likes: 0,
-      replies: 0,
-      reposts: 0,
-      views: 0,
-      isLiked: false,
-      isReposted: false,
-      type: 'text'
-    };
-    
-    setPosts([newPostObj, ...posts]);
-    setNewPost('');
-    setShowCreatePost(false);
+  const handleCreatePost = async () => {
+    if (!connected || !newPost.trim()) return;
+
+    try {
+      await createPost(newPost, undefined, postToXFlag);
+      setNewPost('');
+      setPostToXFlag(false);
+      setShowXPreview(false);
+    } catch (error) {
+      console.error('Post creation failed:', error);
+      alert('Post creation failed. Check console for details.');
+    }
+  };
+
+  const handlePostToX = async () => {
+    if (!connected || !newPost.trim()) return;
+
+    try {
+      await postToX(newPost);
+      setNewPost('');
+      setPostToXFlag(false);
+      setShowXPreview(false);
+    } catch (error) {
+      console.error('X post failed:', error);
+      alert('X post failed. Check console for details.');
+    }
+  };
+
+  const handleScanMentions = async () => {
+    if (!connected) return;
+
+    try {
+      await scanForMentions('incryptx'); // Scan for mentions of incryptx
+    } catch (error) {
+      console.error('Scan failed:', error);
+      alert('Scan failed. Check console for details.');
+    }
   };
 
   const formatTime = (timestamp) => {
@@ -200,14 +217,48 @@ const Feed = () => {
                   <button className="p-2 hover:bg-white/10 rounded-lg transition-colors">
                     <FireIcon className="w-5 h-5 text-orange-500" />
                   </button>
+                  <div className="flex items-center gap-2">
+                    <input
+                      type="checkbox"
+                      id="postToX"
+                      checked={postToXFlag}
+                      onChange={(e) => setPostToXFlag(e.target.checked)}
+                      className="rounded"
+                    />
+                    <label htmlFor="postToX" className="text-sm text-gray-400">
+                      Post to X
+                    </label>
+                  </div>
                 </div>
-                <HoloButton
-                  onClick={handleCreatePost}
-                  className="px-6 py-2 disabled:opacity-50 disabled:cursor-not-allowed"
-                  disabled={!newPost.trim()}
-                >
-                  Post
-                </HoloButton>
+                <div className="flex gap-2">
+                  <HoloButton
+                    onClick={handleScanMentions}
+                    disabled={!connected || loading}
+                    className="px-4 py-2"
+                  >
+                    {loading ? (
+                      <div className="w-3 h-3 border-2 border-white/30 border-t-white rounded-full animate-spin"></div>
+                    ) : (
+                      'Scan X'
+                    )}
+                  </HoloButton>
+                  <HoloButton
+                    onClick={handleCreatePost}
+                    className="px-6 py-2 disabled:opacity-50 disabled:cursor-not-allowed"
+                    disabled={!connected || !newPost.trim() || loading}
+                  >
+                    {loading ? (
+                      <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin"></div>
+                    ) : (
+                      'Post'
+                    )}
+                  </HoloButton>
+                </div>
+                {!connected && (
+                  <div className="text-yellow-400 text-sm mt-2">
+                    Connect your wallet to post
+                  </div>
+                )}
               </div>
             </div>
           </div>

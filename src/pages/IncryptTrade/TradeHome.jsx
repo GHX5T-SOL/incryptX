@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { 
-  ArrowsUpDownIcon, 
-  CurrencyDollarIcon, 
+import {
+  ArrowsUpDownIcon,
+  CurrencyDollarIcon,
   ChartBarIcon,
   ClockIcon,
   ArrowTrendingUpIcon,
@@ -16,12 +16,23 @@ import {
   BoltIcon,
   ArrowPathIcon
 } from '@heroicons/react/24/outline';
-import useMockData from '../../hooks/useMockData';
+import { useWallet } from '@solana/wallet-adapter-react';
+import { useSwapAggregator } from '../../hooks/useSwapAggregator';
 import HolographicCard from '../../components/HolographicCard.jsx';
 import HoloButton from '../../components/HoloButton.jsx';
 
 const TradeHome = () => {
-  const tokens = useMockData('mock-tokens.json');
+  const { connected, publicKey } = useWallet();
+  const {
+    getBestRoute,
+    executeSwap,
+    addLiquidity,
+    createPool,
+    loading,
+    stealth,
+    setStealth
+  } = useSwapAggregator();
+
   const [fromToken, setFromToken] = useState({ name: 'SOL', symbol: 'SOL', logo: '/assets/images/wif-logo.svg', price: 98.45 });
   const [toToken, setToToken] = useState(null);
   const [fromAmount, setFromAmount] = useState('');
@@ -33,6 +44,7 @@ const TradeHome = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [isSwapping, setIsSwapping] = useState(false);
   const [balance, setBalance] = useState({ SOL: 10.5, USDC: 1000 });
+  const [route, setRoute] = useState(null);
 
   const enhancedTokens = [
     { name: 'SOL', symbol: 'SOL', price: 98.45, change24h: 5.23, volume24h: 45000000, logo: '/assets/images/wif-logo.svg', balance: balance.SOL || 0 },
@@ -77,27 +89,44 @@ const TradeHome = () => {
   };
 
   useEffect(() => {
-    if (fromAmount && fromToken && toToken) {
-      // Mock price calculation with realistic rates
-      const rate = toToken.price / fromToken.price;
-      const calculated = (parseFloat(fromAmount) * rate * (1 - slippage / 100)).toFixed(6);
-      setToAmount(calculated);
-    } else {
-      setToAmount('');
-    }
-  }, [fromAmount, fromToken, toToken, slippage]);
+    const calculateRoute = async () => {
+      if (fromAmount && fromToken && toToken && connected) {
+        try {
+          const fromMint = new PublicKey('11111111111111111111111111111112'); // Mock SOL mint
+          const toMint = new PublicKey('11111111111111111111111111111112'); // Mock USDC mint
+          const amount = parseFloat(fromAmount) * 10 ** 9; // Convert to lamports
+          const routeInfo = await getBestRoute(fromMint, toMint, amount, slippage * 100);
+          setRoute(routeInfo);
+          setToAmount((routeInfo.outAmount / 10 ** 6).toString()); // Mock conversion
+        } catch (error) {
+          console.error('Route calculation failed:', error);
+          setToAmount('');
+        }
+      } else {
+        setToAmount('');
+      }
+    };
+    calculateRoute();
+  }, [fromAmount, fromToken, toToken, slippage, stealth, connected]);
 
   const handleSwap = async () => {
-    if (!fromToken || !toToken || !fromAmount) return;
+    if (!fromToken || !toToken || !fromAmount || !connected) return;
     setIsSwapping(true);
-    setTimeout(() => {
+    try {
+      if (route) {
+        await executeSwap(route);
+        const newBalance = { ...balance };
+        newBalance[fromToken.symbol] = (newBalance[fromToken.symbol] || 0) - parseFloat(fromAmount);
+        newBalance[toToken.symbol] = (newBalance[toToken.symbol] || 0) + parseFloat(toAmount);
+        setBalance(newBalance);
+        alert(`Successfully swapped ${fromAmount} ${fromToken.symbol} for ${toAmount} ${toToken.symbol}!`);
+      }
+    } catch (error) {
+      console.error('Swap failed:', error);
+      alert('Swap failed. Check console for details.');
+    } finally {
       setIsSwapping(false);
-      const newBalance = { ...balance };
-      newBalance[fromToken.symbol] = (newBalance[fromToken.symbol] || 0) - parseFloat(fromAmount);
-      newBalance[toToken.symbol] = (newBalance[toToken.symbol] || 0) + parseFloat(toAmount);
-      setBalance(newBalance);
-      alert(`Successfully swapped ${fromAmount} ${fromToken.symbol} for ${toAmount} ${toToken.symbol}!`);
-    }, 2000);
+    }
   };
 
   const handleTokenSwap = () => {
@@ -308,6 +337,19 @@ const TradeHome = () => {
                         <InformationCircleIcon className="w-4 h-4" />
                         <span>Higher slippage = faster execution but potentially worse rates</span>
                       </div>
+                      <div className="flex items-center justify-between">
+                        <label className="text-sm text-gray-300 font-medium">Stealth Mode</label>
+                        <button
+                          onClick={() => setStealth(!stealth)}
+                          className={`w-12 h-6 rounded-full p-1 transition-colors ${stealth ? 'bg-purple-500' : 'bg-gray-600'}`}
+                        >
+                          <div className={`w-4 h-4 bg-white rounded-full transition-transform ${stealth ? 'translate-x-6' : ''}`} />
+                        </button>
+                      </div>
+                      <div className="flex items-center gap-2 text-sm text-gray-400">
+                        <SparklesIcon className="w-4 h-4" />
+                        <span>Stealth mode routes through multiple hops for privacy</span>
+                      </div>
                     </div>
                   </motion.div>
                 )}
@@ -445,13 +487,15 @@ const TradeHome = () => {
                 <HoloButton
                   onClick={handleSwap}
                   className="w-full justify-center mt-6 text-xl"
-                  disabled={!fromToken || !toToken || !fromAmount || isSwapping || parseFloat(fromAmount) > (fromToken?.balance || 0)}
+                  disabled={!connected || !fromToken || !toToken || !fromAmount || isSwapping || parseFloat(fromAmount) > (fromToken?.balance || 0)}
                 >
                   {isSwapping ? (
                     <>
                       <div className="w-6 h-6 border-2 border-white/30 border-t-white rounded-full animate-spin"></div>
                       Swapping...
                     </>
+                  ) : !connected ? (
+                    'Connect Wallet'
                   ) : !fromToken || !toToken ? (
                     'Select tokens'
                   ) : !fromAmount ? (
@@ -465,6 +509,11 @@ const TradeHome = () => {
                     </>
                   )}
                 </HoloButton>
+                {!connected && (
+                  <div className="text-yellow-400 text-sm mt-2 text-center">
+                    Connect your wallet to perform swaps
+                  </div>
+                )}
               </div>
             </HolographicCard>
           </div>

@@ -12,16 +12,47 @@ import {
   CogIcon,
   ShieldCheckIcon,
   BoltIcon,
-  GlobeAltIcon
+  GlobeAltIcon,
+  ExclamationTriangleIcon
 } from '@heroicons/react/24/outline';
 import HolographicCard from '../components/HolographicCard.jsx';
 import HoloButton from '../components/HoloButton.jsx';
+import { useTelegramBot } from '../hooks/useTelegramBot';
 
 const TelegramBot = () => {
   const [selectedFeature, setSelectedFeature] = useState('overview');
   const [command, setCommand] = useState('');
   const [response, setResponse] = useState('');
-  const [isLoading, setIsLoading] = useState(false);
+  const [tradeDetails, setTradeDetails] = useState({
+    token: '',
+    action: 'buy',
+    amount: '',
+    price: ''
+  });
+  const [launchDetails, setLaunchDetails] = useState({
+    name: '',
+    symbol: '',
+    supply: '1000000000',
+    description: ''
+  });
+
+  // Use the Telegram bot hook
+  const {
+    chats,
+    messages,
+    isLoading,
+    error,
+    botStatus,
+    connected,
+    sendMessage,
+    executeTrade,
+    launchToken,
+    executeCommand,
+    copyTrader,
+    getChats,
+    getMessages,
+    checkBotStatus
+  } = useTelegramBot();
 
   const features = [
     {
@@ -101,20 +132,60 @@ const TelegramBot = () => {
 
   const handleCommand = async () => {
     if (!command.trim()) return;
-    setIsLoading(true);
-    setTimeout(() => {
-      const mockResponses = {
-        '/launch': '🚀 Launching CatWifHat... Success! Token deployed at 0x123...\n\n📊 Initial MC: $1,000\n💰 Supply: 1,000,000,000\n🎯 Migration MC: $69,000',
-        '/trade': '💹 Trade executed! Bought 1000 CatWifHat at $0.01\n\n📈 New Balance: 1000 CatWifHat\n💸 Cost: 0.01 SOL\n⏱️ Execution: 0.2s',
-        '/price': '💰 CatWifHat: $0.015 (+50% in 24h)\n\n📊 Market Cap: $15,000\n📈 24h Volume: $45,000\n👥 Holders: 1,247',
-        '/portfolio': '📊 Portfolio Summary\n\n💰 Total Value: $1,250 (+25% today)\n🎯 Top Holdings:\n• CatWifHat: $500 (+40%)\n• SOL: $750 (+15%)',
-        '/leaderboard': '🏆 Top Traders This Week\n\n🥇 @DegenPuppy: +150% ($2,500)\n🥈 @MemeMaster: +120% ($1,800)\n🥉 @WifWhale: +95% ($3,200)',
-        '/copy': '📋 Now copying @DegenPuppy trades\n\n⚙️ Settings:\n• Copy %: 100%\n• Max trade: $100\n• Auto-follow: Enabled'
-      };
-      const response = mockResponses[command.split(' ')[0]] || '🤖 Command not recognized. Type /help for available commands.';
-      setResponse(response);
-      setIsLoading(false);
-    }, 1500);
+    
+    try {
+      const result = await executeCommand(command, command.split(' ').slice(1));
+      setResponse(result.message);
+    } catch (err) {
+      setResponse(`❌ Error: ${err.message}`);
+    }
+  };
+
+  const handleTradeExecution = async () => {
+    if (!tradeDetails.token || !tradeDetails.amount) {
+      setResponse('❌ Please fill in token and amount');
+      return;
+    }
+    
+    try {
+      const result = await executeTrade({
+        token: tradeDetails.token,
+        action: tradeDetails.action,
+        amount: parseFloat(tradeDetails.amount),
+        price: tradeDetails.price ? parseFloat(tradeDetails.price) : undefined
+      });
+      setResponse(result.message);
+    } catch (err) {
+      setResponse(`❌ Trade failed: ${err.message}`);
+    }
+  };
+
+  const handleTokenLaunch = async () => {
+    if (!launchDetails.name || !launchDetails.symbol) {
+      setResponse('❌ Please fill in token name and symbol');
+      return;
+    }
+    
+    try {
+      const result = await launchToken({
+        name: launchDetails.name,
+        symbol: launchDetails.symbol,
+        supply: parseInt(launchDetails.supply),
+        description: launchDetails.description
+      });
+      setResponse(result.message);
+    } catch (err) {
+      setResponse(`❌ Launch failed: ${err.message}`);
+    }
+  };
+
+  const handleCopyTrader = async (traderAddress) => {
+    try {
+      const result = await copyTrader(traderAddress);
+      setResponse(result.message);
+    } catch (err) {
+      setResponse(`❌ Copy trader failed: ${err.message}`);
+    }
   };
 
   return (
@@ -130,10 +201,51 @@ const TelegramBot = () => {
           <h1 className="text-5xl md:text-6xl font-bold mb-6">
             🤖 <span className="gradient-text">IncryptX Telegram Bot</span>
           </h1>
-          <p className="text-xl text-gray-300 max-w-3xl mx-auto">
+          <p className="text-xl text-gray-300 max-w-3xl mx-auto mb-6">
             Trade, launch, and manage your IncryptX portfolio directly from Telegram. 
             The most powerful crypto bot on Solana with zero coding required.
           </p>
+          
+          {/* Bot Status and Error Display */}
+          <div className="flex flex-col items-center gap-4 mb-6">
+            <div className="flex items-center gap-2">
+              <div className={`w-3 h-3 rounded-full ${
+                botStatus === 'connected' ? 'bg-green-500' : 
+                botStatus === 'disconnected' ? 'bg-red-500' : 'bg-yellow-500'
+              }`}></div>
+              <span className="text-sm text-gray-300">
+                Bot Status: <span className={`font-semibold ${
+                  botStatus === 'connected' ? 'text-green-400' : 
+                  botStatus === 'disconnected' ? 'text-red-400' : 'text-yellow-400'
+                }`}>
+                  {botStatus === 'connected' ? 'Connected' : 
+                   botStatus === 'disconnected' ? 'Disconnected' : 'Unknown'}
+                </span>
+              </span>
+            </div>
+            
+            {error && (
+              <motion.div
+                initial={{ opacity: 0, y: -10 }}
+                animate={{ opacity: 1, y: 0 }}
+                className="flex items-center gap-2 bg-red-500/20 border border-red-500/30 rounded-lg px-4 py-2"
+              >
+                <ExclamationTriangleIcon className="w-5 h-5 text-red-400" />
+                <span className="text-red-300 text-sm">{error}</span>
+              </motion.div>
+            )}
+            
+            {!connected && (
+              <motion.div
+                initial={{ opacity: 0, y: -10 }}
+                animate={{ opacity: 1, y: 0 }}
+                className="flex items-center gap-2 bg-yellow-500/20 border border-yellow-500/30 rounded-lg px-4 py-2"
+              >
+                <ExclamationTriangleIcon className="w-5 h-5 text-yellow-400" />
+                <span className="text-yellow-300 text-sm">Wallet not connected - Some features may be limited</span>
+              </motion.div>
+            )}
+          </div>
         </motion.div>
 
         <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
@@ -297,6 +409,150 @@ const TelegramBot = () => {
                     )}
                   </div>
                 </div>
+
+                {/* Quick Trade Interface */}
+                <div className="glass-card p-8">
+                  <h3 className="text-2xl font-bold text-white mb-6 text-center flex items-center justify-center gap-3">
+                    <ChartBarIcon className="w-8 h-8 text-purple-400" />
+                    Quick Trade Execution
+                  </h3>
+                  <div className="max-w-2xl mx-auto space-y-4">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                      <div>
+                        <label className="block text-sm font-medium text-gray-300 mb-2">Token Symbol</label>
+                        <input
+                          type="text"
+                          placeholder="e.g., SOL, CatWifHat"
+                          value={tradeDetails.token}
+                          onChange={(e) => setTradeDetails({...tradeDetails, token: e.target.value})}
+                          className="input-modern w-full"
+                        />
+                      </div>
+                      <div>
+                        <label className="block text-sm font-medium text-gray-300 mb-2">Action</label>
+                        <select
+                          value={tradeDetails.action}
+                          onChange={(e) => setTradeDetails({...tradeDetails, action: e.target.value})}
+                          className="input-modern w-full"
+                        >
+                          <option value="buy">Buy</option>
+                          <option value="sell">Sell</option>
+                        </select>
+                      </div>
+                    </div>
+                    
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                      <div>
+                        <label className="block text-sm font-medium text-gray-300 mb-2">Amount</label>
+                        <input
+                          type="number"
+                          placeholder="e.g., 1.5"
+                          value={tradeDetails.amount}
+                          onChange={(e) => setTradeDetails({...tradeDetails, amount: e.target.value})}
+                          className="input-modern w-full"
+                        />
+                      </div>
+                      <div>
+                        <label className="block text-sm font-medium text-gray-300 mb-2">Price (Optional)</label>
+                        <input
+                          type="number"
+                          placeholder="e.g., 0.01"
+                          value={tradeDetails.price}
+                          onChange={(e) => setTradeDetails({...tradeDetails, price: e.target.value})}
+                          className="input-modern w-full"
+                        />
+                      </div>
+                    </div>
+                    
+                    <HoloButton
+                      onClick={handleTradeExecution}
+                      disabled={isLoading || !tradeDetails.token || !tradeDetails.amount}
+                      className="w-full justify-center py-3 disabled:opacity-50 disabled:cursor-not-allowed"
+                    >
+                      {isLoading ? '⚡ Executing Trade...' : 'Execute Trade'}
+                    </HoloButton>
+                  </div>
+                </div>
+
+                {/* Token Launch Interface */}
+                <div className="glass-card p-8">
+                  <h3 className="text-2xl font-bold text-white mb-6 text-center flex items-center justify-center gap-3">
+                    <RocketLaunchIcon className="w-8 h-8 text-purple-400" />
+                    Launch New Token
+                  </h3>
+                  <div className="max-w-2xl mx-auto space-y-4">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                      <div>
+                        <label className="block text-sm font-medium text-gray-300 mb-2">Token Name</label>
+                        <input
+                          type="text"
+                          placeholder="e.g., Cat Wif Hat"
+                          value={launchDetails.name}
+                          onChange={(e) => setLaunchDetails({...launchDetails, name: e.target.value})}
+                          className="input-modern w-full"
+                        />
+                      </div>
+                      <div>
+                        <label className="block text-sm font-medium text-gray-300 mb-2">Symbol</label>
+                        <input
+                          type="text"
+                          placeholder="e.g., CATWIF"
+                          value={launchDetails.symbol}
+                          onChange={(e) => setLaunchDetails({...launchDetails, symbol: e.target.value})}
+                          className="input-modern w-full"
+                        />
+                      </div>
+                    </div>
+                    
+                    <div>
+                      <label className="block text-sm font-medium text-gray-300 mb-2">Supply</label>
+                      <input
+                        type="number"
+                        placeholder="e.g., 1000000000"
+                        value={launchDetails.supply}
+                        onChange={(e) => setLaunchDetails({...launchDetails, supply: e.target.value})}
+                        className="input-modern w-full"
+                      />
+                    </div>
+                    
+                    <div>
+                      <label className="block text-sm font-medium text-gray-300 mb-2">Description (Optional)</label>
+                      <textarea
+                        placeholder="Describe your token..."
+                        value={launchDetails.description}
+                        onChange={(e) => setLaunchDetails({...launchDetails, description: e.target.value})}
+                        className="input-modern w-full h-20 resize-none"
+                      />
+                    </div>
+                    
+                    <HoloButton
+                      onClick={handleTokenLaunch}
+                      disabled={isLoading || !launchDetails.name || !launchDetails.symbol}
+                      className="w-full justify-center py-3 disabled:opacity-50 disabled:cursor-not-allowed"
+                    >
+                      {isLoading ? '🚀 Launching Token...' : 'Launch Token'}
+                    </HoloButton>
+                  </div>
+                </div>
+
+                {/* Chat List */}
+                {chats.length > 0 && (
+                  <div className="glass-card p-8">
+                    <h3 className="text-2xl font-bold text-white mb-6 text-center flex items-center justify-center gap-3">
+                      <UserGroupIcon className="w-8 h-8 text-purple-400" />
+                      Active Chats
+                    </h3>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                      {chats.map((chat) => (
+                        <div key={chat.id} className="glass-card glass-card-hover p-4">
+                          <h4 className="font-semibold text-white mb-2">{chat.title}</h4>
+                          <p className="text-sm text-gray-400 mb-2">Type: {chat.type}</p>
+                          <p className="text-sm text-gray-400">Members: {chat.memberCount}</p>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
               </motion.div>
             )}
 

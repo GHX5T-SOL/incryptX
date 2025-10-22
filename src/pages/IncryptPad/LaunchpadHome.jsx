@@ -1,10 +1,10 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Link } from 'react-router-dom';
-import { 
-  FireIcon, 
-  RocketLaunchIcon, 
-  ArrowTrendingUpIcon, 
+import {
+  FireIcon,
+  RocketLaunchIcon,
+  ArrowTrendingUpIcon,
   CurrencyDollarIcon,
   UserGroupIcon,
   StarIcon,
@@ -13,15 +13,45 @@ import {
   EyeIcon,
   HeartIcon
 } from '@heroicons/react/24/outline';
-import useMockData from '../../hooks/useMockData';
+import { useWallet } from '@solana/wallet-adapter-react';
+import { useLaunchpad } from '../../hooks/useLaunchpad';
 import HolographicCard from '../../components/HolographicCard.jsx';
 import HoloButton from '../../components/HoloButton.jsx';
 
 const LaunchpadHome = () => {
-  const tokens = useMockData('mock-tokens.json');
+  const { connected, publicKey } = useWallet();
+  const { 
+    initPool, 
+    createToken, 
+    migrateFromBondingCurve,
+    getTokens,
+    isLoading,
+    error 
+  } = useLaunchpad();
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('all');
   const [sortBy, setSortBy] = useState('trending');
+  const [isLaunching, setIsLaunching] = useState(false);
+  const [tokens, setTokens] = useState([]);
+
+  // Load tokens on component mount
+  useEffect(() => {
+    const loadTokens = async () => {
+      try {
+        const tokenData = await getTokens();
+        setTokens(tokenData);
+      } catch (err) {
+        console.warn('Failed to load tokens, using mock data:', err);
+        // Fallback to mock data
+        setTokens([
+          { id: 1, name: 'TestToken1', mc: 50000, supply: 1000000, holders: 100 },
+          { id: 2, name: 'TestToken2', mc: 75000, supply: 1000000, holders: 150 },
+        ]);
+      }
+    };
+    
+    loadTokens();
+  }, [getTokens]);
 
   const categories = [
     { id: 'all', name: 'All', count: tokens.length },
@@ -50,8 +80,73 @@ const LaunchpadHome = () => {
 
   const recentLaunches = tokens.slice(0, 6);
 
+  const handleQuickLaunch = async () => {
+    if (!connected) {
+      alert('Please connect your wallet first');
+      return;
+    }
+
+    setIsLaunching(true);
+    try {
+      // Use the real createToken function with AI generation
+      const result = await createToken({
+        name: 'DegenToken',
+        symbol: 'DEGEN',
+        description: 'A degen token for testing',
+        supply: 1000000,
+        useAI: true
+      });
+      
+      alert(`Token launched successfully! Transaction: ${result.signature}`);
+      
+      // Refresh token list
+      const updatedTokens = await getTokens();
+      setTokens(updatedTokens);
+    } catch (error) {
+      console.error('Launch failed:', error);
+      alert(`Launch failed: ${error.message}`);
+    } finally {
+      setIsLaunching(false);
+    }
+  };
+
+  const handleMigrateToken = async (tokenAddress) => {
+    if (!connected) {
+      alert('Please connect your wallet first');
+      return;
+    }
+
+    setIsLaunching(true);
+    try {
+      const result = await migrateFromBondingCurve(tokenAddress);
+      alert(`Token migrated successfully! Transaction: ${result.signature}`);
+      
+      // Refresh token list
+      const updatedTokens = await getTokens();
+      setTokens(updatedTokens);
+    } catch (error) {
+      console.error('Migration failed:', error);
+      alert(`Migration failed: ${error.message}`);
+    } finally {
+      setIsLaunching(false);
+    }
+  };
+
   return (
     <div className="min-h-screen pt-20 px-4">
+      {/* Error Display */}
+      {error && (
+        <div className="max-w-7xl mx-auto mb-4">
+          <div className="bg-red-500/20 border border-red-500/50 rounded-lg p-4">
+            <div className="flex items-center gap-2">
+              <div className="w-2 h-2 bg-red-500 rounded-full"></div>
+              <span className="text-red-400 font-medium">Error:</span>
+              <span className="text-red-300">{error}</span>
+            </div>
+          </div>
+        </div>
+      )}
+
       {/* Hero Section */}
       <section className="max-w-7xl mx-auto mb-12">
         <motion.div
@@ -67,18 +162,25 @@ const LaunchpadHome = () => {
             The ultimate memecoin launchpad. Launch, discover, and trade the next big thing in crypto.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link to="/pad/launch/degen">
-              <HoloButton className="text-lg">
-                <FireIcon className="w-6 h-6" />
-                Launch Degen Token
-              </HoloButton>
-            </Link>
+            <button
+              onClick={handleQuickLaunch}
+              disabled={isLaunching || isLoading}
+              className="btn-primary text-lg px-8 py-4 flex items-center gap-2 disabled:opacity-50"
+            >
+              <FireIcon className="w-6 h-6" />
+              {isLaunching ? 'Launching...' : 'Launch Degen Token'}
+            </button>
             <Link to="/pad/launch/custom">
               <HoloButton className="text-lg">
                 <RocketLaunchIcon className="w-6 h-6" />
                 Custom Launch
               </HoloButton>
             </Link>
+            {!connected && (
+              <div className="text-yellow-400 text-sm mt-2">
+                Connect your wallet to launch tokens
+              </div>
+            )}
           </div>
         </motion.div>
 
@@ -222,6 +324,16 @@ const LaunchpadHome = () => {
                     View Details
                   </button>
                 </Link>
+                {token.address && (
+                  <button 
+                    onClick={() => handleMigrateToken(token.address)}
+                    disabled={isLaunching}
+                    className="px-3 py-2 bg-blue-500/20 hover:bg-blue-500/30 rounded-lg transition-colors disabled:opacity-50"
+                    title="Migrate from Bonding Curve"
+                  >
+                    <ArrowTrendingUpIcon className="w-4 h-4 text-blue-400" />
+                  </button>
+                )}
                 <button className="px-3 py-2 bg-white/10 hover:bg-white/20 rounded-lg transition-colors">
                   <HeartIcon className="w-4 h-4 text-gray-400" />
                 </button>

@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useParams } from 'react-router-dom';
-import { 
+import {
   UserIcon,
   WalletIcon,
   CurrencyDollarIcon,
@@ -24,15 +24,14 @@ import {
   ShareIcon
 } from '@heroicons/react/24/outline';
 import { useWallet } from '@solana/wallet-adapter-react';
-import useMockData from '../../hooks/useMockData';
+import { useProfiles } from '../../hooks/useProfiles';
 import HolographicCard from '../../components/HolographicCard.jsx';
 import HoloButton from '../../components/HoloButton.jsx';
 
 const Profile = () => {
   const { username } = useParams();
   const { publicKey, connected } = useWallet();
-  const tokens = useMockData('mock-tokens.json');
-  const users = useMockData('mock-users.json');
+  const { profiles, getProfiles, loading } = useProfiles();
   const [activeTab, setActiveTab] = useState('overview');
   const [showQR, setShowQR] = useState(false);
   const [showPrivateKey, setShowPrivateKey] = useState(false);
@@ -44,85 +43,12 @@ const Profile = () => {
   const [userGroups, setUserGroups] = useState([]);
 
   useEffect(() => {
-    // Find user profile
-    const foundUser = users.find(u => u.username === username) || users[0];
-    setProfile(foundUser);
-
-    // Generate user's tokens (tokens they've launched)
-    const launchedTokens = tokens.slice(0, 5).map((token, index) => ({
-      ...token,
-      logo: token.name === 'CatWifHat' ? '/assets/images/catwifhat.svg' : 
-            token.name === 'DogWifLaser' ? '/assets/images/dogwiflaser.svg' : 
-            '/assets/images/placeholder-meme.svg',
-      price: Math.random() * 0.1 + 0.001,
-      priceChange: Math.random() > 0.5 ? Math.random() * 100 : -Math.random() * 50,
-      volume24h: Math.random() * 1000000,
-      marketCap: token.mc,
-      launchDate: new Date(Date.now() - Math.random() * 30 * 24 * 60 * 60 * 1000),
-      holders: Math.floor(Math.random() * 10000) + 100,
-      isVerified: Math.random() > 0.3
-    }));
-    setUserTokens(launchedTokens);
-
-    // Generate user's trading positions
-    const positions = [
-      {
-        id: 1,
-        token: 'CatWifHat',
-        type: 'long',
-        entryPrice: 0.020,
-        currentPrice: 0.023,
-        amount: 1000,
-        pnl: 15.0,
-        pnlPercent: 15.0,
-        time: '2 days ago'
-      },
-      {
-        id: 2,
-        token: 'DogWifLaser',
-        type: 'short',
-        entryPrice: 0.018,
-        currentPrice: 0.015,
-        amount: 500,
-        pnl: 16.67,
-        pnlPercent: 16.67,
-        time: '1 day ago'
-      }
-    ];
-    setUserPositions(positions);
-
-    // Generate user's groups
-    const groups = [
-      {
-        id: 1,
-        name: 'WIF Warriors',
-        members: 1250,
-        description: 'Elite WIF community for serious traders',
-        joinedDate: '2 weeks ago',
-        role: 'Admin',
-        isActive: true
-      },
-      {
-        id: 2,
-        name: 'Meme Masters',
-        members: 890,
-        description: 'Community for memecoin enthusiasts',
-        joinedDate: '1 month ago',
-        role: 'Member',
-        isActive: true
-      },
-      {
-        id: 3,
-        name: 'Solana Sages',
-        members: 2100,
-        description: 'Advanced Solana trading strategies',
-        joinedDate: '3 weeks ago',
-        role: 'Moderator',
-        isActive: false
-      }
-    ];
-    setUserGroups(groups);
-  }, [username, users, tokens]);
+    // Load profiles from hook
+    getProfiles().then(() => {
+      const foundUser = profiles.find(u => u.username === username) || profiles[0];
+      setProfile(foundUser);
+    });
+  }, [username, profiles]);
 
   const copyToClipboard = (text) => {
     navigator.clipboard.writeText(text);

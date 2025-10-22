@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { 
+import {
   ChartBarIcon,
   CurrencyDollarIcon,
   ArrowTrendingUpIcon,
@@ -16,13 +16,23 @@ import {
   EyeIcon,
   StarIcon
 } from '@heroicons/react/24/outline';
-import useMockData from '../../hooks/useMockData';
+import { useWallet } from '@solana/wallet-adapter-react';
+import { useTradeTerminal } from '../../hooks/useTradeTerminal';
 import Chart from '../../components/Chart';
 
 const AdvancedTrade = () => {
-  const tokens = useMockData('mock-tokens.json');
+  const { connected, publicKey } = useWallet();
+  const {
+    createLimitOrder,
+    snipeToken,
+    getChartData,
+    trackWallet,
+    loading,
+    orderType,
+    setOrderType
+  } = useTradeTerminal();
+
   const [selectedToken, setSelectedToken] = useState(null);
-  const [orderType, setOrderType] = useState('limit');
   const [side, setSide] = useState('buy');
   const [price, setPrice] = useState('');
   const [amount, setAmount] = useState('');
@@ -35,6 +45,7 @@ const AdvancedTrade = () => {
   const [timeframe, setTimeframe] = useState('1h');
   const [searchQuery, setSearchQuery] = useState('');
   const [showSearch, setShowSearch] = useState(false);
+  const [slippage, setSlippage] = useState(0.5);
 
   useEffect(() => {
     if (tokens.length > 0) {
@@ -94,14 +105,27 @@ const AdvancedTrade = () => {
   ];
 
   const handlePlaceOrder = () => {
+    if (!connected) {
+      alert('Please connect your wallet first');
+      return;
+    }
     setShowOrderModal(true);
   };
 
-  const confirmOrder = () => {
-    alert(`Order placed: ${side} ${amount} ${selectedToken?.name} at ${price}`);
-    setShowOrderModal(false);
-    setPrice('');
-    setAmount('');
+  const confirmOrder = async () => {
+    if (!connected || !selectedToken) return;
+
+    try {
+      const tokenMint = new PublicKey('11111111111111111111111111111112'); // Mock token mint
+      await createLimitOrder(tokenMint, parseFloat(amount), parseFloat(price));
+      alert(`Order placed: ${side} ${amount} ${selectedToken?.name} at ${price}`);
+      setShowOrderModal(false);
+      setPrice('');
+      setAmount('');
+    } catch (error) {
+      console.error('Order failed:', error);
+      alert('Order failed. Check console for details.');
+    }
   };
 
   const formatNumber = (num) => {
@@ -327,6 +351,34 @@ const AdvancedTrade = () => {
                 </div>
 
                 <div>
+                  <label className="block text-sm font-medium text-gray-300 mb-2">Slippage Tolerance</label>
+                  <div className="flex gap-2">
+                    {[0.1, 0.5, 1.0, 3.0].map((value) => (
+                      <button
+                        key={value}
+                        onClick={() => setSlippage(value)}
+                        className={`px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 ${
+                          slippage === value
+                            ? 'bg-gradient-to-r from-purple-500 to-pink-500 text-white'
+                            : 'bg-white/10 text-gray-300 hover:bg-white/20'
+                        }`}
+                      >
+                        {value}%
+                      </button>
+                    ))}
+                    <input
+                      type="number"
+                      value={slippage}
+                      onChange={(e) => setSlippage(parseFloat(e.target.value))}
+                      className="input-modern w-20 text-center"
+                      step="0.1"
+                      min="0.1"
+                      max="50"
+                    />
+                  </div>
+                </div>
+
+                <div>
                   <label className="block text-sm font-medium text-gray-300 mb-2">Time in Force</label>
                   <select
                     value={timeInForce}
@@ -381,15 +433,24 @@ const AdvancedTrade = () => {
 
                 <button
                   onClick={handlePlaceOrder}
-                  disabled={!amount || (orderType === 'limit' && !price)}
+                  disabled={!connected || !amount || (orderType === 'limit' && !price)}
                   className={`w-full py-3 rounded-lg font-semibold transition-all duration-200 ${
                     side === 'buy'
                       ? 'bg-gradient-to-r from-green-500 to-emerald-500 hover:from-green-600 hover:to-emerald-600'
                       : 'bg-gradient-to-r from-red-500 to-pink-500 hover:from-red-600 hover:to-pink-600'
                   } text-white disabled:opacity-50 disabled:cursor-not-allowed`}
                 >
-                  {side.toUpperCase()} {selectedToken.name}
+                  {loading ? (
+                    <div className="w-6 h-6 border-2 border-white/30 border-t-white rounded-full animate-spin"></div>
+                  ) : (
+                    `${side.toUpperCase()} ${selectedToken.name}`
+                  )}
                 </button>
+                {!connected && (
+                  <div className="text-yellow-400 text-sm mt-2 text-center">
+                    Connect your wallet to place orders
+                  </div>
+                )}
               </div>
             </motion.div>
           </div>

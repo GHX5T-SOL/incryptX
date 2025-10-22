@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { 
+import {
   CurrencyDollarIcon,
   ChartBarIcon,
   FireIcon,
@@ -14,17 +14,26 @@ import {
   BoltIcon,
   TrophyIcon
 } from '@heroicons/react/24/outline';
-import useMockData from '../hooks/useMockData';
+import { useWallet } from '@solana/wallet-adapter-react';
+import { useStaking } from '../hooks/useStaking';
 import HolographicCard from '../components/HolographicCard.jsx';
 import HoloButton from '../components/HoloButton.jsx';
 
 const Staking = () => {
-  const tokens = useMockData('mock-tokens.json');
+  const { connected, publicKey } = useWallet();
+  const {
+    stakeToken,
+    unstakeToken,
+    claimRewards,
+    getStakes,
+    stakes,
+    rewards,
+    loading
+  } = useStaking();
+
   const [activeTab, setActiveTab] = useState('stake');
   const [selectedPool, setSelectedPool] = useState(null);
   const [stakeAmount, setStakeAmount] = useState('');
-  const [userStakes, setUserStakes] = useState([]);
-  const [totalRewards, setTotalRewards] = useState(0);
 
   const stakingPools = tokens.slice(0, 12).map((token, index) => ({
     ...token,
@@ -58,21 +67,18 @@ const Staking = () => {
     { pool: 'PandaWifHat', amount: 67.30, timestamp: '12 hours ago', apy: 180 }
   ];
 
-  const handleStake = () => {
-    if (!selectedPool || !stakeAmount) return;
-    
-    const newStake = {
-      id: Date.now(),
-      pool: selectedPool,
-      amount: parseFloat(stakeAmount),
-      startDate: new Date(),
-      expectedReturn: parseFloat(stakeAmount) * (selectedPool.apy / 100),
-      endDate: new Date(Date.now() + selectedPool.lockPeriod * 24 * 60 * 60 * 1000)
-    };
-    
-    setUserStakes([...userStakes, newStake]);
-    setStakeAmount('');
-    setSelectedPool(null);
+  const handleStake = async () => {
+    if (!connected || !selectedPool || !stakeAmount) return;
+
+    try {
+      const tokenMint = new PublicKey('11111111111111111111111111111112'); // Mock token mint
+      await stakeToken(tokenMint, parseFloat(stakeAmount));
+      setStakeAmount('');
+      setSelectedPool(null);
+    } catch (error) {
+      console.error('Stake failed:', error);
+      alert('Stake failed. Check console for details.');
+    }
   };
 
   const formatNumber = (num) => {
@@ -227,9 +233,13 @@ const Staking = () => {
                         <HoloButton
                           onClick={handleStake}
                           className="flex-1 justify-center py-3 disabled:opacity-50 disabled:cursor-not-allowed"
-                          disabled={!stakeAmount || parseFloat(stakeAmount) < selectedPool.minStake}
+                          disabled={!connected || !stakeAmount || parseFloat(stakeAmount) < selectedPool.minStake || loading}
                         >
-                          Stake Now
+                          {loading ? (
+                            <div className="w-6 h-6 border-2 border-white/30 border-t-white rounded-full animate-spin"></div>
+                          ) : (
+                            'Stake Now'
+                          )}
                         </HoloButton>
                         <button
                           onClick={() => setSelectedPool(null)}
@@ -238,6 +248,11 @@ const Staking = () => {
                           Cancel
                         </button>
                       </div>
+                      {!connected && (
+                        <div className="text-yellow-400 text-sm mt-2 text-center">
+                          Connect your wallet to stake tokens
+                        </div>
+                      )}
                     </div>
                   ) : (
                     <div className="text-center py-8">

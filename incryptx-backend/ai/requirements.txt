@@ -1,0 +1,35 @@
+torch
+transformers
+# Stable Diffusion via diffusers
+accelerate
+safetensors
+diffusers
+# datasets for potential batching
+datasets
+# imaging
+pillow
+# http
+requests
+# IPFS client (optional; we'll use web3.storage/Pinata API via requests)
+ipfshttpclient
+# testing
+pytest
+python-dotenv
+
+# Fine-tuning dependencies
+unsloth[colab-new] @ git+https://github.com/unslothai/unsloth.git
+peft
+trl
+bitsandbytes
+# Additional fine-tuning libraries
+datasets
+accelerate
+# Voice capabilities
+elevenlabs
+# HuggingFace integration
+huggingface_hub
+# Additional ML libraries
+scikit-learn
+numpy
+pandas
+

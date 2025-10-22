@@ -1,0 +1,14 @@
+{
+  "model_type": "llama",
+  "architectures": [
+    "LlamaForCausalLM"
+  ],
+  "model_name": "llama3.1-8b-solana",
+  "vocab_size": 32000,
+  "hidden_size": 4096,
+  "num_attention_heads": 32,
+  "num_hidden_layers": 32,
+  "intermediate_size": 11008,
+  "max_position_embeddings": 2048,
+  "torch_dtype": "bfloat16"
+}

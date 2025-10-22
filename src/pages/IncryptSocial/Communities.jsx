@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
-import { 
+import {
   UserGroupIcon,
   MagnifyingGlassIcon,
   PlusIcon,
@@ -11,13 +11,19 @@ import {
   CheckBadgeIcon,
   FireIcon
 } from '@heroicons/react/24/outline';
+import { useWallet } from '@solana/wallet-adapter-react';
+import { useSocials } from '../../hooks/useSocials';
 import HolographicCard from '../../components/HolographicCard.jsx';
 import HoloButton from '../../components/HoloButton.jsx';
 
 const Communities = () => {
-  const [communities, setCommunities] = useState([]);
+  const { connected } = useWallet();
+  const { communities, joinCommunity, createCommunity, loading } = useSocials();
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('all');
+  const [showCreateModal, setShowCreateModal] = useState(false);
+  const [newCommunityName, setNewCommunityName] = useState('');
+  const [newCommunityDescription, setNewCommunityDescription] = useState('');
 
   const categories = [
     { id: 'all', name: 'All', icon: UserGroupIcon },
@@ -26,67 +32,31 @@ const Communities = () => {
     { id: 'general', name: 'General', icon: ChatBubbleLeftIcon }
   ];
 
-  useEffect(() => {
-    const mockCommunities = [
-      {
-        id: 1,
-        name: 'WIF Warriors',
-        description: 'The official WIF trading community for diamond hands only!',
-        avatar: '/assets/images/placeholder-meme.svg',
-        category: 'trading',
-        members: 15420,
-        onlineMembers: 2341,
-        isPrivate: false,
-        tokenGated: true,
-        requiredToken: 'WIF',
-        minimumHolding: 1000,
-        isVerified: true,
-        isJoined: true,
-        messages24h: 1247,
-        growth: 12.5
-      },
-      {
-        id: 2,
-        name: 'Meme Coin Hunters',
-        description: 'Discover the next 100x gem! Early calls and research.',
-        avatar: '/assets/images/placeholder-meme.svg',
-        category: 'memes',
-        members: 23567,
-        onlineMembers: 4521,
-        isPrivate: false,
-        tokenGated: false,
-        isVerified: true,
-        isJoined: false,
-        messages24h: 2156,
-        growth: 45.2
-      },
-      {
-        id: 3,
-        name: 'Daily Crypto Chat',
-        description: 'General crypto discussion and market updates. All welcome!',
-        avatar: '/assets/images/placeholder-meme.svg',
-        category: 'general',
-        members: 45123,
-        onlineMembers: 7892,
-        isPrivate: false,
-        tokenGated: false,
-        isVerified: true,
-        isJoined: true,
-        messages24h: 3421,
-        growth: 23.1
-      }
-    ];
+  const handleJoinCommunity = async (communityId) => {
+    if (!connected) return;
 
-    setCommunities(mockCommunities);
-  }, []);
-
-  const handleJoinCommunity = (communityId) => {
-    setCommunities(prev => prev.map(community => 
-      community.id === communityId 
-        ? { ...community, isJoined: !community.isJoined, members: community.isJoined ? community.members - 1 : community.members + 1 }
-        : community
-    ));
+    try {
+      await joinCommunity(communityId);
+    } catch (error) {
+      console.error('Failed to join community:', error);
+      alert('Failed to join community. Check console for details.');
+    }
   };
+
+  const handleCreateCommunity = async () => {
+    if (!connected || !newCommunityName.trim() || !newCommunityDescription.trim()) return;
+
+    try {
+      await createCommunity(newCommunityName, newCommunityDescription);
+      setShowCreateModal(false);
+      setNewCommunityName('');
+      setNewCommunityDescription('');
+    } catch (error) {
+      console.error('Failed to create community:', error);
+      alert('Failed to create community. Check console for details.');
+    }
+  };
+
 
   const filteredCommunities = communities.filter(community => {
     const matchesSearch = community.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -158,10 +128,19 @@ const Communities = () => {
               ))}
             </div>
 
-            <HoloButton className="px-6 py-3 flex items-center gap-2">
+            <HoloButton
+              onClick={() => setShowCreateModal(true)}
+              className="px-6 py-3 flex items-center gap-2 disabled:opacity-50"
+              disabled={!connected}
+            >
               <PlusIcon className="w-5 h-5" />
               Create
             </HoloButton>
+            {!connected && (
+              <div className="text-yellow-400 text-sm mt-2">
+                Connect your wallet to create communities
+              </div>
+            )}
           </div>
           </HolographicCard>
         </motion.div>
@@ -243,11 +222,16 @@ const Communities = () => {
               <div className="flex gap-2">
                 <HoloButton
                   onClick={() => handleJoinCommunity(community.id)}
+                  disabled={!connected || loading}
                   className={`flex-1 justify-center py-2 ${
-                    community.isJoined ? '' : ''
+                    community.isJoined ? 'bg-green-500/20 text-green-400' : ''
                   }`}
                 >
-                  {community.isJoined ? 'Joined' : 'Join'}
+                  {loading ? (
+                    <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin"></div>
+                  ) : (
+                    community.isJoined ? 'Joined' : 'Join'
+                  )}
                 </HoloButton>
                 <Link to={`/social/chat/${community.id}`}>
                   <HoloButton className="px-4 py-2"> 
@@ -273,6 +257,69 @@ const Communities = () => {
             <button className="btn-primary px-8 py-3 text-lg">
               Create Community
             </button>
+          </motion.div>
+        )}
+
+        {/* Create Community Modal */}
+        {showCreateModal && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            className="fixed inset-0 bg-black/50 flex items-center justify-center z-50"
+            onClick={() => setShowCreateModal(false)}
+          >
+            <motion.div
+              initial={{ scale: 0.9, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              className="bg-gray-900 p-6 rounded-lg w-full max-w-md mx-4"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <h3 className="text-xl font-bold text-white mb-4">Create Community</h3>
+
+              <div className="space-y-4">
+                <div>
+                  <label className="block text-sm text-gray-400 mb-2">Community Name</label>
+                  <input
+                    type="text"
+                    value={newCommunityName}
+                    onChange={(e) => setNewCommunityName(e.target.value)}
+                    placeholder="Enter community name"
+                    className="input-modern w-full"
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-sm text-gray-400 mb-2">Description</label>
+                  <textarea
+                    value={newCommunityDescription}
+                    onChange={(e) => setNewCommunityDescription(e.target.value)}
+                    placeholder="Describe your community"
+                    className="input-modern w-full resize-none"
+                    rows={3}
+                  />
+                </div>
+              </div>
+
+              <div className="flex gap-3 mt-6">
+                <HoloButton
+                  onClick={() => setShowCreateModal(false)}
+                  className="flex-1"
+                >
+                  Cancel
+                </HoloButton>
+                <HoloButton
+                  onClick={handleCreateCommunity}
+                  disabled={!newCommunityName.trim() || !newCommunityDescription.trim() || loading}
+                  className="flex-1"
+                >
+                  {loading ? (
+                    <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin"></div>
+                  ) : (
+                    'Create'
+                  )}
+                </HoloButton>
+              </div>
+            </motion.div>
           </motion.div>
         )}
       </div>
